@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grupo Tradiciones — Sitio Oficial</title>
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/jpg" href="logo.jpg" />
+
+  <!-- SEO básico -->
+  <meta name="description" content="Grupo Tradiciones: folclor y música andina con identidad propia. Presentaciones, biografía, música y contacto." />
+  <meta name="keywords" content="Grupo Tradiciones, música andina, folclor, Chile, presentaciones, contrataciones" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- OG -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Grupo Tradiciones - Sitio oficial">
+  <meta property="og:description" content="Folclor y música andina con identidad propia.">
+  <meta property="og:image" content="logo.jpg">
+
+  <style>
+    :root{
+      --accent:#e3b04b;         /* dorado */
+      --ink:#f3f3f3;
+      --bg:#0f0f0f;
+      --panel:rgba(255,255,255,.04);
+      --hair:rgba(255,255,255,.14);
+      --muted:#cfcfcf;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink);
+      font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      background:#0c0c0c url("fondo.jpg") center/cover fixed no-repeat;
+    }
+    body::before{
+      content:""; position:fixed; inset:0; z-index:-1;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,.45) 40%, rgba(0,0,0,.75) 100%),
+        radial-gradient(60% 80% at 50% -10%, rgba(0,0,0,.35), transparent 60%);
+    }
+
+    /* Header */
+    header{
+      text-align:center; padding:26px 16px 14px;
+      background:rgba(0,0,0,.42); border-bottom:1px solid var(--hair);
+      backdrop-filter: blur(8px);
+      position:sticky; top:0; z-index:50;
+    }
+    header .brand{
+      display:flex; align-items:center; justify-content:center; gap:14px;
+    }
+    header img{height:72px; border-radius:10px; box-shadow:0 12px 28px rgba(0,0,0,.5)}
+    header h1{
+      margin:0; font-family:"Playfair Display",serif; font-weight:800;
+      letter-spacing:.6px; color:var(--accent); text-shadow:0 8px 40px rgba(0,0,0,.55)
+    }
+    nav{margin-top:10px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap}
+    nav a{
+      text-decoration:none; color:#f7f7f7; font-weight:700; font-size:.95rem;
+      padding:8px 14px; border-radius:999px; border:1px solid transparent;
+      background:transparent; transition:.18s;
+    }
+    nav a:hover{ background:var(--accent); color:#111; box-shadow:0 10px 26px rgba(227,176,75,.35) }
+
+    /* Hero */
+    .hero{ text-align:center; padding:70px 16px 38px }
+    .hero h2{
+      margin:0 0 8px; font-family:"Playfair Display",serif; font-weight:800;
+      font-size:2.4rem; letter-spacing:.3px;
+    }
+    .hero p{ margin:0; color:var(--muted); font-weight:600 }
+
+    /* Section base */
+    .section{
+      max-width:1100px; margin:20px auto; padding:24px;
+      background:var(--panel); border:1px solid var(--hair); border-radius:18px;
+      box-shadow:0 24px 60px rgba(0,0,0,.38); backdrop-filter: blur(4px);
+    }
+    .section h3{
+      margin:0 0 12px; font-family:"Playfair Display",serif; font-size:1.9rem; letter-spacing:.3px;
+    }
+    .muted{color:var(--muted)}
+
+    /* Discos grid */
+    .albums{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;
+    }
+    .album-card{
+      background:rgba(255,255,255,.03); border:1px solid var(--hair); border-radius:14px; overflow:hidden;
+      transition:.18s; cursor:pointer; text-decoration:none; color:inherit;
+    }
+    .album-card:hover{ transform:translateY(-2px); box-shadow:0 16px 40px rgba(0,0,0,.45) }
+    .album-card img{ width:100%; height:220px; object-fit:cover; display:block }
+    .album-card .p{ padding:12px 14px }
+    .album-card h4{ margin:0; font-size:1.05rem }
+    .album-card small{ color:var(--muted) }
+
+    /* Acordeón (lista canciones) */
+    .album{
+      margin-top:8px; border:1px solid var(--hair); border-radius:14px; overflow:hidden;
+      background:rgba(0,0,0,.28)
+    }
+    .album .head{
+      display:flex; align-items:center; gap:10px; justify-content:space-between;
+      padding:14px 16px; background:rgba(255,255,255,.03);
+    }
+    .album .head h4{ margin:0; font-size:1.1rem }
+    .album .head .badge{background:var(--accent); color:#111; font-weight:800; padding:3px 8px; border-radius:999px; font-size:.8rem}
+    .tracks{ list-style:none; margin:0; padding:0 }
+    .track{
+      border-top:1px solid var(--hair)
+    }
+    .track summary{
+      list-style:none; cursor:pointer; padding:12px 16px; font-weight:700; display:flex; gap:10px; align-items:center;
+    }
+    .track summary::-webkit-details-marker{display:none}
+    .track summary:hover{ background:rgba(255,255,255,.05) }
+    .track .num{
+      width:28px; height:28px; display:inline-grid; place-items:center; border:1px solid var(--hair);
+      border-radius:8px; font-weight:800; color:#ddd; font-size:.85rem;
+    }
+    .lyric{ padding:0 16px 14px; color:#f1f1f1; line-height:1.7; white-space:pre-line }
+    .tag{ display:inline-block; margin-left:8px; color:#bbb; font-weight:600; font-size:.8rem }
+
+    /* Presentaciones y footer */
+    .gigs{ display:grid; gap:12px }
+    .gig{
+      display:grid; grid-template-columns:80px 1fr; gap:14px; align-items:center;
+      background:rgba(255,255,255,.03); border:1px solid var(--hair); border-radius:12px; padding:12px 14px;
+    }
+    .date{ display:grid; place-items:center; border-radius:12px; background:#0f0f0f; border:1px solid var(--hair); min-height:64px }
+    .mon{ font-weight:800; color:var(--accent) }
+
+    footer{ text-align:center; margin:44px 0 26px }
+    .btn{
+      display:inline-block; padding:12px 16px; border-radius:10px; background:var(--accent); color:#111; font-weight:800;
+      text-decoration:none; border:none; cursor:pointer; box-shadow:0 12px 28px rgba(227,176,75,.35)
+    }
+    #num{ display:none; margin-top:10px; font-weight:800; background:rgba(255,255,255,.05); border:1px solid var(--hair); padding:8px 12px; border-radius:10px }
+
+    @media (max-width: 768px){
+      .hero{ padding-top:56px }
+      .hero h2{ font-size:2rem }
+      .album-card img{ height:180px }
+    }
+  </style>
+</head>
+<body id="inicio">
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <img src="logo.jpg" alt="Logo Grupo Tradiciones">
+      <h1>GRUPO TRADICIONES</h1>
+    </div>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#biografia">Biografía</a>
+      <a href="#discos">Discos</a>
+      <a href="#musica">Música</a>
+      <a href="#presentaciones">Presentaciones</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h2>Bienvenidos a la página oficial de Grupo Tradiciones</h2>
+    <p>Folclor y música andina con identidad propia</p>
+  </section>
+
+  <!-- BIO -->
+  <section id="biografia" class="section">
+    <h3>Biografía</h3>
+    <p class="muted">Pronto…</p>
+  </section>
+
+  <!-- DISCOS (Carátulas) -->
+  <section id="discos" class="section">
+    <h3>Discos</h3>
+    <div class="albums">
+      <a class="album-card" href="#album-cuna">
+        <img src="disco1.jpg" alt="Carátula: Cuna de verso y poemas">
+        <div class="p">
+          <h4>Cuna de verso y poemas</h4>
+          <small>Álbum de estudio</small>
+        </div>
+      </a>
+      <a class="album-card" href="#album-voz">
+        <img src="disco2.jpg" alt="Carátula: La voz del alma">
+        <div class="p">
+          <h4>La voz del alma</h4>
+          <small>Álbum de estudio</small>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- MÚSICA -->
+  <section id="musica" class="section">
+    <h3>Música</h3>
+
+    <!-- Álbum 1 -->
+    <div id="album-cuna" class="album">
+      <div class="head">
+        <h4>Álbum: Cuna de verso y poemas</h4>
+        <span class="badge">8 temas</span>
+      </div>
+      <ul class="tracks">
+        <li class="track">
+          <details>
+            <summary><span class="num">1</span> Otro querer</summary>
+            <div class="lyric">
+Que te marchas mujer, lo sé porque tienes un nuevo querer
+Si conmigo no quieres estar y la saya no quieres bailar
+Si te vas amor, amor ya no habrás de volver
+Y al bailar este ritmo de saya morena te recordaré
+
+Y en sus brazos tendrás amor, lo sé no te voy a mentir
+Y lo compararás con el amor que yo un día te dí
+Cuando estés a su lado sé muy bien que me recordarás
+Y aunque rías por fuera sé que por dentro tendrás que llorar</div>
+          </details>
+        </li>
+
+        <li class="track">
+          <details>
+            <summary><span class="num">2</span> El viejo Pablo</summary>
+            <div class="lyric">
+Se pasa el tiempo solo en una esquina
+A paso largo se le va la vida
+El viejo Pablo ya no sabe de alegrías
+Más de un amigo que se ha marchado
+Su compañera ya no está a su lado
+Se van quedando solo en esta vida
+Y su mirada me dice saber
+Que el tiempo corre muy deprisa y que tal vez
+No espera por él
+
+Par de hijos que entregó al mundo
+Se han olvidado que cuando juntos
+Se llenaron de promesas que le hablaban del futuro
+Los sueños se han formado y el recuerdo
+Los años han encorvado a su cuerpo
+Y las palabras que dijeron se perdieron en el tiempo
+Y su mirada me dice saber
+Que el tiempo corre muy deprisa y que tal vez
+No espera por él</div>
+          </details>
+        </li>
+
+        <li class="track">
+          <details>
+            <summary><span class="num">3</span> Tanto amor</summary>
+            <div class="lyric">
+Noches de luna y tristeza pensando en tu ausencia
+Tanto dolor encerrado en mi corazón
+Hoy que te estrecho en mis brazos no quiero dejarte
+Y solamente entregarte todo mi amor
+
+Tanto amor que yo tengo pa' darte mi vida
+Tanto amor que sin ti no sabría qué hacer
+Tanto amor que sin ti las noches son muy frías
+Tanto amor que mi canto te quiere entregar
+
+Tanto amor que tengo para ti,
+Mil caricias para compartir…
+Tanto amor que tengo para ti, tanto amor...
+
+Con su mirada de niña que lleva escondida
+Entre sus ojos morenos las ansias de amar
+Hoy que te estrecho en mis brazos no quiero dejarte
+Y solamente entregarte todo mi amor.
+
+
+</div>
+          </details>
+        </li>
+
+        <li class="track">
+          <details>
+            <summary><span class="num">4</span> Almendra</summary>
+            <div class="lyric">
+Eres tú, quien ocupa aquel lugar dentro de mi corazón
+Nadie más lo hará igual
+Estarás dentro y con mi amor te llevaré hasta el sol
+En prueba de mi amor
+Y adentro tú estarás y a mí te entregarás como una almendra
+
+¿Y quién calma este dolor, a quién le doy de amor,
+A quién llevo hasta el sol?
+Nunca más volviste amor, rompiste un corazón
+Mi corazón de almendra…</div>
+          </details>
+        </li>
+
+        <li class="track">
+          <details>
+            <summary><span class="num">5</span> Vete ya</summary>
+            <div class="lyric">
+Vete, vete ya, tú ya no vuelves, tú ya no vuelves (bis)
+Mira hoy me vienes a decir
+Que no puedes ya vivir
+Te hacen falta mis caricias
+Pero ya no creo en tus mentiras
+Me ha dado golpes la vida
+Y la he aprendido a vivir
+Mira cuánto daño me causo
+El ya no tener tu amor
+Y en las noches te pensaba
+Y mi cama reclamó tu cuerpo
+Mis deseos tan intesos
+Sufrieron cuando no estaba
+
+Por eso vete ya y llévate tu amor
+Tus besos, tus caricias, tu risa, tus sueños, tu lindas palabras
+Por eso vete ya y sin volver atrás
+Porque al mirar tus ojos yo podría caer de nuevo en el pecado
+De un día haberte amado
+
+Mira yo también sufrí por ti
+Cuando me dejaste así sin razón y sin palabras
+Como decirle a mi corazón
+Que por engaño tu amor y que ya no regresabas
+Mira hoy vuelves arrepentida, diciendo todo es mentira
+Lo que murmura la gente
+Y que nunca olvidaste mi amor, ya no se lo que es peor
+Y en creer o no creerte
+
+Vete vete ya, tu ya no vuelves, tu ya no vuelves
+Vete vete ya, Tu ya no vuelves, tu ya no vuelves
+Vete vete ya, tu ya no vuelves, tu ya no vuelves
+Vete vete ya, Tu ya no vuelves, tu ya no vuelves
+Vete corazón desamparado No quiero verte a mi lado
+Vete vete ya, tu ya no vuelves, tu no volveras
+Vete corazón, vete deprisa, Que tú ya tomes la risa
+Vete vete ya, tu ya no vuelves, tu ya no vuelves
+Vete ya, veta ya a mi vida ya no vuelvas más
+Vete vete ya, tu ya no vuelves, tu no volveras
+Ya no te quiero ver con otro querer.
+
+</div>
+          </details>
+        </li>
+
+        <li class="track">
+          <details>
+            <summary><span class="num">6</span> Palabras para ti <span class="tag">letra entregada</span></summary>
+            <div class="lyric">
+Escribiré una carta muy pausada para ti,
+Letra para que guardes cada palabra que quiera decir. (bis)
+No me critiques, me gusta escribir, expresar con tinta
+A donde quiera ir, a donde quiera ir.
+No me odies por escapar, a veces temo expresar con palabras
+Cuando mi pecho se aprieta de nostalgia…</div>
+          </details>
+        </li>
+
+        <li class="track">
+          <details>
+            <summary><span class="num">7</span> Candombe del tiempo</summary>
+            <div class="lyric">
+Tanto tiempo tratando poder escapar
+De este amor que me quema muy dentro del alma, ayayay
+Tanto tiempo diciéndole a mi corazón
+Que te olvide, que nada ya tiene razón
+Y me ayude a buscar el verdadero amor
+
+Quizás, quizás, quizás, no te puedo olvidar, tal vez, tal vez
+Es profunda la herida
+Y el paso del tiempo no puede borrar ayayay (bis)</div>
+          </details>
+        </li>
+
+        <li class="track">
+          <details>
+            <summary><span class="num">8</span> Cuna de verso y poemas</summary>
+            <div class="lyric">
+Hoy quiero cantar señores a una tierra diferente
+De añañucas y copihues rojo corazón ardiente
+Donde el sol sale temprano y te ayudara en la tierra
+De la mano de un amigo, me ayuda cuando hay problemas
+Donde el norte vi parir de sus entrañas al cobre
+Y en el sur nacio el carbón negro color de la noche
+
+Por eso canto a mi tierra
+Cuna de verso y poemas
+De sueños que me desvelan
+De Víctor, Pablo y Gabriela
+Por eso canto a mi tierra
+Cuna de verso y carbón
+Donde conocí el amor una mañana cualquiera.
+
+Hoy quiero cantar señores a mi tierra y su description
+Al indio sangre araucaria rojo color que da el vino
+Al poeta y al cantor y a la maestra de escuela
+A la que soño un poema, nacido en el corazón
+Al que no callo sus ojos, y el que penso diferente
+Quiero cantar a mi gente, con mi verso y con mi vos...
+</div>
+          </details>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Álbum 2 -->
+    <div id="album-voz" class="album" style="margin-top:22px">
+      <div class="head">
+        <h4>Álbum: La voz del alma</h4>
+        <span class="badge">10 temas</span>
+      </div>
+      <ul class="tracks">
+        <li class="track"><details><summary><span class="num">1</span> ¿A dónde fue el amor?</summary><div class="lyric">
+¿cómo saber si el amor se aleja?
+¿Cómo saber si todo ha llegado al final?
+¿Cómo saber si entre mis brazos
+El amor no encuentras ya?
+¿Cómo saber si el amor se aleja?
+¿Cómo entender que ya no me puedes amar?
+Y aquellos labios que eran míos
+No los pueda ya besar
+
+Que nos pasó, a donde fue el amor
+Que se escapó de nuestras manos
+Nada sacamos con mirar atrás
+Si el amor no volverá
+Que nos pasó
+¿A dónde fue el amor que se escapó de nuestras manos?
+Nada sacamos con mirar atrás
+Si el amor no volverá
+</div></details></li>
+
+        <li class="track"><details><summary><span class="num">2</span> Otro amor en mi vida</summary><div class="lyric">
+Tú que creías que por ti
+Yo me podría morir
+Otra vez te equivocaste
+El amor golpea mi puerta
+Y encontrándola entreabierta
+Simplemente se quedó
+Tú que eras dueña de mi mundo
+No pensaste ni un segundo
+El dolor que me causaste
+Hice el amor con tus recuerdos
+Y aunque me morí por dentro
+La tormenta ya pasó
+
+Hoy eres tú
+Quien me dice que me ama
+Que sin mi ya no eres nada
+Ya no creo en tus mentiras
+Todo en este mundo gira
+Otro amor llega a mi vida
+Para ti solo hay perdón
+
+Tu que mirándome a la cara sin decir una palabra simplemente te marchaste
+Contigo se fue mi vida
+Pero ya sanó la herida
+Y de su mano el dolor
+Tú que dices que fue un error
+Que no entiendes que pasó
+Pero a mí no me interesa
+Formas parte del pasado
+Y la que hoy está a mi lado
+Vuela en alas del amor...
+
+</div></details></li>
+
+        <li class="track"><details><summary><span class="num">3</span> Dulce niña</summary><div class="lyric">
+Ya no sé cómo empezar
+La voz me tiembla al hablar
+No quiero causar dolor
+A tu dulce corazón
+Pero debes entender
+Nuestra flor se marchitó
+Y el calor que da tu piel
+Ya no quemará mis manos
+Es difícil de pensar que el amor un día se acaba
+Y te pido dulce amor que no bajes tu mirada
+Por favor entiéndeme no quise causar dolor
+Si un día dije que te amé fue de verdad 
+
+Mi dulce niña
+Déjame secar tu llanto en esta despedida
+Mira, entiendo que al marcharme queda tu alma herida
+Nuestro amor se terminó
+Pero juro que te amé más que a mi vida
+Mi dulce niña
+Déjame secar tu llanto en esta despedida
+Mira entiendo que al marcharme queda tu alma herida
+Nuestro amor se terminó
+Pero juro que te amé más que a mi vida...</div></details></li>
+
+        <li class="track"><details><summary><span class="num">4</span> 
+Si yo volviera a nacer</summary><div class="lyric">
+Si yo volviera a nacer
+Cometería los errores que cometo cada día
+No entendería a los que dicen que hay problemas sin salida
+Escucharía la lluvia caer
+Contemplaría el color de una flor
+Me reiría a carcajadas de lo duro que me ha tratado la vida
+Si yo volviera a nacer
+Me pararía nuevamente en esa calle a cantar por unas monedas
+Y que la gente murmurara a su pasar lo que quisiera
+Yo sé que muchos me han de entender, otros no tanto
+Fue la manera que encontré para mostrar mi humilde canto
+
+Si yo volviera a nacer
+Te pediría de rodillas que me amaras un instante
+Caminaríamos tomados de la mano cada tarde
+Te escribiría un poema de amor
+Te cantaría esa vieja canción
+Me escaparía en esas frías madrugadas
+Para amarte
+Si yo volviera a nacer
+
+Si yo volviera a nacer
+Me jugaría otro partido en la vieja cancha de tierra
+Me enredaría en una riña con amigos por un penal que no fuera
+Sin importarme los regaños que al llegar daría mi vieja
+¿de dónde vienes? ¿Qué son horas de llegar?
+¿y si tu padre te viera? 
+Si yo volviera a nacer
+Me volvería a quedar loco por el corto de tu falda
+Te llenaría de caricias sin pensar lo que pasará
+Y nos reiríamos del viejo profesor y de su calva
+Aquel que siempre supo dar un buen consejo
+Cuando hizo falta...</div></details></li>
+
+        <li class="track"><details><summary><span class="num">5</span> Sueños y libertad</summary><div class="lyric">
+Uno tras uno forman un millón
+Unidos con la fuerza de su voz
+Cantando sus consignas de igualdad
+Reclaman el derecho de estudiar
+No vaya a ser que sea peligroso
+Sanzando la voz, la autoridad
+Mientras estos joven suelto y en las calles
+El movimiento habrá que controlar
+La represión no matará a la idea, no
+No matará a tu sueño y libertad
+Hay que seguir marchando hacia adelante
+Para el sueño de todos alcanzar (bis)
+
+El estudiante de hoy salió a la calle
+Pensando de manera diferente
+Sabiendo que el futuro no le es fácil
+Marchando hacia adelante le hace frente
+Y muchos quieren apagar su voz
+Como si fuera fácil conseguir
+La educación no será un privilegio
+La educación derecho de vivir
+La represión no matará la idea, no
+No matará tus sueños y libertad
+Hay que seguir marchando hacia adelante
+Para el sueño de todos alcanzar...
+
+
+</div></details></li>
+
+        <li class="track"><details><summary><span class="num">6</span> Que me olvide de ti</summary><div class="lyric">
+Que me mate el recuerdo de tus besos
+O el brillo de tus ojos que me amaban
+Tu amor sigue clavado aquí en mi pecho
+Tu corazón aún vive en mi recuerdo
+Y mi alma con tu nombre está grabada
+La muerte me ha ofrecido en su camino
+Remedio para toda mi tristeza
+Te juro que ni así podré olvidarte
+Y muero cada día al recordarte
+Porque tu amor aún corre por mis venas
+
+Que me olvide de ti
+Les digo si preguntan mis amigos
+Me bebo tu recuerdo en cada vaso
+Y tengo el corazón hecho pedazos (bis)
+
+El llanto y el licor hoy me acompañan
+A pagar el dolor de tu partida
+¿pa' qué quiero la vida sin tus besos?
+O el brillo de tus ojos que me amaban
+Mi vida sin tu amor no vale nada...</div></details></li>
+
+        <li class="track"><details><summary><span class="num">7</span> Amor diferente</summary><div class="lyric">
+Le dijo que su amor es diferente
+Muy difícil de entender para el resto de la gente
+Le dijo que su amor no es algo extraño
+Pero tuvo que esconder con el paso de los años
+Le hablo si para él
+Era difícil de entenderlo
+Él no poder
+Amar a una mujer
+
+Quedó dolido el corazón
+Pero ha ganado la razón
+Supo entender
+Es el mismo de ayer
+El que sus sueños compartió
+Y de su mano caminó
+Su hijo que tanto amó
+
+Le dijo que sus sueños no han cambiado
+Lo que ayer juntos soñaron puede hacerse realidad
+Le dijo padre ven toma mi mano
+Si ayer juntos caminamos hoy no me dejes caer
+Le habló de cosas simples de la vida
+Que habrá de enfrentar un día
+Y que no podrá sin él...</div></details></li>
+
+        <li class="track"><details><summary><span class="num">8</span> Amantes en el silencio</summary><div class="lyric">
+Dice que tiene otro amor y se muere por mis besos
+Que no ha sentido las caricias que le di en otro cuerpo
+Y que sus brazos no le entregan el calor
+Que a escondidas una noche yo le di
+Y que en silencio ha mordido sus labios
+Por no gritar mi nombre
+En brazos de ese hombre
+
+Secreto amor
+Mi dulce amante en el silencio
+Cada caricia ha de guardar
+En el desnudo del deseo
+Cuando mis labios reclamen sus noches
+Recorriendo tu cuerpo
+Ardiente de deseo
+
+Y de su mano al pasar, al resentirte señora
+Y mi recuerdo lo has llevado junto a ti a cada hora
+Y sigo siendo aquel dueño de tu piel
+El que estremece cada espacio de tu ser
+Aquel que amas y muerde tus labios por no gritar mi nombre
+En brazos de ese hombre...</div></details></li>
+
+        <li class="track"><details><summary><span class="num">9</span> Primer amor</summary><div class="lyric">
+Primer amor
+El que te roba el corazón sin dejar nada
+El que llenó
+Aquel vacío de ilusión que había en tu alma
+A quien podías darle el mundo si quisieras
+Y a quien podías entregar la vida entera
+Primer amor
+El que te rompe el corazón en mil pedazos
+Porque tal vez
+Ya no lo puedes cobijar entre tus brazos
+El que no sabe que en las noches ya no duermes
+Y a quien podrías darle todo por tenerle
+
+Es este amor el que te aferra a la vida
+Y que jamás te dejará una salida
+Si no lo tienes todo se vuelve un infierno
+Primer amor, primer amor eterno...
+
+</div></details></li>
+
+        <li class="track"><details><summary><span class="num">10</span> Un juguete en tu vida</summary><div class="lyric">
+Me había acostumbrado a tu manera de querer
+Me había acostumbrado a rendirme yo a tus pies
+El amor que me dabas era solo mentiras
+Yo solo fui un capricho, un juguete en tu vida
+Me había acostumbrado a escuchar
+Que tú eras mía
+Me había acostumbrado a pensar que me querías
+El juego se acabó
+Ya no quiero perder
+Ya no quiero tus besos
+Y estar a tu lado eres falsa mujer
+
+La que pierde eres tú, al marcharte de aquí
+La que pierde eres tú, al reírte de mí
+No me causas dolor, porque ya te olvidé
+El amor que era tuyo, que un día te tuve, tiene otro querer...
+</div></details></li>
+      </ul>
+    </div>
+
+    <!-- (Opcional) Video destacado -->
+    <div class="section" style="margin:18px 0 0; background:rgba(255,255,255,.03)">
+      <h3 style="margin-top:0">Video destacado</h3>
+      <div style="border:1px solid var(--hair); border-radius:12px; overflow:hidden">
+        <iframe
+          style="width:100%; height:420px; border:0"
+          src="https://www.youtube.com/embed/uMcRT3BBNHo"
+          title="Otro amor en mi vida - Grupo Tradiciones"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PRESENTACIONES -->
+  <section id="presentaciones" class="section">
+    <h3>Presentaciones</h3>
+    <div class="gigs">
+      <div class="gig">
+        <div class="date"><span class="mon">DIC</span></div>
+        <div>Próxima presentación</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <footer id="contacto">
+    <div style="margin-bottom:12px;">
+      <button class="btn" id="wspBtn">Contrataciones por WhatsApp</button>
+      <div id="num">+56 9 5869 3051 (copiado)</div>
+    </div>
+    <small class="muted">© Grupo Tradiciones — Sitio oficial</small>
+  </footer>
+
+  <script>
+    // WhatsApp: copiar y abrir
+    const btn = document.getElementById('wspBtn');
+    const num = document.getElementById('num');
+    const telefono = '+56958693051';
+    btn.addEventListener('click', async () => {
+      num.style.display = 'inline-block';
+      try { await navigator.clipboard.writeText('+56 9 5869 3051'); } catch(e){}
+      window.open('https://wa.me/' + telefono, '_blank');
+    });
+
+    // Permite cerrar otros detalles si quieres modo acordeón estricto (uno abierto a la vez)
+    document.querySelectorAll('.tracks details').forEach(d => {
+      d.addEventListener('toggle', e => {
+        if (d.open) {
+          d.parentElement.parentElement.querySelectorAll('details').forEach(o => { if (o!==d) o.removeAttribute('open'); });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

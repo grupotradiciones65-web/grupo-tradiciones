@@ -27,7 +27,50 @@
   <meta property="og:description" content="Folclor y música andina con identidad propia.">
   <meta property="og:image" content="logo.jpg">
 
-  <style>
+  <style> /* === ANIMACIONES Y MICRO-INTERACCIONES === */
+@media (prefers-reduced-motion: no-preference){
+
+  /* Fade-in general */
+  .fade-in{ 
+    opacity:0; 
+    transform:translateY(12px); 
+    filter:blur(2px); 
+  }
+  .fade-in.is-in{ 
+    opacity:1; 
+    transform:none; 
+    filter:blur(0); 
+    transition:opacity .6s ease, transform .6s ease, filter .6s ease; 
+  }
+
+  /* Entrada escalonada (para grillas, ej: carátulas) */
+  .stagger > *{ opacity:0; transform:translateY(10px); }
+  .stagger.is-in > *{
+    opacity:1; transform:none;
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .stagger.is-in > *:nth-child(1){ transition-delay:.05s }
+  .stagger.is-in > *:nth-child(2){ transition-delay:.12s }
+  .stagger.is-in > *:nth-child(3){ transition-delay:.18s }
+  .stagger.is-in > *:nth-child(4){ transition-delay:.24s }
+
+  /* Acordeón (apertura de letras más suave) */
+  .track details[open] > div.lyric{ animation: drop .28s ease; }
+  @keyframes drop{ from{ opacity:.6; transform: translateY(-6px)} to{ opacity:1; transform:none } }
+
+  /* Hover elegante en tarjetas */
+  .album-card{ transform:translateY(0) scale(1); transition: transform .2s ease, box-shadow .2s ease; }
+  .album-card:hover{ transform: translateY(-4px) scale(1.02); box-shadow: 0 18px 50px rgba(0,0,0,.5); }
+
+  /* Botones con feedback */
+  .btn{ transition: transform .12s ease, box-shadow .2s ease; }
+  .btn:active{ transform: scale(.98); box-shadow:none; }
+
+  /* Header con sombra al scrollear */
+  header{ transition: box-shadow .25s ease, background-color .25s ease; }
+  header.scrolled{ box-shadow: 0 10px 30px rgba(0,0,0,.35); background: rgba(0,0,0,.55); }
+}
+
     :root{
       --accent:#e3b04b;         /* dorado */
       --ink:#f3f3f3;
@@ -940,9 +983,41 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
         });
       });
     });
-  </script>
+  </script> <script>
+  // Animaciones al hacer scroll
+  const io = ('IntersectionObserver' in window) ? new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, {threshold: .12}) : null;
+
+  document.querySelectorAll('.fade-in, .stagger').forEach(el=>{
+    if(io){ io.observe(el); } else { el.classList.add('is-in'); }
+  });
+
+  // Header con sombra dinámica
+  const hd = document.querySelector('header');
+  const onScroll=()=>{ hd.classList.toggle('scrolled', window.scrollY>12); };
+  onScroll(); 
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Botón "↑ Arriba"
+  const topBtn = document.createElement('button');
+  topBtn.id = 'totop';
+  topBtn.innerHTML = '↑ Arriba';
+  Object.assign(topBtn.style, {
+    position:'fixed',right:'16px',bottom:'16px',zIndex:'60',display:'none',
+    border:'1px solid rgba(255,255,255,.18)',background:'rgba(255,255,255,.08)',
+    color:'#fff',padding:'10px 12px',borderRadius:'12px',backdropFilter:'blur(6px)',cursor:'pointer'
+  });
+  document.body.appendChild(topBtn);
+  window.addEventListener('scroll',()=>{topBtn.style.display=window.scrollY>400?'block':'none';},{passive:true});
+  topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+
 </body>
 
 </html>
+
 
 

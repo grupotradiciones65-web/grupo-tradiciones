@@ -1013,11 +1013,40 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
   document.body.appendChild(topBtn);
   window.addEventListener('scroll',()=>{topBtn.style.display=window.scrollY>400?'block':'none';},{passive:true});
   topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+// --- Animaciones: IntersectionObserver ---
+document.addEventListener('DOMContentLoaded', () => {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in');   // activa la animación
+        io.unobserve(e.target);            // solo una vez
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+
+  // elementos que entran con fade
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+  // contenedores en “stagger” (sus hijos animan en cascada)
+  document.querySelectorAll('.stagger').forEach(list => {
+    // marca a sus hijos para que reciban delay escalonado
+    list.querySelectorAll(':scope > *').forEach(c => {
+      c.classList.add('stagger-item');
+      io.observe(c);
+    });
+  });
+});
+</script>
+<script>
+  document.querySelectorAll('.fade-in').forEach(el => {
+    el.classList.add('is-in');
+  });
 </script>
 
 </body>
 
 </html>
+
 
 
 

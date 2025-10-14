@@ -1042,10 +1042,63 @@ document.addEventListener('DOMContentLoaded', () => {
     el.classList.add('is-in');
   });
 </script>
+<!-- Animaciones fade-in y stagger -->
+<script>
+// Intersection Observer para animaciones al hacer scroll
+const io = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-in');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+
+// Elementos con fade-in
+document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+// Contenedores con stagger (animación en cascada)
+document.querySelectorAll('.stagger').forEach(list => {
+  list.querySelectorAll(':scope > *').forEach((c, i) => {
+    c.classList.add('stagger-item');
+    c.style.transitionDelay = `${i * 120}ms`; // retardo escalonado
+    io.observe(c);
+  });
+});
+</script>
+
+<!-- Botón "↑ Arriba" -->
+<script>
+const topBtn = document.createElement('button');
+topBtn.id = 'totop';
+topBtn.innerHTML = '↑ Arriba';
+Object.assign(topBtn.style, {
+  position: 'fixed',
+  right: '16px',
+  bottom: '16px',
+  zIndex: '60',
+  display: 'none',
+  border: '1px solid rgba(255,255,255,.18)',
+  background: 'rgba(255,255,255,.1)',
+  color: '#fff',
+  padding: '10px 12px',
+  borderRadius: '12px',
+  backdropFilter: 'blur(6px)',
+  cursor: 'pointer',
+  fontWeight: '600'
+});
+document.body.appendChild(topBtn);
+
+window.addEventListener('scroll', () => {
+  topBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
+});
+topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
 
 </body>
 
 </html>
+
 
 
 

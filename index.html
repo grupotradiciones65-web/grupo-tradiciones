@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Grupo Tradiciones — Sitio Oficial</title>
   
   <!-- Favicons -->
@@ -51,6 +52,7 @@
       font-family: 'Inter', system-ui, sans-serif;
       background: #0c0c0c url("IMG-20250930-WA0004.jpg") center/cover fixed no-repeat;
       overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
     }
     
     body::before {
@@ -176,7 +178,6 @@
       animation: titleGlow 3s ease-in-out infinite alternate;
     }
 
-    /* Efecto de brillo dorado en el texto */
     header h1::before {
       content: 'GRUPO TRADICIONES';
       position: absolute;
@@ -197,7 +198,6 @@
       pointer-events: none;
     }
 
-    /* Sombra de brillo dorado */
     header h1::after {
       content: 'GRUPO TRADICIONES';
       position: absolute;
@@ -530,7 +530,6 @@
       animation-play-state: paused !important;
     }
 
-    /* Flechas de navegación PRO */
     .gallery-arrow {
       position: absolute;
       top: 50%;
@@ -562,7 +561,6 @@
     .gallery-arrow.prev { left: 30px; }
     .gallery-arrow.next { right: 30px; }
 
-    /* === ITEMS DE GALERÍA CON SOMBRAS ÉPICAS === */
     .gallery-item {
       flex-shrink: 0;
       width: 420px;
@@ -574,7 +572,6 @@
       transition: var(--transition);
       cursor: pointer;
       background: #1a1a1a;
-      /* Sombra multi-capa épica */
       box-shadow: 
         0 10px 40px rgba(0,0,0,0.5),
         0 0 0 1px rgba(227,176,75,0.1),
@@ -623,7 +620,6 @@
       transform: scale(1.1);
     }
 
-    /* Efecto de brillo en las esquinas */
     .gallery-item::after {
       content: '';
       position: absolute;
@@ -1346,30 +1342,52 @@
       box-shadow: 0 0 30px rgba(227,176,75,0.5);
     }
 
-    /* === RESPONSIVE === */
+    /* === RESPONSIVE OPTIMIZADO PARA MÓVILES === */
     @media (max-width: 768px) {
-      header h1 { font-size: 1.8rem; }
-      .hero-wrapper { height: 50vh; }
-      .hero-content h2 { font-size: 2.5rem; }
+      /* Desactivar parallax en móviles */
+      .hero-bg {
+        animation: none !important;
+        transform: none !important;
+        top: 0;
+        height: 100%;
+      }
+      
+      /* Pausar marquees en móviles */
+      .marquee-content,
+      .gallery-row.marquee,
+      .gallery-row.marquee-reverse,
+      .gallery-row.marquee-slow {
+        animation-play-state: paused !important;
+      }
+      
+      /* Desactivar efectos pesados */
+      .gallery-item::before,
+      .gallery-item::after,
+      header h1::before,
+      header h1::after {
+        display: none !important;
+      }
+      
+      /* Reducir sombras complejas */
+      .section, .intro, .album-card, .gig {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3) !important;
+      }
+      
+      /* Ajustes de tamaño */
+      header h1 { font-size: 1.6rem; }
+      .hero-wrapper { height: 45vh; min-height: 300px; }
+      .hero-content h2 { font-size: 2rem; }
       .intro { padding: 20px; font-size: 1rem; }
-      .intro::before { font-size: 4rem; top: -10px; }
+      .intro::before { display: none; }
       .album-card img { height: 180px; }
-      .gig { grid-template-columns: 1fr; text-align: center; }
-      .date { flex-direction: row; gap: 10px; padding: 12px; }
+      .gig { grid-template-columns: 1fr; text-align: center; gap: 16px; }
+      .date { flex-direction: row; gap: 10px; padding: 12px; min-height: auto; }
       .day { font-size: 1.8rem; }
-      .video-card iframe { height: 250px; }
+      .video-card iframe { height: 220px; }
       .track-header { padding: 14px 16px; }
       .lyric { padding: 0 16px 20px 60px; font-size: 1rem; }
-      
-      /* Galería responsive */
-      .gallery-item { width: 320px; height: 240px; }
-      .gallery-arrow { width: 50px; height: 50px; font-size: 1.5rem; }
-      .gallery-arrow.prev { left: 15px; }
-      .gallery-arrow.next { right: 15px; }
-      .lightbox-nav { width: 50px; height: 50px; font-size: 1.8rem; }
-      .lightbox-nav.prev { left: 20px; }
-      .lightbox-nav.next { right: 20px; }
-      .lightbox-close { top: 20px; right: 20px; width: 50px; height: 50px; }
+      .gallery-item { width: 280px; height: 210px; }
+      .gallery-arrow { display: none; }
     }
   </style>
 <base target="_blank">
@@ -2240,53 +2258,40 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
   <button id="totop">↑</button>
 
   <script>
-    // =====================================================
-    // LISTA DE TUS 58 FOTOS - CON ESPACIO: "foto 1.jpg", "foto 2.jpg", etc.
-    // =====================================================
+    // Detectar si es móvil
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    // LISTA DE TUS 58 FOTOS
     const todasLasFotos = [
-      // Fila 1 - Fotos 1-20
       "Foto 1.jpg", "Foto 10.jpg", "Foto 11.jpg", "Foto 12.jpg", "Foto 13.jpg",
       "Foto 14.jpg", "Foto 15.jpg", "Foto 8.jpg", "Foto 9.jpg", "Foto 10.jpg",
       "Foto 11.jpg", "Foto 12.jpg", "Foto 13.jpg", "Foto 14.jpg", "Foto 15.jpg",
       "Foto 16.jpg", "Foto 17.jpg", "Foto 18.jpg", "Foto 19.jpg", "Foto 20.jpg",
-      
-      // Fila 2 - Fotos 21-39
       "Foto 21.jpg", "Foto 22.jpg", "Foto 23.jpg", "Foto 24.jpg", "Foto 25.jpg",
       "Foto 26.jpg", "Foto 27.jpg", "Foto 28.jpg", "Foto 29.jpg", "Foto 30.jpg",
       "Foto 31.jpg", "Foto 32.jpg", "Foto 33.jpg", "Foto 34.jpg", "Foto 35.jpg",
       "Foto 36.jpg", "Foto 37.jpg", "Foto 38.jpg", "Foto 39.jpg",
-      
-      // Fila 3 - Fotos 40-58
       "Foto 40.jpg", "Foto 41.jpg", "Foto 42.jpg", "Foto 43.jpg", "Foto 44.jpg",
       "Foto 45.jpg", "Foto 46.jpg", "Foto 47.jpg", "Foto 48.jpg", "Foto 49.jpg",
       "Foto 50.jpg", "Foto 51.jpg", "Foto 52.jpg", "Foto 53.jpg", "Foto 54.jpg",
       "Foto 55.jpg", "Foto 56.jpg", "Foto 57.jpg", "Foto 58.jpg"
     ];
 
-    // Variables globales para el lightbox
     let currentLightboxIndex = 0;
     let lightboxImages = [];
 
-    // =====================================================
-    // GENERADOR DE GALERÍA CON FOTOS ENUMERADAS
-    // =====================================================
-    
-    // Dividir en 3 grupos
-    const fila1 = todasLasFotos.slice(0, 20);    // Fotos 1-20
-    const fila2 = todasLasFotos.slice(20, 39);   // Fotos 21-39
-    const fila3 = todasLasFotos.slice(39, 58);   // Fotos 40-58
+    const fila1 = todasLasFotos.slice(0, 20);
+    const fila2 = todasLasFotos.slice(20, 39);
+    const fila3 = todasLasFotos.slice(39, 58);
 
     function crearGaleria(fotos, contenedorId, startIndex) {
       const contenedor = document.getElementById(contenedorId);
-      
-      // Duplicar fotos para efecto infinito
       const fotosDuplicadas = [...fotos, ...fotos];
       
       fotosDuplicadas.forEach((foto, index) => {
         const item = document.createElement('div');
         item.className = 'gallery-item';
         
-        // Calcular número de foto (1-58)
         const fotoIndex = index % fotos.length;
         const globalIndex = startIndex + fotoIndex;
         const numeroFoto = globalIndex + 1;
@@ -2305,44 +2310,32 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       });
     }
 
-    // Crear las 3 filas con índices correctos
-    crearGaleria(fila1, 'row1', 0);    // Fotos 1-20
-    crearGaleria(fila2, 'row2', 20);   // Fotos 21-39
-    crearGaleria(fila3, 'row3', 39);   // Fotos 40-58
+    crearGaleria(fila1, 'row1', 0);
+    crearGaleria(fila2, 'row2', 20);
+    crearGaleria(fila3, 'row3', 39);
 
-    // Preparar array para lightbox
     lightboxImages = todasLasFotos.map((foto, index) => ({
       src: `fotos/${foto}`,
       title: `Foto ${index + 1}`,
       desc: `Imagen ${index + 1} de ${todasLasFotos.length}`
     }));
 
-    // =====================================================
-    // NAVEGACIÓN MANUAL DE FILAS
-    // =====================================================
-    
     const rowPositions = { row1: 0, row2: 0, row3: 0 };
     
     function moveGallery(rowId, direction) {
       const row = document.getElementById(rowId);
-      const itemWidth = 444; // ancho 420 + gap 24
+      const itemWidth = 444;
       const maxScroll = (row.children.length / 2) * itemWidth;
       
-      // Pausar animación
       row.classList.add('paused');
+      rowPositions[rowId] += direction * itemWidth * 2;
       
-      // Actualizar posición
-      rowPositions[rowId] += direction * itemWidth * 2; // Mover 2 fotos
-      
-      // Limitar
       if (rowPositions[rowId] > 0) rowPositions[rowId] = -maxScroll + itemWidth * 2;
       if (rowPositions[rowId] < -maxScroll) rowPositions[rowId] = 0;
       
-      // Aplicar transform
       row.style.transform = `translateX(${rowPositions[rowId]}px)`;
       row.style.animation = 'none';
       
-      // Reanudar después de 3 segundos
       setTimeout(() => {
         row.classList.remove('paused');
         row.style.transform = '';
@@ -2350,10 +2343,6 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       }, 3000);
     }
 
-    // =====================================================
-    // LIGHTBOX
-    // =====================================================
-    
     function openLightbox(index) {
       currentLightboxIndex = index;
       updateLightbox();
@@ -2389,7 +2378,6 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       updateLightbox();
     }
 
-    // Teclado para lightbox
     document.addEventListener('keydown', (e) => {
       if (!document.getElementById('lightbox').classList.contains('active')) return;
       
@@ -2398,11 +2386,6 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       if (e.key === 'ArrowRight') changeImage(1);
     });
 
-    // =====================================================
-    // FUNCIONES ORIGINALES DEL SITIO
-    // =====================================================
-    
-    // Función para mostrar/ocultar letras
     function toggleLyric(element) {
       const track = element.parentElement;
       const lyric = track.querySelector('.lyric');
@@ -2419,7 +2402,6 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       element.classList.toggle('active');
     }
 
-    // WhatsApp
     const btn = document.getElementById('wspBtn');
     const num = document.getElementById('num');
     const telefono = '+56958693051';
@@ -2429,22 +2411,22 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       window.open('https://wa.me/' + telefono, '_blank');
     });
 
-    // Parallax hero
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const parallax = document.getElementById('parallax-bg');
-      if (parallax) {
-        parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
-      }
-    });
+    // Parallax solo en desktop
+    if (!isMobile) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallax = document.getElementById('parallax-bg');
+        if (parallax) {
+          parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+      });
+    }
 
-    // Header scroll
     const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
       header.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -2455,7 +2437,6 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Botón arriba
     const topBtn = document.getElementById('totop');
     window.addEventListener('scroll', () => {
       topBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
@@ -2464,8 +2445,3 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
   </script>
 </body>
 </html>
-
-
-
-
-

@@ -45,24 +45,52 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
     
-    /* === BODY CON FONDO ANIMADO === */
+    /* === BODY LIMPIO === */
     body {
       margin: 0;
       color: var(--ink);
       font-family: 'Inter', system-ui, sans-serif;
-      background: #0c0c0c url("IMG-20250930-WA0004.jpg") center/cover fixed no-repeat;
+      background: var(--bg);
       overflow-x: hidden;
+      position: relative;
     }
     
-    body::before {
-      content: "";
+    /* Fondo fijo optimizado - Capa separada */
+    .bg-layer {
       position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh; /* Soporte para móviles modernos */
+      background: #0c0c0c url("IMG-20250930-WA0004.jpg") center center / cover no-repeat;
+      z-index: -2;
+      will-change: transform;
+    }
+    
+    /* Overlay del fondo */
+    .bg-layer::after {
+      content: "";
+      position: absolute;
       inset: 0;
-      z-index: -1;
       background:
         linear-gradient(180deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.4) 40%, rgba(0,0,0,.8) 100%),
         radial-gradient(ellipse at 50% 0%, rgba(227,176,75,0.15) 0%, transparent 50%),
         radial-gradient(60% 80% at 50% -10%, rgba(0,0,0,.4), transparent 60%);
+      pointer-events: none;
+    }
+
+    /* En móvil: desactivar comportamientos problemáticos */
+    @media (max-width: 768px) {
+      .bg-layer {
+        position: fixed;
+        /* Eliminar will-change en móvil para evitar repaints costosos */
+        will-change: auto;
+        /* Asegurar que cubra todo */
+        height: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
     }
 
     /* === MARQUEE TRUEBLOOD STYLE === */
@@ -285,44 +313,37 @@
       left: 0;
     }
 
-    /* === HERO CON PARALLAX === */
+    /* === HERO SIMPLIFICADO === */
     .hero-wrapper {
       position: relative;
       height: 70vh;
-      overflow: hidden;
+      min-height: 500px;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
-    .hero-bg {
-      position: absolute;
-      top: -10%;
-      left: 0;
-      width: 100%;
-      height: 120%;
-      background: url('IMG-20250930-WA0004.jpg') center/cover;
-      will-change: transform;
-      z-index: -2;
-      animation: heroZoom 30s ease-in-out infinite alternate;
-    }
-
-    @keyframes heroZoom {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.1); }
+    /* En móvil, hero más compacto */
+    @media (max-width: 768px) {
+      .hero-wrapper {
+        height: 50vh;
+        min-height: 400px;
+      }
     }
 
     .hero-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(180deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,.6) 100%);
-      z-index: -1;
+      z-index: 1;
     }
 
     .hero-content {
       text-align: center;
       z-index: 2;
       animation: fadeInUp 1.2s ease-out;
+      padding: 0 20px;
     }
 
     .hero-content h2 {
@@ -1350,7 +1371,7 @@
     /* === RESPONSIVE === */
     @media (max-width: 768px) {
       header h1 { font-size: 1.8rem; }
-      .hero-wrapper { height: 50vh; }
+      .hero-wrapper { height: 50vh; min-height: 400px; }
       .hero-content h2 { font-size: 2.5rem; }
       .intro { padding: 20px; font-size: 1rem; }
       .intro::before { font-size: 4rem; top: -10px; }
@@ -1371,11 +1392,40 @@
       .lightbox-nav.prev { left: 20px; }
       .lightbox-nav.next { right: 20px; }
       .lightbox-close { top: 20px; right: 20px; width: 50px; height: 50px; }
+      
+      /* Optimizaciones móvil adicionales */
+      .marquee-content {
+        animation-duration: 30s !important; /* Más rápido en móvil */
+      }
+      
+      .gallery-row.marquee,
+      .gallery-row.marquee-reverse,
+      .gallery-row.marquee-slow {
+        animation-duration: 60s !important; /* Optimizar para móvil */
+      }
+    }
+    
+    /* Desactivar animaciones complejas en dispositivos con preferencia de reducción de movimiento */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      
+      .bg-layer {
+        transform: none !important;
+      }
     }
   </style>
 <base target="_blank">
 </head>
 <body id="inicio">
+
+  <!-- CAPA DE FONDO SEPARADA - OPTIMIZADA -->
+  <div class="bg-layer" id="bgLayer"></div>
 
   <!-- MARQUEE SUPERIOR -->
   <div class="marquee-container">
@@ -1410,9 +1460,8 @@
     </nav>
   </header>
 
-  <!-- HERO CON PARALLAX -->
+  <!-- HERO SIMPLIFICADO - SIN PARALLAX PROBLEMÁTICO -->
   <div class="hero-wrapper">
-    <div class="hero-bg" id="parallax-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h2>Grupo Tradiciones</h2>
@@ -2246,22 +2295,22 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
     // =====================================================
     const todasLasFotos = [
       // Fila 1 - Fotos 1-20
-      "Foto 1.jpg", "Foto 2.jpg", "Foto 3.jpg", "Foto 4.jpg", "Foto 5.jpg",
-      "Foto 6.jpg", "Foto 7.jpg", "Foto 8.jpg", "Foto 9.jpg", "Foto 10.jpg",
-      "Foto 11.jpg", "Foto 12.jpg", "Foto 13.jpg", "Foto 14.jpg", "Foto 15.jpg",
-      "Foto 16.jpg", "Foto 17.jpg", "Foto 18.jpg", "Foto 19.jpg", "Foto 20.jpg",
+      "foto 1.jpg", "foto 2.jpg", "foto 3.jpg", "foto 4.jpg", "foto 5.jpg",
+      "foto 6.jpg", "foto 7.jpg", "foto 8.jpg", "foto 9.jpg", "foto 10.jpg",
+      "foto 11.jpg", "foto 12.jpg", "foto 13.jpg", "foto 14.jpg", "foto 15.jpg",
+      "foto 16.jpg", "foto 17.jpg", "foto 18.jpg", "foto 19.jpg", "foto 20.jpg",
       
       // Fila 2 - Fotos 21-39
-      "Foto 21.jpg", "Foto 22.jpg", "Foto 23.jpg", "Foto 24.jpg", "Foto 25.jpg",
-      "Foto 26.jpg", "Foto 27.jpg", "Foto 28.jpg", "Foto 29.jpg", "Foto 30.jpg",
-      "Foto 31.jpg", "Foto 32.jpg", "Foto 33.jpg", "Foto 34.jpg", "Foto 35.jpg",
-      "Foto 36.jpg", "Foto 37.jpg", "Foto 38.jpg", "Foto 39.jpg",
+      "foto 21.jpg", "foto 22.jpg", "foto 23.jpg", "foto 24.jpg", "foto 25.jpg",
+      "foto 26.jpg", "foto 27.jpg", "foto 28.jpg", "foto 29.jpg", "foto 30.jpg",
+      "foto 31.jpg", "foto 32.jpg", "foto 33.jpg", "foto 34.jpg", "foto 35.jpg",
+      "foto 36.jpg", "foto 37.jpg", "foto 38.jpg", "foto 39.jpg",
       
       // Fila 3 - Fotos 40-58
-      "Foto 40.jpg", "Foto 41.jpg", "Foto 42.jpg", "Foto 43.jpg", "Foto 44.jpg",
-      "Foto 45.jpg", "Foto 46.jpg", "Foto 47.jpg", "Foto 48.jpg", "Foto 49.jpg",
-      "Foto 50.jpg", "Foto 51.jpg", "Foto 52.jpg", "Foto 53.jpg", "Foto 54.jpg",
-      "Foto 55.jpg", "Foto 56.jpg", "Foto 57.jpg", "Foto 58.jpg"
+      "foto 40.jpg", "foto 41.jpg", "foto 42.jpg", "foto 43.jpg", "foto 44.jpg",
+      "foto 45.jpg", "foto 46.jpg", "foto 47.jpg", "foto 48.jpg", "foto 49.jpg",
+      "foto 50.jpg", "foto 51.jpg", "foto 52.jpg", "foto 53.jpg", "foto 54.jpg",
+      "foto 55.jpg", "foto 56.jpg", "foto 57.jpg", "foto 58.jpg"
     ];
 
     // Variables globales para el lightbox
@@ -2430,22 +2479,21 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       window.open('https://wa.me/' + telefono, '_blank');
     });
 
-    // Parallax hero
+    // Header scroll - SIMPLIFICADO
+    const header = document.querySelector('header');
+    let ticking = false;
+    
     window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const parallax = document.getElementById('parallax-bg');
-      if (parallax) {
-        parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          header.classList.toggle('scrolled', window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
       }
     });
 
-    // Header scroll
-    const header = document.querySelector('header');
-    window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // Scroll reveal
+    // Scroll reveal - SIMPLIFICADO
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -2465,4 +2513,3 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
   </script>
 </body>
 </html>
-

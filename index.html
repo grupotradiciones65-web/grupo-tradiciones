@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,39 +7,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Grupo Tradiciones — Sitio Oficial</title>
   
+  <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="manifest" href="site.webmanifest">
 
+  <!-- Fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <meta name="description" content="Grupo Tradiciones: folclor y música andina con identidad propia." />
-  
+  <!-- SEO -->
+  <meta name="description" content="Grupo Tradiciones: folclor y música andina con identidad propia. Presentaciones, biografía, música y contacto." />
+  <meta name="keywords" content="Grupo Tradiciones, música andina, folclor, Chile, presentaciones, contrataciones" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Grupo Tradiciones - Sitio oficial">
+  <meta property="og:description" content="Folclor y música andina con identidad propia.">
+  <meta property="og:image" content="logo.jpg">
+
   <style>
+    /* === VARIABLES === */
     :root {
       --accent: #e3b04b;
       --accent-light: #f4d03f;
+      --accent-glow: rgba(227, 176, 75, 0.6);
       --ink: #f3f3f3;
       --bg: #0f0f0f;
       --panel: rgba(255,255,255,.04);
       --hair: rgba(255,255,255,.14);
       --muted: #cfcfcf;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
     
+    /* === BODY CON FONDO ANIMADO === */
     body {
       margin: 0;
       color: var(--ink);
       font-family: 'Inter', system-ui, sans-serif;
       background: #0c0c0c url("IMG-20250930-WA0004.jpg") center/cover fixed no-repeat;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
     
     body::before {
@@ -48,11 +62,11 @@
       z-index: -1;
       background:
         linear-gradient(180deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.4) 40%, rgba(0,0,0,.8) 100%),
-        radial-gradient(ellipse at 50% 0%, rgba(227,176,75,0.15) 0%, transparent 50%);
-      pointer-events: none;
+        radial-gradient(ellipse at 50% 0%, rgba(227,176,75,0.15) 0%, transparent 50%),
+        radial-gradient(60% 80% at 50% -10%, rgba(0,0,0,.4), transparent 60%);
     }
 
-    /* MARQUEE - GPU ACCELERATED */
+    /* === MARQUEE TRUEBLOOD STYLE === */
     .marquee-container {
       background: var(--accent);
       padding: 18px 0;
@@ -60,30 +74,27 @@
       white-space: nowrap;
       position: relative;
       border-bottom: 1px solid rgba(0,0,0,0.1);
-      transform: translateZ(0);
-      will-change: transform;
+      box-shadow: 0 4px 20px rgba(227,176,75,0.3);
     }
 
     .marquee-container.reverse {
       background: transparent;
       border-top: 1px solid var(--accent);
       border-bottom: 1px solid var(--accent);
+      box-shadow: 0 0 30px rgba(227,176,75,0.2);
     }
 
     .marquee-content {
-      display: inline-flex;
-      animation: scroll 40s linear infinite;
-      transform: translateZ(0);
-      will-change: transform;
-      backface-visibility: hidden;
+      display: inline-block;
+      animation: scroll 60s linear infinite;
     }
 
     .marquee-container.reverse .marquee-content {
       animation-direction: reverse;
-      animation-duration: 50s;
     }
 
     .marquee-text {
+      display: inline-block;
       font-family: 'Inter', sans-serif;
       font-size: 0.85rem;
       font-weight: 700;
@@ -91,34 +102,45 @@
       letter-spacing: 0.4em;
       padding: 0 60px;
       color: #111;
-      flex-shrink: 0;
+      position: relative;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.3);
     }
 
     .marquee-container.reverse .marquee-text {
       color: var(--accent);
+      text-shadow: 0 0 10px rgba(227,176,75,0.5);
+    }
+
+    .marquee-text::after {
+      content: '•';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.5;
     }
 
     @keyframes scroll {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-50%, 0, 0); }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
-    /* HEADER */
+    /* === HEADER PRO === */
     header {
       text-align: center;
       padding: 26px 16px 14px;
       background: rgba(0,0,0,.5);
       border-bottom: 1px solid var(--hair);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
       z-index: 50;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     header.scrolled {
       background: rgba(0,0,0,.9);
+      box-shadow: 0 10px 40px rgba(0,0,0,.7), 0 0 30px rgba(227,176,75,0.1);
       padding: 16px;
     }
 
@@ -132,14 +154,18 @@
     header img {
       height: 72px;
       border-radius: 10px;
-      box-shadow: 0 12px 28px rgba(0,0,0,.5);
-      transition: transform 0.3s ease;
+      box-shadow: 0 12px 28px rgba(0,0,0,.5), 0 0 20px rgba(227,176,75,0.2);
+      transition: var(--transition);
+      border: 2px solid transparent;
     }
 
     header img:hover {
-      transform: scale(1.05);
+      transform: scale(1.05) rotate(2deg);
+      border-color: var(--accent);
+      box-shadow: 0 15px 35px rgba(0,0,0,.6), 0 0 30px rgba(227,176,75,0.4);
     }
 
+    /* === TÍTULO CON EFECTO BRILLO PREMIUM === */
     header h1 {
       margin: 0;
       font-family: 'Cormorant Garamond', serif;
@@ -148,12 +174,70 @@
       letter-spacing: 0.2em;
       color: var(--accent);
       text-transform: uppercase;
+      position: relative;
       animation: titleGlow 3s ease-in-out infinite alternate;
     }
 
+    /* Efecto de brillo dorado en el texto */
+    header h1::before {
+      content: 'GRUPO TRADICIONES';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255,255,255,0) 20%,
+        rgba(255,255,255,0.8) 50%, 
+        rgba(255,255,255,0) 80%,
+        transparent 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shine 4s linear infinite;
+      pointer-events: none;
+    }
+
+    /* Sombra de brillo dorado */
+    header h1::after {
+      content: 'GRUPO TRADICIONES';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: var(--accent);
+      filter: blur(8px);
+      opacity: 0.5;
+      z-index: -1;
+      animation: pulseGlow 2s ease-in-out infinite alternate;
+    }
+
     @keyframes titleGlow {
-      0% { text-shadow: 0 0 10px rgba(227,176,75,0.5); }
-      100% { text-shadow: 0 0 30px rgba(227,176,75,0.8), 0 0 60px rgba(227,176,75,0.4); }
+      0% { 
+        text-shadow: 
+          0 0 10px rgba(227,176,75,0.5),
+          0 0 20px rgba(227,176,75,0.3),
+          0 0 30px rgba(227,176,75,0.2);
+      }
+      100% { 
+        text-shadow: 
+          0 0 20px rgba(227,176,75,0.8),
+          0 0 40px rgba(227,176,75,0.5),
+          0 0 60px rgba(227,176,75,0.3),
+          0 0 80px rgba(227,176,75,0.2);
+      }
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.3; filter: blur(6px); }
+      100% { opacity: 0.7; filter: blur(12px); }
     }
 
     nav {
@@ -174,7 +258,8 @@
       padding: 10px 18px;
       border-radius: 999px;
       border: 1px solid transparent;
-      transition: all 0.3s ease;
+      background: transparent;
+      transition: var(--transition);
       position: relative;
       overflow: hidden;
     }
@@ -194,17 +279,17 @@
     nav a:hover {
       color: #111;
       border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(227,176,75,0.4);
     }
 
     nav a:hover::before {
       left: 0;
     }
 
-    /* HERO - OPTIMIZED */
+    /* === HERO CON PARALLAX === */
     .hero-wrapper {
       position: relative;
       height: 70vh;
-      min-height: 500px;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -213,45 +298,62 @@
 
     .hero-bg {
       position: absolute;
-      top: 0;
+      top: -10%;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: 120%;
       background: url('IMG-20250930-WA0004.jpg') center/cover;
-      transform: translateZ(0);
       will-change: transform;
-      animation: heroZoom 20s ease-in-out infinite alternate;
+      z-index: -2;
+      animation: heroZoom 30s ease-in-out infinite alternate;
     }
 
     @keyframes heroZoom {
-      0% { transform: scale(1) translateZ(0); }
-      100% { transform: scale(1.05) translateZ(0); }
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
     }
 
     .hero-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(180deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,.6) 100%);
-      z-index: 1;
+      z-index: -1;
     }
 
     .hero-content {
       text-align: center;
       z-index: 2;
-      animation: fadeInUp 1s ease-out;
-      padding: 0 20px;
+      animation: fadeInUp 1.2s ease-out;
     }
 
     .hero-content h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-size: clamp(3rem, 8vw, 6rem);
       font-weight: 400;
       margin: 0;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--accent);
-      text-shadow: 0 0 40px rgba(227,176,75,0.5);
+      text-shadow: 
+        0 0 20px rgba(227,176,75,0.5),
+        0 0 40px rgba(227,176,75,0.3),
+        0 0 60px rgba(227,176,75,0.2);
       line-height: 1;
+      animation: heroTextGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroTextGlow {
+      0% { 
+        text-shadow: 
+          0 0 20px rgba(227,176,75,0.4),
+          0 0 40px rgba(227,176,75,0.2);
+      }
+      100% { 
+        text-shadow: 
+          0 0 30px rgba(227,176,75,0.7),
+          0 0 60px rgba(227,176,75,0.4),
+          0 0 90px rgba(227,176,75,0.2);
+      }
     }
 
     .hero-content p {
@@ -262,14 +364,21 @@
       margin-top: 20px;
       color: var(--ink);
       font-weight: 300;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     }
 
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* SECTIONS */
+    /* === SECCIONES BASE === */
     .section {
       max-width: 1100px;
       margin: 20px auto;
@@ -277,8 +386,18 @@
       background: var(--panel);
       border: 1px solid var(--hair);
       border-radius: 18px;
+      box-shadow: 
+        0 24px 60px rgba(0,0,0,.38),
+        0 0 30px rgba(227,176,75,0.05);
       backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      box-shadow: 
+        0 30px 70px rgba(0,0,0,.45),
+        0 0 40px rgba(227,176,75,0.1);
+      border-color: rgba(227,176,75,0.2);
     }
 
     .section h3 {
@@ -286,9 +405,14 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 2.2rem;
       font-weight: 600;
+      letter-spacing: 0.05em;
       color: var(--accent);
+      text-shadow: 0 0 20px rgba(227,176,75,0.3);
     }
 
+    .muted { color: var(--muted); }
+
+    /* === INTRO BOX === */
     .intro {
       max-width: 1100px;
       margin: 20px auto;
@@ -296,20 +420,48 @@
       border: 1px solid var(--accent);
       border-radius: 14px;
       background: rgba(227,176,75,.08);
+      box-shadow: 
+        0 10px 30px rgba(227,176,75,.25),
+        0 0 30px rgba(227,176,75,0.1),
+        inset 0 0 20px rgba(227,176,75,0.05);
       line-height: 1.9;
       font-size: 1.1rem;
       font-family: 'Cormorant Garamond', serif;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .intro:hover {
+      box-shadow: 
+        0 15px 40px rgba(227,176,75,.35),
+        0 0 50px rgba(227,176,75,0.15),
+        inset 0 0 30px rgba(227,176,75,0.08);
+      transform: translateY(-2px);
+    }
+
+    .intro::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      font-size: 8rem;
+      color: var(--accent);
+      opacity: 0.1;
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1;
     }
 
     .intro strong {
       color: var(--accent);
       font-weight: 700;
+      text-shadow: 0 0 10px rgba(227,176,75,0.3);
     }
 
-    /* GALLERY - OPTIMIZED WITH GPU */
+    /* === GALERÍA CON FOTOS PRO === */
     .gallery-section {
       margin: 40px 0;
-      overflow: hidden;
+      position: relative;
     }
 
     .gallery-header {
@@ -322,6 +474,9 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 2.2rem;
       color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      text-shadow: 0 0 20px rgba(227,176,75,0.4);
     }
 
     .gallery-header p {
@@ -333,75 +488,163 @@
 
     .gallery-row-wrapper {
       position: relative;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       overflow: hidden;
     }
 
     .gallery-row-container {
       overflow: hidden;
+      position: relative;
       mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
       -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
     }
 
     .gallery-row {
       display: flex;
-      gap: 20px;
+      gap: 24px;
       width: max-content;
-      transform: translateZ(0);
-      will-change: transform;
-      backface-visibility: hidden;
+      transition: transform 0.5s ease;
     }
 
     .gallery-row.marquee {
-      animation: scrollLeft 30s linear infinite;
+      animation: scrollLeft 120s linear infinite;
     }
 
     .gallery-row.marquee-reverse {
-      animation: scrollRight 40s linear infinite;
+      animation: scrollRight 150s linear infinite;
     }
 
     .gallery-row.marquee-slow {
-      animation: scrollLeft 50s linear infinite;
+      animation: scrollLeft 180s linear infinite;
     }
 
     @keyframes scrollLeft {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-50%, 0, 0); }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     @keyframes scrollRight {
-      0% { transform: translate3d(-50%, 0, 0); }
-      100% { transform: translate3d(0, 0, 0); }
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
     }
 
+    .gallery-row.paused {
+      animation-play-state: paused !important;
+    }
+
+    /* Flechas de navegación PRO */
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 60px;
+      height: 60px;
+      background: rgba(0,0,0,0.8);
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(227,176,75,0.3);
+    }
+
+    .gallery-arrow:hover {
+      background: var(--accent);
+      color: #111;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 0 30px rgba(227,176,75,0.6);
+    }
+
+    .gallery-arrow.prev { left: 30px; }
+    .gallery-arrow.next { right: 30px; }
+
+    /* === ITEMS DE GALERÍA CON SOMBRAS ÉPICAS === */
     .gallery-item {
       flex-shrink: 0;
-      width: 350px;
-      height: 262px;
-      border-radius: 12px;
+      width: 420px;
+      height: 315px;
+      border-radius: 16px;
       overflow: hidden;
       position: relative;
+      border: 2px solid transparent;
+      transition: var(--transition);
+      cursor: pointer;
       background: #1a1a1a;
-      transform: translateZ(0);
-      will-change: transform;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      /* Sombra multi-capa épica */
+      box-shadow: 
+        0 10px 40px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(227,176,75,0.1),
+        0 0 30px rgba(227,176,75,0.1),
+        inset 0 0 30px rgba(0,0,0,0.3);
+    }
+
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(45deg, var(--accent), transparent, var(--accent-light), transparent);
+      border-radius: 18px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .gallery-item:hover::before {
+      opacity: 0.6;
+      animation: borderRotate 3s linear infinite;
+    }
+
+    @keyframes borderRotate {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
     }
 
     .gallery-item:hover {
-      transform: scale(1.02) translateZ(0);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(227,176,75,0.2);
+      transform: scale(1.03) translateY(-5px);
+      box-shadow: 
+        0 25px 60px rgba(0,0,0,0.6),
+        0 0 0 2px rgba(227,176,75,0.3),
+        0 0 50px rgba(227,176,75,0.25),
+        0 0 80px rgba(227,176,75,0.15);
     }
 
     .gallery-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      transition: transform 0.6s ease;
     }
 
     .gallery-item:hover img {
       transform: scale(1.1);
+    }
+
+    /* Efecto de brillo en las esquinas */
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 0% 0%, rgba(227,176,75,0.3) 0%, transparent 30%),
+        radial-gradient(circle at 100% 0%, rgba(227,176,75,0.2) 0%, transparent 25%),
+        radial-gradient(circle at 100% 100%, rgba(227,176,75,0.3) 0%, transparent 30%),
+        radial-gradient(circle at 0% 100%, rgba(227,176,75,0.2) 0%, transparent 25%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .gallery-item:hover::after {
+      opacity: 1;
     }
 
     .gallery-caption {
@@ -409,10 +652,10 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 20px;
-      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+      padding: 25px;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
       transform: translateY(100%);
-      transition: transform 0.3s ease;
+      transition: transform 0.4s ease;
     }
 
     .gallery-item:hover .gallery-caption {
@@ -421,12 +664,21 @@
 
     .gallery-caption h4 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       color: var(--accent);
-      margin: 0;
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 10px rgba(227,176,75,0.5);
     }
 
-    /* LIGHTBOX */
+    .gallery-caption p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    /* === LIGHTBOX PRO === */
     .lightbox {
       position: fixed;
       inset: 0;
@@ -448,6 +700,9 @@
       position: relative;
       max-width: 95vw;
       max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .lightbox-img {
@@ -455,62 +710,108 @@
       max-height: 85vh;
       object-fit: contain;
       border-radius: 8px;
+      box-shadow: 
+        0 30px 80px rgba(0,0,0,0.8),
+        0 0 50px rgba(227,176,75,0.2);
     }
 
-    .lightbox-close, .lightbox-nav {
+    .lightbox-caption {
+      margin-top: 25px;
+      text-align: center;
+      color: var(--ink);
+    }
+
+    .lightbox-caption h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+      text-shadow: 0 0 20px rgba(227,176,75,0.5);
+    }
+
+    .lightbox-caption p {
+      color: var(--muted);
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .lightbox-close {
       position: absolute;
-      background: rgba(0,0,0,0.8);
+      top: 30px;
+      right: 40px;
+      width: 60px;
+      height: 60px;
+      background: transparent;
       border: 2px solid var(--accent);
       color: var(--accent);
       border-radius: 50%;
       cursor: pointer;
+      font-size: 2rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s ease;
+      transition: var(--transition);
+      z-index: 1001;
+      box-shadow: 0 0 20px rgba(227,176,75,0.3);
     }
 
-    .lightbox-close {
-      top: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      font-size: 1.5rem;
+    .lightbox-close:hover {
+      background: var(--accent);
+      color: #111;
+      transform: rotate(90deg);
+      box-shadow: 0 0 30px rgba(227,176,75,0.6);
     }
 
     .lightbox-nav {
+      position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 60px;
-      height: 60px;
-      font-size: 2rem;
+      width: 70px;
+      height: 70px;
+      background: rgba(0,0,0,0.7);
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      z-index: 1001;
+      box-shadow: 0 0 20px rgba(227,176,75,0.3);
     }
 
-    .lightbox-nav.prev { left: 20px; }
-    .lightbox-nav.next { right: 20px; }
-
-    .lightbox-close:hover, .lightbox-nav:hover {
+    .lightbox-nav:hover {
       background: var(--accent);
       color: #111;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 0 30px rgba(227,176,75,0.5);
     }
+
+    .lightbox-nav.prev { left: 50px; }
+    .lightbox-nav.next { right: 50px; }
 
     .lightbox-counter {
       position: absolute;
-      bottom: 30px;
+      bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(0,0,0,0.8);
-      padding: 10px 25px;
-      border-radius: 20px;
+      padding: 12px 30px;
+      border-radius: 30px;
       color: var(--accent);
       font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
       border: 1px solid var(--accent);
+      box-shadow: 0 0 20px rgba(227,176,75,0.3);
     }
 
-    /* ALBUMS */
+    /* === DISCOS GRID PRO === */
     .albums {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 24px;
     }
 
@@ -519,31 +820,60 @@
       border: 1px solid var(--hair);
       border-radius: 14px;
       overflow: hidden;
-      transition: all 0.3s ease;
+      transition: var(--transition);
+      cursor: pointer;
       text-decoration: none;
       color: inherit;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .album-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(227,176,75,0.15) 50%, transparent 70%);
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .album-card:hover::before {
+      opacity: 1;
+      animation: shine 0.8s ease;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%); }
+      100% { transform: translateX(100%) translateY(100%); }
     }
 
     .album-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(227,176,75,.2);
-      border-color: rgba(227,176,75,0.3);
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 
+        0 25px 50px rgba(227,176,75,.25),
+        0 0 30px rgba(227,176,75,0.2);
+      border-color: rgba(227,176,75,0.4);
     }
 
     .album-card img {
       width: 100%;
-      height: 250px;
+      height: 240px;
       object-fit: cover;
       display: block;
       transition: transform 0.5s ease;
+      filter: grayscale(20%);
     }
 
     .album-card:hover img {
-      transform: scale(1.05);
+      transform: scale(1.1);
+      filter: grayscale(0%);
     }
 
     .album-card .p {
       padding: 16px;
+      position: relative;
+      z-index: 3;
       background: rgba(0,0,0,0.8);
     }
 
@@ -551,25 +881,42 @@
       margin: 0;
       font-size: 1.1rem;
       font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: color 0.3s;
+    }
+
+    .album-card:hover h4 {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(227,176,75,0.3);
     }
 
     .album-card small {
       color: var(--muted);
       font-size: 0.8rem;
+      letter-spacing: 0.1em;
     }
 
-    /* TRACKS */
+    /* === ACORDEÓN PRO === */
     .album {
       margin-top: 8px;
       border: 1px solid var(--hair);
       border-radius: 14px;
       overflow: hidden;
       background: rgba(0,0,0,.28);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: var(--transition);
+    }
+
+    .album:hover {
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 20px rgba(227,176,75,0.1);
+      border-color: rgba(227,176,75,0.2);
     }
 
     .album .head {
       display: flex;
       align-items: center;
+      gap: 10px;
       justify-content: space-between;
       padding: 18px 20px;
       background: rgba(255,255,255,.03);
@@ -580,7 +927,10 @@
       margin: 0;
       font-size: 1.3rem;
       font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.05em;
       color: var(--accent);
+      text-shadow: 0 0 10px rgba(227,176,75,0.2);
     }
 
     .album .head .badge {
@@ -590,12 +940,23 @@
       padding: 6px 14px;
       border-radius: 999px;
       font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      box-shadow: 0 0 15px rgba(227,176,75,0.4);
     }
 
-    .tracks { list-style: none; margin: 0; padding: 0; }
+    .tracks {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
 
     .track {
       border-top: 1px solid var(--hair);
+      transition: background 0.3s;
+    }
+
+    .track:hover {
+      background: rgba(227,176,75,0.05);
     }
 
     .track-header {
@@ -606,56 +967,70 @@
       gap: 16px;
       align-items: center;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+      transition: var(--transition);
+      user-select: none;
     }
 
-    .track-header:hover, .track-header.active {
+    .track-header:hover {
       color: var(--accent);
-      background: rgba(227,176,75,0.05);
+      text-shadow: 0 0 10px rgba(227,176,75,0.2);
+    }
+
+    .track-header.active {
+      color: var(--accent);
     }
 
     .track .num {
       width: 32px;
       height: 32px;
-      display: grid;
+      display: inline-grid;
       place-items: center;
       border: 1px solid var(--hair);
       border-radius: 8px;
       font-weight: 700;
+      color: #ddd;
       font-size: 0.9rem;
-      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      transition: var(--transition);
     }
 
-    .track-header:hover .num, .track-header.active .num {
+    .track:hover .num,
+    .track-header.active .num {
       background: var(--accent);
       color: #111;
       border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(227,176,75,0.4);
     }
 
+    /* === LETRAS === */
     .lyric {
       padding: 0 20px 24px 68px;
       color: #f1f1f1;
       line-height: 2;
       white-space: pre-line;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-style: italic;
       display: none;
     }
 
     .lyric.show {
       display: block;
-      animation: fadeIn 0.3s ease;
+      animation: fadeIn 0.4s ease;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* GIGS */
-    .gigs { display: grid; gap: 16px; }
+    /* === PRESENTACIONES PRO === */
+    .gigs {
+      display: grid;
+      gap: 16px;
+    }
 
     .gig {
       display: grid;
@@ -666,12 +1041,33 @@
       border: 1px solid var(--hair);
       border-radius: 16px;
       padding: 24px;
-      transition: all 0.3s ease;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .gig::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--accent);
+      transform: scaleY(0);
+      transition: transform 0.4s ease;
+      box-shadow: 0 0 20px rgba(227,176,75,0.5);
     }
 
     .gig:hover {
       border-color: rgba(227,176,75,0.3);
-      transform: translateX(5px);
+      transform: translateX(10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 30px rgba(227,176,75,0.1);
+    }
+
+    .gig:hover::before {
+      transform: scaleY(1);
     }
 
     .date {
@@ -683,52 +1079,92 @@
       background: rgba(0,0,0,0.5);
       border: 1px solid var(--hair);
       min-height: 80px;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .gig:hover .date {
       background: var(--accent);
       border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(227,176,75,0.4);
     }
 
     .day {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       font-weight: 700;
       color: var(--accent);
       line-height: 1;
+      transition: color 0.3s;
     }
 
-    .gig:hover .day { color: #111; }
+    .gig:hover .day {
+      color: #111;
+    }
 
     .mon {
       font-weight: 700;
       color: var(--muted);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
+      margin-top: 4px;
+      transition: color 0.3s;
     }
 
-    .gig:hover .mon { color: #111; }
+    .gig:hover .mon {
+      color: #111;
+    }
 
     .details h4 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
       color: var(--accent);
-      margin-bottom: 6px;
+      text-shadow: 0 0 10px rgba(227,176,75,0.2);
     }
 
-    .details p { color: var(--muted); font-size: 0.95rem; }
+    .details p {
+      color: var(--muted);
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
 
-    /* VIDEO */
-    .video-section { margin: 20px auto; max-width: 1100px; }
+    /* === VIDEO DESTACADO PRO === */
+    .video-section {
+      margin: 20px auto;
+      max-width: 1100px;
+    }
 
     .video-card {
       position: relative;
       overflow: hidden;
       border-radius: 16px;
       border: 2px solid var(--hair);
+      transition: var(--transition);
       box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+
+    .video-card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(45deg, var(--accent), transparent, var(--accent-light));
+      border-radius: 18px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .video-card:hover::before {
+      opacity: 0.5;
+    }
+
+    .video-card:hover {
+      border-color: rgba(227,176,75,0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 30px rgba(227,176,75,0.15);
     }
 
     .video-card iframe {
@@ -738,7 +1174,7 @@
       display: block;
     }
 
-    /* FOOTER */
+    /* === FOOTER PRO === */
     footer {
       text-align: center;
       margin: 60px 0 30px;
@@ -755,18 +1191,43 @@
       text-decoration: none;
       border: 2px solid var(--accent);
       cursor: pointer;
-      box-shadow: 0 12px 28px rgba(227,176,75,.35);
-      transition: all 0.3s ease;
+      box-shadow: 
+        0 12px 28px rgba(227,176,75,.35),
+        0 0 20px rgba(227,176,75,0.3);
+      transition: var(--transition);
       font-size: 0.9rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s ease;
     }
 
     .btn:hover {
       background: transparent;
       color: var(--accent);
       transform: translateY(-3px);
-      box-shadow: 0 20px 40px rgba(227,176,75,.5);
+      box-shadow: 
+        0 20px 40px rgba(227,176,75,.5),
+        0 0 30px rgba(227,176,75,0.4);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
     }
 
     #num {
@@ -778,8 +1239,11 @@
       padding: 12px 20px;
       border-radius: 10px;
       color: var(--accent);
+      letter-spacing: 0.1em;
+      box-shadow: 0 0 15px rgba(227,176,75,0.2);
     }
 
+    /* === REDES SOCIALES PRO === */
     .social {
       margin-top: 30px;
       display: flex;
@@ -798,31 +1262,58 @@
       color: #fff;
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .chip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform: scale(0);
+      transition: transform 0.3s ease;
+      border-radius: 999px;
+      z-index: -1;
     }
 
     .chip:hover {
-      transform: translateY(-3px);
+      color: #111;
       border-color: var(--accent);
-      box-shadow: 0 10px 25px rgba(227,176,75,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(227,176,75,0.4);
     }
 
-    .chip svg { width: 18px; height: 18px; fill: currentColor; }
+    .chip:hover::before {
+      transform: scale(1);
+    }
 
-    .chip--fb { background: #1877F2; }
-    .chip--yt { background: #FF0000; }
+    .chip svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      position: relative;
+      z-index: 1;
+    }
+
+    .chip--fb { background: #1877F2; border-color: #0d49a1; }
+    .chip--yt { background: #FF0000; border-color: #a30000; }
     .chip--ig {
-      background: radial-gradient(circle at 30% 30%, #ffd776 0 40%, transparent 41%),
-                  linear-gradient(135deg,#405de6,#5851db,#833ab4,#c13584,#e1306c,#fd1d1d);
+      background: radial-gradient(45% 60% at 30% 30%, #ffd776 0 40%, transparent 41%),
+      linear-gradient(135deg,#405de6,#5851db,#833ab4,#c13584,#e1306c,#fd1d1d);
+      border-color: #7a2a6a;
     }
-    .chip--tt { background: #111; }
+    .chip--tt { background: #111; border-color: #333; }
 
-    /* REVEAL */
+    /* === ANIMACIONES SCROLL === */
     .reveal {
       opacity: 0;
       transform: translateY(30px);
-      transition: all 0.6s ease;
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .reveal.active {
@@ -830,6 +1321,7 @@
       transform: translateY(0);
     }
 
+    /* === BOTÓN ARRIBA PRO === */
     #totop {
       position: fixed;
       right: 24px;
@@ -844,47 +1336,49 @@
       border-radius: 50%;
       font-size: 20px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(227,176,75,0.3);
     }
 
     #totop:hover {
       background: var(--accent);
       color: #111;
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(227,176,75,0.5);
     }
 
-    /* RESPONSIVE - OPTIMIZED */
+    /* === RESPONSIVE === */
     @media (max-width: 768px) {
-      header h1 { font-size: 1.6rem; }
-      .hero-wrapper { height: 50vh; min-height: 400px; }
-      .hero-content h2 { font-size: 2.2rem; }
-      
-      /* Faster animations on mobile for better feel */
-      .marquee-content { animation-duration: 25s !important; }
-      .gallery-row.marquee { animation-duration: 20s !important; }
-      .gallery-row.marquee-reverse { animation-duration: 25s !important; }
-      .gallery-row.marquee-slow { animation-duration: 30s !important; }
-      
-      .gallery-item { width: 280px; height: 210px; }
-      .album-card img { height: 200px; }
-      .gig { grid-template-columns: 1fr; text-align: center; gap: 16px; }
-      .date { flex-direction: row; gap: 10px; padding: 12px; min-height: auto; }
-      .day { font-size: 1.6rem; }
+      header h1 { font-size: 1.8rem; }
+      .hero-wrapper { height: 50vh; }
+      .hero-content h2 { font-size: 2.5rem; }
+      .intro { padding: 20px; font-size: 1rem; }
+      .intro::before { font-size: 4rem; top: -10px; }
+      .album-card img { height: 180px; }
+      .gig { grid-template-columns: 1fr; text-align: center; }
+      .date { flex-direction: row; gap: 10px; padding: 12px; }
+      .day { font-size: 1.8rem; }
       .video-card iframe { height: 250px; }
+      .track-header { padding: 14px 16px; }
       .lyric { padding: 0 16px 20px 60px; font-size: 1rem; }
       
-      /* Reduce motion for users who prefer it */
-      @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-        }
-      }
+      /* Galería responsive */
+      .gallery-item { width: 320px; height: 240px; }
+      .gallery-arrow { width: 50px; height: 50px; font-size: 1.5rem; }
+      .gallery-arrow.prev { left: 15px; }
+      .gallery-arrow.next { right: 15px; }
+      .lightbox-nav { width: 50px; height: 50px; font-size: 1.8rem; }
+      .lightbox-nav.prev { left: 20px; }
+      .lightbox-nav.next { right: 20px; }
+      .lightbox-close { top: 20px; right: 20px; width: 50px; height: 50px; }
     }
   </style>
+<base target="_blank">
 </head>
 <body id="inicio">
 
+  <!-- MARQUEE SUPERIOR -->
   <div class="marquee-container">
     <div class="marquee-content">
       <span class="marquee-text">Folclor Latinoamericano</span>
@@ -900,6 +1394,7 @@
     </div>
   </div>
 
+  <!-- HEADER -->
   <header>
     <div class="brand">
       <img src="logo.jpg" alt="Logo Grupo Tradiciones">
@@ -916,6 +1411,7 @@
     </nav>
   </header>
 
+  <!-- HERO CON PARALLAX -->
   <div class="hero-wrapper">
     <div class="hero-bg" id="parallax-bg"></div>
     <div class="hero-overlay"></div>
@@ -925,46 +1421,59 @@
     </div>
   </div>
 
+  <!-- MARQUEE INVERSO -->
   <div class="marquee-container reverse">
     <div class="marquee-content">
       <span class="marquee-text">Cuna de Verso y Poemas</span>
       <span class="marquee-text">La Voz del Alma</span>
-      <span class="marquee-text">Próximo Álbum</span>
+      <span class="marquee-text">Próximo album</span>
       <span class="marquee-text">Cuna de Verso y Poemas</span>
       <span class="marquee-text">La Voz del Alma</span>
-      <span class="marquee-text">Próximo Álbum</span>
+      <span class="marquee-text">Próximo Álbum </span>
     </div>
   </div>
 
+  <!-- INTRO -->
   <div class="intro reveal">
-    El grupo <strong>Tradiciones</strong> nace el 14 de febrero del año 2003 con el incentivo de recopilar, rescatar e interpretar diversos estilos musicales folclóricos. Su esencia está inspirada en el folclore latinoamericano, fusionando raíces andinas con sonidos actuales.
+    El grupo <strong>Tradiciones</strong> nace el 14 de febrero del año 2003 con el incentivo de recopilar, rescatar e interpretar diversos estilos musicales folclóricos. Su esencia está inspirada en el folclore latinoamericano, fusionando raíces andinas con sonidos actuales para mantener viva la identidad cultural de nuestros pueblos.
   </div>
 
+  <!-- GALERÍA CON FOTOS PRO -->
   <section id="galeria" class="gallery-section reveal">
     <div class="gallery-header">
       <h3>Galería</h3>
       <p>Momentos de nuestra trayectoria</p>
     </div>
     
+    <!-- Fila 1: Derecha a Izquierda -->
     <div class="gallery-row-wrapper">
+      <button class="gallery-arrow prev" onclick="moveGallery('row1', -1)">‹</button>
+      <button class="gallery-arrow next" onclick="moveGallery('row1', 1)">›</button>
       <div class="gallery-row-container">
         <div class="gallery-row marquee" id="row1"></div>
       </div>
     </div>
 
+    <!-- Fila 2: Izquierda a Derecha -->
     <div class="gallery-row-wrapper">
+      <button class="gallery-arrow prev" onclick="moveGallery('row2', -1)">‹</button>
+      <button class="gallery-arrow next" onclick="moveGallery('row2', 1)">›</button>
       <div class="gallery-row-container">
         <div class="gallery-row marquee-reverse" id="row2"></div>
       </div>
     </div>
 
+    <!-- Fila 3: Derecha a Izquierda -->
     <div class="gallery-row-wrapper">
+      <button class="gallery-arrow prev" onclick="moveGallery('row3', -1)">‹</button>
+      <button class="gallery-arrow next" onclick="moveGallery('row3', 1)">›</button>
       <div class="gallery-row-container">
         <div class="gallery-row marquee-slow" id="row3"></div>
       </div>
     </div>
   </section>
 
+  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
     <button class="lightbox-close" onclick="closeLightbox()">×</button>
     <button class="lightbox-nav prev" onclick="changeImage(-1)">‹</button>
@@ -979,183 +1488,874 @@
     <div class="lightbox-counter" id="lightboxCounter">1 / 58</div>
   </div>
 
+  <!-- BIO -->
   <section id="biografia" class="section reveal">
     <h3>Biografía</h3>
     <p style="line-height: 1.9; font-size: 1.05rem; margin-bottom: 20px;">
-      Grupo Tradiciones nació un 14 de febrero de 2003 con una misión clara: recopilar y rescatar la música de raíz folclórica latinoamericana...
+      Grupo Tradiciones nació un 14 de febrero de 2003 con una misión clara: recopilar y rescatar la música de raíz folclórica latinoamericana. Iniciando con solo cuatro integrantes, la agrupación rápidamente evolucionó para interpretar composiciones originales, abordando temáticas profundas como el amor, el desamor y el descontento social, pero manteniendo siempre la esencia y los ritmos tradicionales de nuestra "América morena".
     </p>
     <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--accent); margin-bottom: 12px;">Trayectoria Discográfica:</h4>
     <p style="line-height: 1.8;">
-      En 2010, lanzaron <strong style="color: var(--accent);">"Cuna de verso y poemas"</strong>.<br>
-      En 2017, <strong style="color: var(--accent);">"La voz del alma"</strong>.
+      En 2010, el grupo lanzó su primer trabajo discográfico, el álbum de 8 canciones titulado <strong style="color: var(--accent);">"Cuna de verso y poemas"</strong>.<br>
+      Siete años después, en 2017, consolidaron su trayectoria con su segundo trabajo musical, <strong style="color: var(--accent);">"La voz del alma"</strong>. Este álbum destaca por incluir canciones originales con letras de Juan Flores y arreglos propios de Grupo Tradiciones.
     </p>
   </section>
 
+  <!-- DISCOS -->
   <section id="discos" class="section reveal">
     <h3>Discos</h3>
     <div class="albums">
       <a class="album-card" href="#album-cuna">
-        <img src="disco1.jpg" alt="Cuna de verso y poemas">
+        <img src="disco1.jpg" alt="Carátula: Cuna de verso y poemas">
         <div class="p">
           <h4>Cuna de verso y poemas</h4>
-          <small>Álbum · 2010</small>
+          <small>Álbum de estudio · 2010</small>
         </div>
       </a>
       <a class="album-card" href="#album-voz">
-        <img src="disco2.jpg" alt="La voz del alma">
+        <img src="disco2.jpg" alt="Carátula: La voz del alma">
         <div class="p">
           <h4>La voz del alma</h4>
-          <small>Álbum · 2017</small>
+          <small>Álbum de estudio · 2017</small>
         </div>
       </a>
     </div>
   </section>
 
+  <!-- MÚSICA -->
   <section id="musica" class="section reveal">
     <h3>Música</h3>
+
+    <!-- Álbum 1 -->
     <div id="album-cuna" class="album">
       <div class="head">
         <h4>Álbum: Cuna de verso y poemas</h4>
         <span class="badge">8 temas</span>
       </div>
-      <ul class="tracks" id="tracks-cuna"></ul>
+      <ul class="tracks">
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">1</span>
+            <span>Otro querer</span>
+          </div>
+          <div class="lyric">
+Que te marchas mujer, lo sé porque tienes un nuevo querer
+Si conmigo no quieres estar y la saya no quieres bailar
+Si te vas amor, amor ya no habrás de volver
+Y al bailar este ritmo de saya morena te recordaré
+
+Y en sus brazos tendrás amor, lo sé no te voy a mentir
+Y lo compararás con el amor que yo un día te dí
+Cuando estés a su lado sé muy bien que me recordarás
+Y aunque rías por fuera sé que por dentro tendrás que llorar
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">2</span>
+            <span>El viejo Pablo</span>
+          </div>
+          <div class="lyric">
+Se pasa el tiempo solo en una esquina
+A paso largo se le va la vida
+El viejo Pablo ya no sabe de alegrías
+Más de un amigo que se ha marchado
+Su compañera ya no está a su lado
+Se van quedando solo en esta vida
+
+Y su mirada me dice saber
+Que el tiempo corre muy deprisa y que tal vez
+No espera por él
+
+Un par de hijos que entregó al mundo
+Se han olvidado que cuando juntos
+Se llenaron de promesas que le hablaban del futuro
+Los sueños se han formado ya en recuerdo
+Los años han encorvado a su cuerpo
+Y las palabras que dijeron se perdieron en el tiempo
+
+Y su mirada me dice saber
+Que el tiempo corre muy deprisa y que tal vez
+No espera por él
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">3</span>
+            <span>Tanto amor</span>
+          </div>
+          <div class="lyric">
+Noches de luna y tristeza pensando en tu ausencia
+Tanto dolor encerrado en mi corazón
+Hoy que te estrecho en mis brazos no quiero dejarte
+Y solamente entregarte todo mi amor
+Tanto amor que yo tengo pa' darte mi vida
+Tanto amor que sin ti no sabría que hacer
+Tanto amor que sin ti las noches son muy frías
+Tanto amor que mi canto te quiere entregar
+
+Tanto amor que tengo para ti, mil caricias para compartir
+Tanto amor que tengo para ti
+Tanto amor
+
+Con su mirada de niña que lleva escondida
+Entre sus ojos morenos las ansias de amar
+Hoy que te estrecho en mis brazos no quiero dejarte
+Y solamente entregarte todo mi amor
+Tanto amor que yo tengo pa' darte mi vida
+Tanto amor que sin ti no sabría que hacer
+Tanto amor que sin ti las noches son muy frías
+Tanto amor que mi canto te quiere entregar
+
+Tanto amor que tengo para ti
+Mil caricias para compartir
+Tanto amor que tengo para ti
+Tanto amor
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">4</span>
+            <span>Almendra</span>
+          </div>
+          <div class="lyric">
+Eres tú quien ocupa aquel lugar dentro de mi corazón
+Nadie más lo hará igual
+Estarás dentro y con mi amor te llevaré hasta el sol en prueba de mi amor
+
+Y adentro tú estarás, y a mí te entregarás como una almendra
+Y quién calma este dolor, a quién le doy de amor, a quién llevo hasta el sol
+Nunca más volviste amor, rompiste un corazón
+Mi corazón de almendra...
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">5</span>
+            <span>Vete ya</span>
+          </div>
+          <div class="lyric">
+Vete, vete ya, tú ya no vuelves, tú ya no vuelves (bis)
+Mira hoy me vienes a decir
+Que no puedes ya vivir
+Te hacen falta mis caricias
+Pero ya no creo en tus mentiras
+Me ha dado golpes la vida
+Y la he aprendido a vivir
+Mira cuanto daño me causo
+El ya no tener tu amor
+Y en las noches te pensaba
+Y mi cama reclamo tu cuerpo
+Mis deseos mas intensos
+Sufrieron cuando no estabas
+
+Por eso vete ya y llévate tu amor
+Tus besos, tus caricias, tu risa, tus sueños, tus lindas palabras
+Por eso vete ya y sin volver atrás
+Porque al mirar tus ojos yo podría caer de nuevo en el pecado
+De un día haberte amado
+
+Mira yo también sufrí por ti
+Cuando me dejaste así sin razón y sin palabras
+Cómo decirle a mi corazón
+Que fue un engaño tu amor y que ya no regresabas
+Mira hoy vuelves arrepentida, diciendo todo es mentira
+
+Lo que murmura la gente
+Y que nunca olvidaste mi amor
+Ya no sé lo que es peor
+Y en creer o no creerte
+
+Por eso vete ya y llévate tu amor
+Tus besos, tus caricias, tu risa, tus sueños, tus lindas palabras
+Por eso vete ya, y sin volver atrás
+Porque al mirar tus ojos yo podría caer de nuevo en el pecado
+
+Por eso vete ya y llévate tu amor
+Tus besos, tus caricias, tu risa, tus sueños, tus lindas palabras
+Por eso vete ya y sin volver atrás
+Porque al mirar tus ojos yo podría caer de nuevo en el pecado
+De un día haberte amado
+
+Tú ya no vuelves, tú ya no vuelves (x varias)
+Vete, vete ya, tú ya no vuelves, tú ya no vuelves
+Vete corazón desamparado, no quiero verte a mi lado
+Vete vete ya, tú no volverás
+Vete corazón, vete deprisa
+Que tú ya no me das risa
+Vete vete ya, tú ya no vuelves, tú ya no vuelves
+Vete ya, vete ya a mi vida ya no vuelvas más
+Vete vete ya, tú no volverás
+Ya no te quiero ver con otro querer
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">6</span>
+            <span>Palabras para ti</span>
+          </div>
+          <div class="lyric">
+Escribiré una carta muy pausada para ti
+Lenta para que guardes cada palabra que quiera decir (bis)
+
+No me critiques me gusta escribir, expresar con tinta
+A donde quiera ir, a donde quiera ir
+No me odies por escapar, a veces temo expresar con palabras
+Cuando mi pecho se aprieta de nostalgia
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">7</span>
+            <span>Candombe del tiempo</span>
+          </div>
+          <div class="lyric">
+Tanto tiempo tratando poder escapar
+De este amor que me quema muy dentro del alma, ayayay
+Tanto tiempo diciéndole a mi corazón
+Que te olvide que nada ya tiene razón
+Y me ayudé a buscar el verdadero amor
+
+Quizás, quizás, quizás,
+No te puedo olvidar, tal vez, tal vez
+Es profunda la herida
+Y el paso del tiempo no puede borrar
+Ayayay (bis)
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">8</span>
+            <span>Cuna de verso y poemas</span>
+          </div>
+          <div class="lyric">
+Hoy quiero cantar señores a una tierra diferente
+De añañucas y copihues rojo corazón ardiente
+Donde el sol sale temprano y te ayudará en la tierra
+De la mano de un amigo que ayuda cuando hay problemas
+Y del norte vi parir de sus entrañas al cobre
+Y en el sur nació el carbón negro color de la noche
+
+Por eso canto a mi tierra
+Cuna de verso y poemas
+De sueños que me desvelan
+De Víctor, Pablo y Gabriela
+Por eso canto a mi tierra
+Cuna de cobre y carbón
+Donde conoció el amor
+Una mañana cualquiera
+
+Hoy quiero cantar señores a mi tierra y su destino
+Al indio sangre araucana rojo color que da el vino
+Al poeta y al cantor y a la maestra de escuela
+A la que soñó un poema, nacido en el corazón
+Al que no cayó su voz, y al que pensó diferente
+Quiero cantar a mi gente, con mi verso y con mi voz
+
+Por eso canto a mi tierra
+Cuna de verso y poemas
+De sueños que me desvelan
+De Víctor, Pablo y Gabriela
+Por eso canto a mi tierra
+Cuna de cobre y carbón
+Donde conoció el amor
+Una mañana cualquiera
+          </div>
+        </li>
+      </ul>
     </div>
+
+    <!-- Álbum 2 -->
     <div id="album-voz" class="album" style="margin-top: 22px;">
       <div class="head">
         <h4>Álbum: La voz del alma</h4>
         <span class="badge">10 temas</span>
       </div>
-      <ul class="tracks" id="tracks-voz"></ul>
+      <ul class="tracks">
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">1</span>
+            <span>¿A dónde fue el amor?</span>
+          </div>
+          <div class="lyric">
+¿Cómo saber si el amor se aleja?
+¿Cómo saber si todo ha llegado al final?
+¿Cómo saber si entre mis brazos
+El amor no encuentras ya?
+¿Cómo saber si el amor se aleja?
+¿Cómo entender que ya no me puedes amar?
+Y aquellos labios que eran míos
+No los pueda ya besar
+
+Que nos pasó, a dónde fue el amor
+Que se escapó de nuestras manos
+Nada sacamos con mirar atrás
+Si el amor no volverá
+Que nos pasó
+¿A dónde fue el amor que se escapó de nuestras manos?
+Nada sacamos con mirar atrás
+Si el amor no volverá
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">2</span>
+            <span>Otro amor en mi vida</span>
+          </div>
+          <div class="lyric">
+Tú que creías que por ti
+Yo me podría morir
+Otra vez te equivocaste
+El amor golpea mi puerta
+Y encontrándola entreabierta
+Simplemente se quedó
+Tú que eras dueña de mi mundo
+No pensaste ni un segundo
+El dolor que me causaste
+Hice el amor con tus recuerdos
+Y aunque me morí por dentro
+La tormenta ya pasó
+
+Hoy eres tú
+Quien me dice que me ama
+Que sin mí ya no eres nada
+Ya no creo en tus mentiras
+Todo en este mundo gira
+Otro amor llega a mi vida
+Para ti solo hay perdón
+
+Tú que mirándome a la cara
+Sin decir una palabra simplemente te marchaste
+Contigo se fue mi vida
+Pero ya sanó la herida
+Y de su mano el dolor
+Tú que dices que fue un error
+Que no entiendes qué pasó
+Pero a mí no me interesa
+Formas parte del pasado
+Y la que hoy está a mi lado
+Vuela en alas del amor
+
+Hoy eres tú
+Quien me dice que me ama
+Que sin mí ya no eres nada
+Ya no creo en tus mentiras
+Todo en este mundo gira
+Otro amor llega a mi vida
+Para ti solo hay perdón (bis)
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">3</span>
+            <span>Dulce niña</span>
+          </div>
+          <div class="lyric">
+Ya no sé cómo empezar
+La voz me tiembla al hablar
+No quiero causar dolor
+A tu dulce corazón
+Pero debes entender
+Nuestra flor se marchitó
+Y el calor que da tu piel
+Ya no quemará mis manos
+Es difícil de pensar que el amor un día se acaba
+Y te pido dulce amor que no bajes tu mirada
+Por favor entiéndeme no quise causar dolor
+Si un día dije que te amé fue de verdad
+
+Mi dulce niña
+Déjame secar tu llanto en esta despedida
+Mira, entiendo que al marcharme queda tu alma herida
+Nuestro amor se terminó
+Pero juro que te amé más que a mi vida
+
+Es difícil de pensar que el amor un día se acaba
+Y te pido dulce amor que no bajes tu mirada
+Por favor entiéndeme no quise causar dolor
+Si un día dije que te amé fue de verdad
+
+Mi dulce niña
+Déjame secar tu llanto en esta despedida
+Mira, entiendo que al marcharme queda tu alma herida
+Nuestro amor se terminó
+Pero juro que te amé más que a mi vida
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">4</span>
+            <span>Si yo volviera a nacer</span>
+          </div>
+          <div class="lyric">
+Si yo volviera a nacer
+Cometería los errores que cometo cada día
+No entendería a los que dicen que hay problemas sin salida
+Escucharía la lluvia caer
+Contemplaría el color de una flor
+Me reiría a carcajadas de lo duro que me ha tratado la vida
+Si yo volviera a nacer
+Me pararía nuevamente en esa calle a cantar por unas monedas
+Y que la gente murmurara a su pasar lo que quisiera
+Yo sé que muchos me han de entender, otros no tanto
+Fue la manera que encontré para mostrar mi humilde canto
+
+Si yo volviera a nacer
+Te pediría de rodillas que me amaras un instante
+Caminaríamos tomados de la mano cada tarde
+Te escribiría un poema de amor
+Te cantaría esa vieja canción
+Me escaparía en esas frías madrugadas
+Para amarte
+Si yo volviera a nacer
+
+Si yo volviera a nacer
+Me jugaría otro partido en la vieja cancha de tierra
+Me enredaría en una riña con amigos por un penal que no fuera
+Sin importarme los regaños que al llegar daría mi vieja
+¿De dónde vienes? ¿Qué son horas de llegar?
+¿Y si tu padre te viera?
+Si yo volviera a nacer
+Me volvería a quedar loco por el corto de tu falda
+Te llenaría de caricias sin pensar lo que pasará
+Y nos reiríamos del viejo profesor y de su calva
+Aquel que siempre supo dar un buen consejo
+Cuando hizo falta
+
+Si yo volviera a nacer
+Te pediría de rodillas que me amaras un instante
+Caminaríamos tomados de la mano cada tarde
+Te escribiría un poema de amor
+Te cantaría esa vieja canción
+Me escaparía en esas frías madrugadas
+Para amarte
+Si yo volviera a nacer
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">5</span>
+            <span>Sueños y libertad</span>
+          </div>
+          <div class="lyric">
+Uno tras uno forman un millón
+Unidos con la fuerza de su voz
+Cantando sus consignas de igualdad
+Reclaman el derecho de estudiar
+No vaya a ser que sea peligroso
+Se ha alzando la voz, la autoridad
+Mientras estos joven suelto y en las calles
+El movimiento habrá que controlar
+
+La represión no matará a la idea, no
+No matará a tu sueño y libertad
+Hay que seguir marchando hacia adelante
+Para el sueño de todos alcanzar (bis)
+
+El estudiante de hoy salió a la calle
+Pensando de manera diferente
+Sabiendo que el futuro no le es fácil
+Marchando hacia adelante le hace frente
+Y muchos quieren apagar su voz
+Como si fuera fácil conseguir
+La educación no será un privilegio
+La educación derecho de vivir
+
+La represión no matará la idea, no
+No matará tus sueños y libertad
+Hay que seguir marchando hacia adelante
+Para el sueño de todos alcanzar (bis)
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">6</span>
+            <span>Que me olvide de ti</span>
+          </div>
+          <div class="lyric">
+Que me mate el recuerdo de tus besos
+O el brillo de tus ojos que me amaban
+Tu amor sigue clavado aquí en mi pecho
+Tu corazón aún vive en mi recuerdo
+Y mi alma con tu nombre está grabada
+La muerte me ha ofrecido en su camino
+Remedio para toda mi tristeza
+Te juro que ni así podré olvidarte
+Y muero cada día al recordarte
+Porque tu amor aún corre por mis venas
+
+Que me olvide de ti
+Les digo si preguntan mis amigos
+Me bebo tu recuerdo en cada vaso
+Y tengo el corazón hecho pedazos (bis)
+
+El llanto y el licor hoy me acompañan
+A pagar el dolor de tu partida
+¿Pa' qué quiero la vida sin tus besos?
+O el brillo de tus ojos que me amaban
+Mi vida sin tu amor no vale nada
+
+Que me olvide de ti
+Les digo si preguntan mis amigos
+Me bebo tu recuerdo en cada vaso
+Y tengo el corazón hecho pedazos (bis)
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">7</span>
+            <span>Amor diferente</span>
+          </div>
+          <div class="lyric">
+Le dijo que su amor es diferente
+Muy difícil de entender para el resto de la gente
+Le dijo que su amor no es algo extraño
+Pero tuvo que esconder con el paso de los años
+Le habló si para él
+Era difícil de entenderlo
+Él no poder
+Amar a una mujer
+
+Quedó dolido el corazón
+Pero ha ganado la razón
+Supo entender
+Es el mismo de ayer
+El que sus sueños compartió
+Y de su mano caminó
+Su hijo que tanto amó
+
+Le dijo que sus sueños no han cambiado
+Lo que ayer juntos soñaron puede hacerse realidad
+Le dijo padre ven toma mi mano
+Si ayer juntos caminamos hoy no me dejes caer
+Le habló de cosas simples de la vida
+Que habrá de enfrentar un día
+Y que no podrá sin él
+
+Quedó dolido el corazón
+Pero ha ganado la razón
+Supo entender
+Es el mismo de ayer
+El que sus sueños compartió
+Y de su mano caminó
+Su hijo que tanto amó
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">8</span>
+            <span>Amantes en el silencio</span>
+          </div>
+          <div class="lyric">
+Dice que tiene otro amor y se muere por mis besos
+Que no ha sentido las caricias que le di en otro cuerpo
+Y que en sus brazos no le entregan el calor
+Que a escondidas una noche yo le di
+Y que en silencio ha mordido sus labios
+Por no gritar mi nombre
+En brazos de ese hombre
+
+Secreto amor
+Mi dulce amante en el silencio
+Cada caricia ha de guardar
+En el desnudo del deseo
+Cuando mis labios reclamen sus noches
+Recorriendo tu cuerpo
+Ardiente de deseo
+
+Y de su mano al pasar, al resentirte señora
+Y mi recuerdo lo has llevado junto a ti a cada hora
+Y sigo siendo aquel dueño de tu piel
+El que estremece cada espacio de tu ser
+Aquel que amas y muerdes tus labios por no gritar mi nombre
+En brazos de ese hombre
+
+Secreto amor
+Mi dulce amante en el silencio
+Cada caricia ha de guardar
+En el desnudo del deseo
+Cuando mis labios reclamen sus noches
+Recorriendo tu cuerpo
+Ardiente de deseo
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">9</span>
+            <span>Primer amor</span>
+          </div>
+          <div class="lyric">
+Primer amor
+El que te roba el corazón sin dejar nada
+El que llenó
+Aquel vacío de ilusión que había en tu alma
+A quien podrías darle el mundo si quisieras
+Y a quien podrías entregar la vida entera
+Primer amor
+El que te rompe el corazón en mil pedazos
+Porque tal vez
+Ya no lo puedes cobijar entre tus brazos
+El que no sabe que en las noches ya no duermes
+Y a quien podrías darle todo por tenerle
+
+Es este amor el que te aferra a la vida
+Y que jamás te dejará una salida
+Si no lo tienes todo se vuelve un infierno
+Primer amor, primer amor eterno
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">10</span>
+            <span>Un juguete en tu vida</span>
+          </div>
+          <div class="lyric">
+Me había acostumbrado a tu manera de querer
+Me había acostumbrado a rendirme yo a tus pies
+El amor que me dabas era solo mentiras
+Yo solo fui un capricho, un juguete en tu vida
+Me había acostumbrado a escuchar
+Que tú eras mía
+Me había acostumbrado a pensar que me querías
+El juego se acabó
+Ya no quiero perder
+Ya no quiero tus besos
+Y estar a tu lado eres falsa mujer
+
+La que pierde eres tú, al marcharte de aquí
+La que pierde eres tú, al reírte de mí
+No me causas dolor, porque ya te olvidé
+El amor que era tuyo, que un día te tuve, tiene otro querer
+          </div>
+        </li>
+      </ul>
     </div>
+
+    <!-- Video destacado -->
     <div class="video-section" style="margin-top: 30px;">
       <h3 style="margin-bottom: 20px; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--accent);">Video destacado</h3>
       <div class="video-card">
-        <iframe src="https://www.youtube.com/embed/uMcRT3BBNHo?rel=0&modestbranding=1&playsinline=1" title="Video" allowfullscreen loading="lazy"></iframe>
+        <iframe
+          src="https://www.youtube.com/embed/uMcRT3BBNHo?rel=0&modestbranding=1&playsinline=1"
+          title="Otro amor en mi vida - Grupo Tradiciones"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"></iframe>
       </div>
     </div>
   </section>
 
+  <!-- PRESENTACIONES ACTUALIZADAS -->
   <section id="presentaciones" class="section reveal">
     <h3>Presentaciones</h3>
     <div class="gigs">
-      <div class="gig" style="opacity: 0.6;">
-        <div class="date"><span class="day">13</span><span class="mon">DIC</span></div>
+      <!-- Evento pasado -->
+      <div class="gig" style="opacity: 0.6; filter: grayscale(0.8);">
+        <div class="date" style="background: #333;">
+          <span class="day">13</span>
+          <span class="mon">DIC</span>
+        </div>
         <div class="details">
-          <h4>EN CONCIERTO</h4>
-          <p>13 de Diciembre 2024 | 18:00 HRS</p>
-          <p>Edificio Consistorial de Coquimbo</p>
-          <p><strong>EVENTO REALIZADO</strong></p>
+          <h4 style="text-decoration: line-through; color: var(--muted);">EN CONCIERTO</h4>
+          <p style="color: var(--muted);">13 de Diciembre 2024 | 18:00 HRS</p>
+          <p style="color: var(--muted);">Edificio Consistorial de Coquimbo</p>
+          <p style="color: var(--muted);"><strong>EVENTO REALIZADO</strong> — Gracias a todos los asistentes</p>
         </div>
       </div>
     </div>
+    
     <div style="text-align: center; margin-top: 30px; padding: 30px; border: 1px dashed var(--accent); border-radius: 14px; background: rgba(227,176,75,0.05);">
-      <h4 style="font-family: 'Cormorant Garamond', serif; color: var(--accent); font-size: 1.5rem;">Próximas Presentaciones</h4>
-      <p style="color: var(--muted);">Estamos preparando nuevas fechas para 2025</p>
+      <h4 style="font-family: 'Cormorant Garamond', serif; color: var(--accent); font-size: 1.5rem; margin-bottom: 10px;">Próximas Presentaciones</h4>
+      <p style="color: var(--muted); font-size: 1.1rem;">Estamos preparando nuevas fechas para este 2025</p>
+      <p style="color: var(--muted); margin-top: 10px; font-size: 0.9rem;">Síguenos en redes para enterarte de los próximos conciertos</p>
     </div>
   </section>
 
+  <!-- CONTACTO -->
   <footer id="contacto">
     <div style="margin-bottom: 16px;">
       <button class="btn" id="wspBtn">Contrataciones por WhatsApp</button>
       <div id="num">+56 9 5869 3051 (copiado)</div>
     </div>
+
+    <!-- Redes sociales -->
     <div class="social">
-      <a class="chip chip--fb" href="#"><svg viewBox="0 0 24 24"><path d="M22 12A10 10 0 1 0 10.5 21.9v-7H7.9v-3h2.6V9.4c0-2.1 1.3-3.9 3.9-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 3h-2.4v6.9A10 10 0 0 0 22 12z"/></svg>Facebook</a>
-      <a class="chip chip--yt" href="https://www.youtube.com/@grupotradicionescuartaregi2251"><svg viewBox="0 0 24 24"><path d="M23 7.3s-.2-1.6-.8-2.2c-.6-.7-1.3-.9-2.1-1C17.9 3.6 12 3.6 12 3.6s-5.9 0-8.1.5c-.8.1-1.5.3-2.1 1C1.2 5.7 1 7.3 1 7.3S.8 9 .8 10.7v1.4C.8 13.8 1 15.5 1 15.5s.2 1.6.8 2.2c.6.7 1.3.9 2.1 1 2.2.5 8.1.5 8.1.5s5.9 0 8.1-.5c.8-.1 1.5-.3 2.1-1 .6-.6.8-2.2.8-2.2s.2-1.7.2-3.4v-1.4c0-1.7-.2-3.4-.2-3.4z"/><path d="M10 15V9l5.2 3L10 15z" fill="#fff"/></svg>YouTube</a>
-      <a class="chip chip--ig" href="https://www.instagram.com/grupo.tradiciones_oficial/"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.8a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6z"/><circle cx="12" cy="12" r="3.2" fill="#fff"/></svg>Instagram</a>
-      <a class="chip chip--tt" href="#"><svg viewBox="0 0 24 24"><path d="M12.7 2h5.1v4.2a6 6 0 0 0 4.2 1.7v4.3a8.7 8.7 0 0 1-4.2-1.1v6.4a5.7 5.7 0 1 1-5.7-5.7h.6v3a2.7 2.7 0 1 0 2.7-2.7V2z"/></svg>TikTok</a>
+      <a class="chip chip--fb" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M22 12A10 10 0 1 0 10.5 21.9v-7H7.9v-3h2.6V9.4c0-2.1 1.3-3.9 3.9-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 3h-2.4v6.9A10 10 0 0 0 22 12z"/>
+        </svg>
+        Facebook
+      </a>
+
+      <a class="chip chip--yt" href="https://www.youtube.com/@grupotradicionescuartaregi2251" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M23 7.3s-.2-1.6-.8-2.2c-.6-.7-1.3-.9-2.1-1C17.9 3.6 12 3.6 12 3.6s-5.9 0-8.1.5c-.8.1-1.5.3-2.1 1C1.2 5.7 1 7.3 1 7.3S.8 9 .8 10.7v1.4C.8 13.8 1 15.5 1 15.5s.2 1.6.8 2.2c.6.7 1.3.9 2.1 1 2.2.5 8.1.5 8.1.5s5.9 0 8.1-.5c.8-.1 1.5-.3 2.1-1 .6-.6.8-2.2.8-2.2s.2-1.7.2-3.4v-1.4c0-1.7-.2-3.4-.2-3.4z"/>
+          <path d="M10 15V9l5.2 3L10 15z" fill="#fff"/>
+        </svg>
+        YouTube 1
+      </a>
+
+      <a class="chip chip--yt" href="https://www.youtube.com/@GrupoTradiciones-v9z4k" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M23 7.3s-.2-1.6-.8-2.2c-.6-.7-1.3-.9-2.1-1C17.9 3.6 12 3.6 12 3.6s-5.9 0-8.1.5c-.8.1-1.5.3-2.1 1C1.2 5.7 1 7.3 1 7.3S.8 9 .8 10.7v1.4C.8 13.8 1 15.5 1 15.5s.2 1.6.8 2.2c.6.7 1.3.9 2.1 1 2.2.5 8.1.5 8.1.5s5.9 0 8.1-.5c.8-.1 1.5-.3 2.1-1 .6-.6.8-2.2.8-2.2s.2-1.7.2-3.4v-1.4c0-1.7-.2-3.4-.2-3.4z"/>
+          <path d="M10 15V9l5.2 3L10 15z" fill="#fff"/>
+        </svg>
+        YouTube 2
+      </a>
+
+      <a class="chip chip--ig" href="https://www.instagram.com/grupo.tradiciones_oficial/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.8a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6z"/>
+          <circle cx="12" cy="12" r="3.2" fill="#fff"/>
+        </svg>
+        Instagram
+      </a>
+
+      <a class="chip chip--tt" href="" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12.7 2h5.1v4.2a6 6 0 0 0 4.2 1.7v4.3a8.7 8.7 0 0 1-4.2-1.1v6.4a5.7 5.7 0 1 1-5.7-5.7h.6v3a2.7 2.7 0 1 0 2.7-2.7V2z"/>
+        </svg>
+        TikTok
+      </a>
     </div>
-    <small class="muted" style="display:block; margin-top:24px;">© Grupo Tradiciones — Sitio oficial</small>
+
+    <small class="muted" style="display:block; margin-top:24px; letter-spacing: 0.1em;">© Grupo Tradiciones — Sitio oficial</small>
   </footer>
 
+  <!-- Botón arriba -->
   <button id="totop">↑</button>
 
   <script>
-    // Detectar preferencias
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-
-    // Datos de canciones simplificados
-    const cancionesCuna = [
-      {num: 1, titulo: "Otro querer", letra: "Que te marchas mujer..."},
-      {num: 2, titulo: "El viejo Pablo", letra: "Se pasa el tiempo solo..."},
-      {num: 3, titulo: "Tanto amor", letra: "Noches de luna..."},
-      {num: 4, titulo: "Almendra", letra: "Eres tú quien ocupa..."},
-      {num: 5, titulo: "Vete ya", letra: "Vete, vete ya..."},
-      {num: 6, titulo: "Palabras para ti", letra: "Escribiré una carta..."},
-      {num: 7, titulo: "Candombe del tiempo", letra: "Tanto tiempo tratando..."},
-      {num: 8, titulo: "Cuna de verso y poemas", letra: "Hoy quiero cantar..."}
+    // =====================================================
+    // LISTA DE TUS 58 FOTOS - CON ESPACIO: "foto 1.jpg", "foto 2.jpg", etc.
+    // =====================================================
+    const todasLasFotos = [
+      // Fila 1 - Fotos 1-20
+      "foto 1.jpg", "foto 2.jpg", "foto 3.jpg", "foto 4.jpg", "foto 5.jpg",
+      "foto 6.jpg", "foto 7.jpg", "foto 8.jpg", "foto 9.jpg", "foto 10.jpg",
+      "foto 11.jpg", "foto 12.jpg", "foto 13.jpg", "foto 14.jpg", "foto 15.jpg",
+      "foto 16.jpg", "foto 17.jpg", "foto 18.jpg", "foto 19.jpg", "foto 20.jpg",
+      
+      // Fila 2 - Fotos 21-39
+      "foto 21.jpg", "foto 22.jpg", "foto 23.jpg", "foto 24.jpg", "foto 25.jpg",
+      "foto 26.jpg", "foto 27.jpg", "foto 28.jpg", "foto 29.jpg", "foto 30.jpg",
+      "foto 31.jpg", "foto 32.jpg", "foto 33.jpg", "foto 34.jpg", "foto 35.jpg",
+      "foto 36.jpg", "foto 37.jpg", "foto 38.jpg", "foto 39.jpg",
+      
+      // Fila 3 - Fotos 40-58
+      "foto 40.jpg", "foto 41.jpg", "foto 42.jpg", "foto 43.jpg", "foto 44.jpg",
+      "foto 45.jpg", "foto 46.jpg", "foto 47.jpg", "foto 48.jpg", "foto 49.jpg",
+      "foto 50.jpg", "foto 51.jpg", "foto 52.jpg", "foto 53.jpg", "foto 54.jpg",
+      "foto 55.jpg", "foto 56.jpg", "foto 57.jpg", "foto 58.jpg"
     ];
 
-    const cancionesVoz = [
-      {num: 1, titulo: "¿A dónde fue el amor?", letra: "¿Cómo saber si el amor..."},
-      {num: 2, titulo: "Otro amor en mi vida", letra: "Tú que creías que por ti..."},
-      {num: 3, titulo: "Dulce niña", letra: "Ya no sé cómo empezar..."},
-      {num: 4, titulo: "Si yo volviera a nacer", letra: "Si yo volviera a nacer..."},
-      {num: 5, titulo: "Sueños y libertad", letra: "Uno tras uno forman..."},
-      {num: 6, titulo: "Que me olvide de ti", letra: "Que me mate el recuerdo..."},
-      {num: 7, titulo: "Amor diferente", letra: "Le dijo que su amor..."},
-      {num: 8, titulo: "Amantes en el silencio", letra: "Dice que tiene otro amor..."},
-      {num: 9, titulo: "Primer amor", letra: "Primer amor..."},
-      {num: 10, titulo: "Un juguete en tu vida", letra: "Me había acostumbrado..."}
-    ];
+    // Variables globales para el lightbox
+    let currentLightboxIndex = 0;
+    let lightboxImages = [];
 
-    function renderTracks(canciones, containerId) {
-      const container = document.getElementById(containerId);
-      canciones.forEach(cancion => {
-        const li = document.createElement('li');
-        li.className = 'track';
-        li.innerHTML = `
-          <div class="track-header" onclick="toggleLyric(this)">
-            <span class="num">${cancion.num}</span>
-            <span>${cancion.titulo}</span>
-          </div>
-          <div class="lyric">${cancion.letra}</div>
-        `;
-        container.appendChild(li);
-      });
-    }
-
-    renderTracks(cancionesCuna, 'tracks-cuna');
-    renderTracks(cancionesVoz, 'tracks-voz');
-
-    // Galería optimizada
-    const todasLasFotos = Array.from({length: 58}, (_, i) => `Foto ${i + 1}.jpg`);
-    const fila1 = todasLasFotos.slice(0, 20);
-    const fila2 = todasLasFotos.slice(20, 39);
-    const fila3 = todasLasFotos.slice(39, 58);
+    // =====================================================
+    // GENERADOR DE GALERÍA CON FOTOS ENUMERADAS
+    // =====================================================
+    
+    // Dividir en 3 grupos
+    const fila1 = todasLasFotos.slice(0, 20);    // Fotos 1-20
+    const fila2 = todasLasFotos.slice(20, 39);   // Fotos 21-39
+    const fila3 = todasLasFotos.slice(39, 58);   // Fotos 40-58
 
     function crearGaleria(fotos, contenedorId, startIndex) {
       const contenedor = document.getElementById(contenedorId);
+      
+      // Duplicar fotos para efecto infinito
       const fotosDuplicadas = [...fotos, ...fotos];
       
       fotosDuplicadas.forEach((foto, index) => {
-        const globalIndex = startIndex + (index % fotos.length);
         const item = document.createElement('div');
         item.className = 'gallery-item';
+        
+        // Calcular número de foto (1-58)
+        const fotoIndex = index % fotos.length;
+        const globalIndex = startIndex + fotoIndex;
+        const numeroFoto = globalIndex + 1;
+        
         item.innerHTML = `
-          <img src="fotos/${foto}" alt="Foto ${globalIndex + 1}" loading="lazy" 
-               onerror="this.style.display='none'"
+          <img src="fotos/${foto}" alt="Foto ${numeroFoto}" loading="lazy" 
+               onerror="this.src='placeholder.jpg'"
                onclick="openLightbox(${globalIndex})">
-          <div class="gallery-caption">
-            <h4>Foto ${globalIndex + 1}</h4>
+          <div class="gallery-caption" onclick="openLightbox(${globalIndex})">
+            <h4>Foto ${numeroFoto}</h4>
+            <p>Click para ampliar</p>
           </div>
         `;
+        
         contenedor.appendChild(item);
       });
     }
 
-    crearGaleria(fila1, 'row1', 0);
-    crearGaleria(fila2, 'row2', 20);
-    crearGaleria(fila3, 'row3', 39);
+    // Crear las 3 filas con índices correctos
+    crearGaleria(fila1, 'row1', 0);    // Fotos 1-20
+    crearGaleria(fila2, 'row2', 20);   // Fotos 21-39
+    crearGaleria(fila3, 'row3', 39);   // Fotos 40-58
 
-    // Lightbox
-    let currentLightboxIndex = 0;
-    const lightboxImages = todasLasFotos.map((foto, i) => ({
+    // Preparar array para lightbox
+    lightboxImages = todasLasFotos.map((foto, index) => ({
       src: `fotos/${foto}`,
-      title: `Foto ${i + 1}`
+      title: `Foto ${index + 1}`,
+      desc: `Imagen ${index + 1} de ${todasLasFotos.length}`
     }));
 
+    // =====================================================
+    // NAVEGACIÓN MANUAL DE FILAS
+    // =====================================================
+    
+    const rowPositions = { row1: 0, row2: 0, row3: 0 };
+    
+    function moveGallery(rowId, direction) {
+      const row = document.getElementById(rowId);
+      const itemWidth = 444; // ancho 420 + gap 24
+      const maxScroll = (row.children.length / 2) * itemWidth;
+      
+      // Pausar animación
+      row.classList.add('paused');
+      
+      // Actualizar posición
+      rowPositions[rowId] += direction * itemWidth * 2; // Mover 2 fotos
+      
+      // Limitar
+      if (rowPositions[rowId] > 0) rowPositions[rowId] = -maxScroll + itemWidth * 2;
+      if (rowPositions[rowId] < -maxScroll) rowPositions[rowId] = 0;
+      
+      // Aplicar transform
+      row.style.transform = `translateX(${rowPositions[rowId]}px)`;
+      row.style.animation = 'none';
+      
+      // Reanudar después de 3 segundos
+      setTimeout(() => {
+        row.classList.remove('paused');
+        row.style.transform = '';
+        row.style.animation = '';
+      }, 3000);
+    }
+
+    // =====================================================
+    // LIGHTBOX
+    // =====================================================
+    
     function openLightbox(index) {
       currentLightboxIndex = index;
       updateLightbox();
@@ -1164,7 +2364,7 @@
     }
 
     function closeLightbox(event) {
-      if (!event || event.target.id === 'lightbox' || event.target.closest('.lightbox-close')) {
+      if (!event || event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
         document.getElementById('lightbox').classList.remove('active');
         document.body.style.overflow = '';
       }
@@ -1174,57 +2374,86 @@
       const img = lightboxImages[currentLightboxIndex];
       document.getElementById('lightboxImg').src = img.src;
       document.getElementById('lightboxTitle').textContent = img.title;
-      document.getElementById('lightboxCounter').textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
+      document.getElementById('lightboxDesc').textContent = img.desc;
+      document.getElementById('lightboxCounter').textContent = 
+        `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
     }
 
     function changeImage(direction) {
-      currentLightboxIndex = (currentLightboxIndex + direction + lightboxImages.length) % lightboxImages.length;
+      currentLightboxIndex += direction;
+      
+      if (currentLightboxIndex < 0) {
+        currentLightboxIndex = lightboxImages.length - 1;
+      } else if (currentLightboxIndex >= lightboxImages.length) {
+        currentLightboxIndex = 0;
+      }
+      
       updateLightbox();
     }
 
-    function toggleLyric(element) {
-      const track = element.parentElement;
-      const lyric = track.querySelector('.lyric');
-      const isOpen = lyric.classList.contains('show');
-      
-      // Cerrar todos
-      document.querySelectorAll('.lyric').forEach(l => l.classList.remove('show'));
-      document.querySelectorAll('.track-header').forEach(h => h.classList.remove('active'));
-      
-      // Abrir este si estaba cerrado
-      if (!isOpen) {
-        lyric.classList.add('show');
-        element.classList.add('active');
-      }
-    }
-
-    // Event listeners
+    // Teclado para lightbox
     document.addEventListener('keydown', (e) => {
       if (!document.getElementById('lightbox').classList.contains('active')) return;
+      
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowLeft') changeImage(-1);
       if (e.key === 'ArrowRight') changeImage(1);
     });
 
+    // =====================================================
+    // FUNCIONES ORIGINALES DEL SITIO
+    // =====================================================
+    
+    // Función para mostrar/ocultar letras
+    function toggleLyric(element) {
+      const track = element.parentElement;
+      const lyric = track.querySelector('.lyric');
+      const allTracks = track.parentElement.querySelectorAll('.track');
+      
+      allTracks.forEach(t => {
+        if (t !== track) {
+          t.querySelector('.lyric').classList.remove('show');
+          t.querySelector('.track-header').classList.remove('active');
+        }
+      });
+      
+      lyric.classList.toggle('show');
+      element.classList.toggle('active');
+    }
+
     // WhatsApp
-    document.getElementById('wspBtn').addEventListener('click', async () => {
-      document.getElementById('num').style.display = 'inline-block';
+    const btn = document.getElementById('wspBtn');
+    const num = document.getElementById('num');
+    const telefono = '+56958693051';
+    btn.addEventListener('click', async () => {
+      num.style.display = 'inline-block';
       try { await navigator.clipboard.writeText('+56 9 5869 3051'); } catch(e){}
-      window.open('https://wa.me/56958693051', '_blank');
+      window.open('https://wa.me/' + telefono, '_blank');
+    });
+
+    // Parallax hero
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const parallax = document.getElementById('parallax-bg');
+      if (parallax) {
+        parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
     });
 
     // Header scroll
     const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
       header.classList.toggle('scrolled', window.scrollY > 50);
-    }, { passive: true });
+    });
 
-    // Reveal on scroll
+    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
@@ -1232,21 +2461,8 @@
     const topBtn = document.getElementById('totop');
     window.addEventListener('scroll', () => {
       topBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
-    }, { passive: true });
-    
-    topBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
     });
-
-    // Touch optimizations
-    if (isTouchDevice) {
-      document.body.classList.add('touch-device');
-      
-      // Prevenir bounce en iOS
-      document.addEventListener('touchmove', function(e) {
-        if (e.target.closest('.lightbox')) return;
-      }, { passive: true });
-    }
+    topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   </script>
 </body>
 </html>

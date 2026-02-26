@@ -1,238 +1,1403 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Grupo Tradiciones — Sitio Oficial</title>
+  
   <!-- Favicons -->
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
 
   <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/jpg" href="logo.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- SEO básico -->
+  <!-- SEO -->
   <meta name="description" content="Grupo Tradiciones: folclor y música andina con identidad propia. Presentaciones, biografía, música y contacto." />
   <meta name="keywords" content="Grupo Tradiciones, música andina, folclor, Chile, presentaciones, contrataciones" />
   <meta name="robots" content="index,follow" />
 
-  <!-- OG -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Grupo Tradiciones - Sitio oficial">
   <meta property="og:description" content="Folclor y música andina con identidad propia.">
   <meta property="og:image" content="logo.jpg">
 
-  <style> /* === ANIMACIONES Y MICRO-INTERACCIONES === */
-@media (prefers-reduced-motion: no-preference){
-
-  /* Fade-in general */
-  .fade-in{ 
-    opacity:0; 
-    transform:translateY(12px); 
-    filter:blur(2px); 
-  }
-  .fade-in.is-in{ 
-    opacity:1; 
-    transform:none; 
-    filter:blur(0); 
-    transition:opacity .6s ease, transform .6s ease, filter .6s ease; 
-  }
-
-  /* Entrada escalonada (para grillas, ej: carátulas) */
-  .stagger > *{ opacity:0; transform:translateY(10px); }
-  .stagger.is-in > *{
-    opacity:1; transform:none;
-    transition:opacity .6s ease, transform .6s ease;
-  }
-  .stagger.is-in > *:nth-child(1){ transition-delay:.05s }
-  .stagger.is-in > *:nth-child(2){ transition-delay:.12s }
-  .stagger.is-in > *:nth-child(3){ transition-delay:.18s }
-  .stagger.is-in > *:nth-child(4){ transition-delay:.24s }
-
-  /* Acordeón (apertura de letras más suave) */
-  .track details[open] > div.lyric{ animation: drop .28s ease; }
-  @keyframes drop{ from{ opacity:.6; transform: translateY(-6px)} to{ opacity:1; transform:none } }
-
-  /* Hover elegante en tarjetas */
-  .album-card{ transform:translateY(0) scale(1); transition: transform .2s ease, box-shadow .2s ease; }
-  .album-card:hover{ transform: translateY(-4px) scale(1.02); box-shadow: 0 18px 50px rgba(0,0,0,.5); }
-
-  /* Botones con feedback */
-  .btn{ transition: transform .12s ease, box-shadow .2s ease; }
-  .btn:active{ transform: scale(.98); box-shadow:none; }
-
-  /* Header con sombra al scrollear */
-  header{ transition: box-shadow .25s ease, background-color .25s ease; }
-  header.scrolled{ box-shadow: 0 10px 30px rgba(0,0,0,.35); background: rgba(0,0,0,.55); }
-}
-
-    :root{
-      --accent:#e3b04b;         /* dorado */
-      --ink:#f3f3f3;
-      --bg:#0f0f0f;
-      --panel:rgba(255,255,255,.04);
-      --hair:rgba(255,255,255,.14);
-      --muted:#cfcfcf;
+  <style>
+    /* === VARIABLES === */
+    :root {
+      --accent: #e3b04b;
+      --accent-light: #f4d03f;
+      --accent-glow: rgba(227, 176, 75, 0.6);
+      --ink: #f3f3f3;
+      --bg: #0f0f0f;
+      --panel: rgba(255,255,255,.04);
+      --hair: rgba(255,255,255,.14);
+      --muted: #cfcfcf;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; color:var(--ink);
-      font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif;
-      background:#0c0c0c url("IMG-20250930-WA0004.jpg") center/cover fixed no-repeat;
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    
+    /* === BODY LIMPIO === */
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      overflow-x: hidden;
+      position: relative;
     }
-    body::before{
-      content:""; position:fixed; inset:0; z-index:-1;
+    
+    /* Fondo fijo optimizado - Capa separada */
+    .bg-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh; /* Soporte para móviles modernos */
+      background: #0c0c0c url("IMG-20250930-WA0004.jpg") center center / cover no-repeat;
+      z-index: -2;
+      will-change: transform;
+    }
+    
+    /* Overlay del fondo */
+    .bg-layer::after {
+      content: "";
+      position: absolute;
+      inset: 0;
       background:
-        linear-gradient(180deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,.45) 40%, rgba(0,0,0,.75) 100%),
-        radial-gradient(60% 80% at 50% -10%, rgba(0,0,0,.35), transparent 60%);
+        linear-gradient(180deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.4) 40%, rgba(0,0,0,.8) 100%),
+        radial-gradient(ellipse at 50% 0%, rgba(227,176,75,0.15) 0%, transparent 50%),
+        radial-gradient(60% 80% at 50% -10%, rgba(0,0,0,.4), transparent 60%);
+      pointer-events: none;
     }
 
-    /* Header */
-    header{
-      text-align:center; padding:26px 16px 14px;
-      background:rgba(0,0,0,.42); border-bottom:1px solid var(--hair);
-      backdrop-filter: blur(8px);
-      position:sticky; top:0; z-index:50;
-    }
-    header .brand{
-      display:flex; align-items:center; justify-content:center; gap:14px;
-    }
-    header img{height:72px; border-radius:10px; box-shadow:0 12px 28px rgba(0,0,0,.5)}
-    header h1{
-      margin:0; font-family:"Playfair Display",serif; font-weight:800;
-      letter-spacing:.6px; color:var(--accent); text-shadow:0 8px 40px rgba(0,0,0,.55)
-    }
-    nav{margin-top:10px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap}
-    nav a{
-      text-decoration:none; color:#f7f7f7; font-weight:700; font-size:.95rem;
-      padding:8px 14px; border-radius:999px; border:1px solid transparent;
-      background:transparent; transition:.18s;
-    }
-    nav a:hover{ background:var(--accent); color:#111; box-shadow:0 10px 26px rgba(227,176,75,.35) }
-
-    /* Hero */
-    .hero{ text-align:center; padding:70px 16px 38px }
-    .hero h2{
-      margin:0 0 8px; font-family:"Playfair Display",serif; font-weight:800;
-      font-size:2.4rem; letter-spacing:.3px;
-    }
-    .hero p{ margin:0; color:var(--muted); font-weight:600 }
-
-    /* Section base */
-    .section{
-      max-width:1100px; margin:20px auto; padding:24px;
-      background:var(--panel); border:1px solid var(--hair); border-radius:18px;
-      box-shadow:0 24px 60px rgba(0,0,0,.38); backdrop-filter: blur(4px);
-    }
-    .section h3{
-      margin:0 0 12px; font-family:"Playfair Display",serif; font-size:1.9rem; letter-spacing:.3px;
-    }
-    .muted{color:var(--muted)}
-
-    /* Intro box */
-    .intro{
-      max-width:1100px; margin:20px auto; padding:20px 24px;
-      border:1px solid var(--accent); border-radius:14px;
-      background:rgba(227,176,75,.08);
-      box-shadow:0 10px 30px rgba(227,176,75,.25);
-      line-height:1.8;
+    /* En móvil: desactivar comportamientos problemáticos */
+    @media (max-width: 768px) {
+      .bg-layer {
+        position: fixed;
+        /* Eliminar will-change en móvil para evitar repaints costosos */
+        will-change: auto;
+        /* Asegurar que cubra todo */
+        height: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
     }
 
-    /* Discos grid */
-    .albums{
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;
+    /* === MARQUEE TRUEBLOOD STYLE === */
+    .marquee-container {
+      background: var(--accent);
+      padding: 18px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(227,176,75,0.3);
     }
-    .album-card{
-      background:rgba(255,255,255,.03); border:1px solid var(--hair); border-radius:14px; overflow:hidden;
-      transition:.18s; cursor:pointer; text-decoration:none; color:inherit;
-    }
-    .album-card:hover{ transform:translateY(-2px); box-shadow:0 16px 40px rgba(0,0,0,.45) }
-    .album-card img{ width:100%; height:220px; object-fit:cover; display:block }
-    .album-card .p{ padding:12px 14px }
-    .album-card h4{ margin:0; font-size:1.05rem }
-    .album-card small{ color:var(--muted) }
 
-    /* Acordeón (lista canciones) */
-    .album{
-      margin-top:8px; border:1px solid var(--hair); border-radius:14px; overflow:hidden;
-      background:rgba(0,0,0,.28)
+    .marquee-container.reverse {
+      background: transparent;
+      border-top: 1px solid var(--accent);
+      border-bottom: 1px solid var(--accent);
+      box-shadow: 0 0 30px rgba(227,176,75,0.2);
     }
-    .album .head{
-      display:flex; align-items:center; gap:10px; justify-content:space-between;
-      padding:14px 16px; background:rgba(255,255,255,.03);
-    }
-    .album .head h4{ margin:0; font-size:1.1rem }
-    .album .head .badge{background:var(--accent); color:#111; font-weight:800; padding:3px 8px; border-radius:999px; font-size:.8rem}
-    .tracks{ list-style:none; margin:0; padding:0 }
-    .track{ border-top:1px solid var(--hair) }
-    .track summary{
-      list-style:none; cursor:pointer; padding:12px 16px; font-weight:700; display:flex; gap:10px; align-items:center;
-    }
-    .track summary::-webkit-details-marker{display:none}
-    .track summary:hover{ background:rgba(255,255,255,.05) }
-    .track .num{
-      width:28px; height:28px; display:inline-grid; place-items:center; border:1px solid var(--hair);
-      border-radius:8px; font-weight:800; color:#ddd; font-size:.85rem;
-    }
-    .lyric{ padding:0 16px 14px; color:#f1f1f1; line-height:1.7; white-space:pre-line }
 
-    /* Presentaciones y footer */
-    .gigs{ display:grid; gap:12px }
-    .gig{
-      display:grid; grid-template-columns:80px 1fr; gap:14px; align-items:center;
-      background:rgba(255,255,255,.03); border:1px solid var(--hair); border-radius:12px; padding:12px 14px;
+    .marquee-content {
+      display: inline-block;
+      animation: scroll 60s linear infinite;
     }
-    .date{ display:grid; place-items:center; border-radius:12px; background:#0f0f0f; border:1px solid var(--hair); min-height:64px }
-    .mon{ font-weight:800; color:var(--accent) }
 
-    footer{ text-align:center; margin:44px 0 26px }
-    .btn{
-      display:inline-block; padding:12px 16px; border-radius:10px; background:var(--accent); color:#111; font-weight:800;
-      text-decoration:none; border:none; cursor:pointer; box-shadow:0 12px 28px rgba(227,176,75,.35)
+    .marquee-container.reverse .marquee-content {
+      animation-direction: reverse;
     }
-    #num{ display:none; margin-top:10px; font-weight:800; background:rgba(255,255,255,.05); border:1px solid var(--hair); padding:8px 12px; border-radius:10px }
 
-    /* Redes */
-    .social{ margin-top:16px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap }
-    .chip{
-      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px;
-      border:1px solid var(--hair); color:#fff; text-decoration:none; font-weight:700; transition:.18s;
+    .marquee-text {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      padding: 0 60px;
+      color: #111;
+      position: relative;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.3);
     }
-    .chip svg{ width:18px; height:18px; fill:currentColor }
-    .chip:hover{ transform:translateY(-1px); filter:brightness(.95) }
-    .chip--fb{ background:#1877F2; border-color:#0d49a1 }
-    .chip--yt{ background:#FF0000; border-color:#a30000 }
-    .chip--ig{
-      background: radial-gradient(45% 60% at 30% 30%, #ffd776 0 40%, transparent 41%) ,
+
+    .marquee-container.reverse .marquee-text {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(227,176,75,0.5);
+    }
+
+    .marquee-text::after {
+      content: '•';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.5;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* === HEADER PRO === */
+    header {
+      text-align: center;
+      padding: 26px 16px 14px;
+      background: rgba(0,0,0,.5);
+      border-bottom: 1px solid var(--hair);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      transition: var(--transition);
+    }
+
+    header.scrolled {
+      background: rgba(0,0,0,.9);
+      box-shadow: 0 10px 40px rgba(0,0,0,.7), 0 0 30px rgba(227,176,75,0.1);
+      padding: 16px;
+    }
+
+    header .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    header img {
+      height: 72px;
+      border-radius: 10px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.5), 0 0 20px rgba(227,176,75,0.2);
+      transition: var(--transition);
+      border: 2px solid transparent;
+    }
+
+    header img:hover {
+      transform: scale(1.05) rotate(2deg);
+      border-color: var(--accent);
+      box-shadow: 0 15px 35px rgba(0,0,0,.6), 0 0 30px rgba(227,176,75,0.4);
+    }
+
+    /* === TÍTULO SIN EFECTOS === */
+    header h1 {
+      margin: 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 2.4rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    nav {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #f7f7f7;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+
+    nav a:hover {
+      color: #111;
+      border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(227,176,75,0.4);
+    }
+
+    nav a:hover::before {
+      left: 0;
+    }
+
+    /* === HERO SIMPLIFICADO === */
+    .hero-wrapper {
+      position: relative;
+      height: 70vh;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* En móvil, hero más compacto */
+    @media (max-width: 768px) {
+      .hero-wrapper {
+        height: 50vh;
+        min-height: 400px;
+      }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,.6) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      text-align: center;
+      z-index: 2;
+      animation: fadeInUp 1.2s ease-out;
+      padding: 0 20px;
+    }
+
+    .hero-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 400;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .hero-content p {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      margin-top: 20px;
+      color: var(--ink);
+      font-weight: 300;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* === SECCIONES BASE === */
+    .section {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 24px;
+      background: var(--panel);
+      border: 1px solid var(--hair);
+      border-radius: 18px;
+      box-shadow: 
+        0 24px 60px rgba(0,0,0,.38),
+        0 0 30px rgba(227,176,75,0.05);
+      backdrop-filter: blur(4px);
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      box-shadow: 
+        0 30px 70px rgba(0,0,0,.45),
+        0 0 40px rgba(227,176,75,0.1);
+      border-color: rgba(227,176,75,0.2);
+    }
+
+    .section h3 {
+      margin: 0 0 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      text-shadow: 0 0 20px rgba(227,176,75,0.3);
+    }
+
+    .muted { color: var(--muted); }
+
+    /* === INTRO BOX === */
+    .intro {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 28px 32px;
+      border: 1px solid var(--accent);
+      border-radius: 14px;
+      background: rgba(227,176,75,.08);
+      box-shadow: 
+        0 10px 30px rgba(227,176,75,.25),
+        0 0 30px rgba(227,176,75,0.1),
+        inset 0 0 20px rgba(227,176,75,0.05);
+      line-height: 1.9;
+      font-size: 1.1rem;
+      font-family: 'Cormorant Garamond', serif;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .intro:hover {
+      box-shadow: 
+        0 15px 40px rgba(227,176,75,.35),
+        0 0 50px rgba(227,176,75,0.15),
+        inset 0 0 30px rgba(227,176,75,0.08);
+      transform: translateY(-2px);
+    }
+
+    .intro::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      font-size: 8rem;
+      color: var(--accent);
+      opacity: 0.1;
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1;
+    }
+
+    .intro strong {
+      color: var(--accent);
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(227,176,75,0.3);
+    }
+
+    /* === GALERÍA CON FOTOS PRO === */
+    .gallery-section {
+      margin: 40px 0;
+      position: relative;
+    }
+
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 0 20px;
+    }
+
+    .gallery-header h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      text-shadow: 0 0 20px rgba(227,176,75,0.4);
+    }
+
+    .gallery-header p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .gallery-row-wrapper {
+      position: relative;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .gallery-row-container {
+      overflow: hidden;
+      position: relative;
+      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    }
+
+    .gallery-row {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+      transition: transform 0.5s ease;
+    }
+    .gallery-row.marquee {
+      animation: scrollLeft 120s linear infinite;
+    }
+
+    .gallery-row.marquee-reverse {
+      animation: scrollRight 150s linear infinite;
+    }
+
+    .gallery-row.marquee-slow {
+      animation: scrollLeft 180s linear infinite;
+    }
+
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes scrollRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    .gallery-row.paused {
+      animation-play-state: paused;
+    }
+
+    /* Flechas de navegación PRO */
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 60px;
+      height: 60px;
+      background: rgba(0,0,0,0.8);
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(227,176,75,0.3);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .gallery-arrow:hover {
+      background: var(--accent);
+      color: #111;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 0 30px rgba(227,176,75,0.6);
+    }
+
+    .gallery-arrow:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+
+    .gallery-arrow.prev { left: 30px; }
+    .gallery-arrow.next { right: 30px; }
+
+    /* === ITEMS DE GALERÍA CON SOMBRAS ÉPICAS === */
+    .gallery-item {
+      flex-shrink: 0;
+      width: 420px;
+      height: 315px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      border: 2px solid transparent;
+      transition: var(--transition);
+      cursor: pointer;
+      background: #1a1a1a;
+      /* Sombra multi-capa épica */
+      box-shadow: 
+        0 10px 40px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(227,176,75,0.1),
+        0 0 30px rgba(227,176,75,0.1),
+        inset 0 0 30px rgba(0,0,0,0.3);
+    }
+
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(45deg, var(--accent), transparent, var(--accent-light), transparent);
+      border-radius: 18px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .gallery-item:hover::before {
+      opacity: 0.6;
+      animation: borderRotate 3s linear infinite;
+    }
+
+    @keyframes borderRotate {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03) translateY(-5px);
+      box-shadow: 
+        0 25px 60px rgba(0,0,0,0.6),
+        0 0 0 2px rgba(227,176,75,0.3),
+        0 0 50px rgba(227,176,75,0.25),
+        0 0 80px rgba(227,176,75,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Efecto de brillo en las esquinas */
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 0% 0%, rgba(227,176,75,0.3) 0%, transparent 30%),
+        radial-gradient(circle at 100% 0%, rgba(227,176,75,0.2) 0%, transparent 25%),
+        radial-gradient(circle at 100% 100%, rgba(227,176,75,0.3) 0%, transparent 30%),
+        radial-gradient(circle at 0% 100%, rgba(227,176,75,0.2) 0%, transparent 25%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 25px;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+    }
+
+    .gallery-caption h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 10px rgba(227,176,75,0.5);
+    }
+
+    .gallery-caption p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    /* === LIGHTBOX PRO === */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.98);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 95vw;
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 
+        0 30px 80px rgba(0,0,0,0.8),
+        0 0 50px rgba(227,176,75,0.2);
+    }
+
+    .lightbox-caption {
+      margin-top: 25px;
+      text-align: center;
+      color: var(--ink);
+    }
+
+    .lightbox-caption h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+      text-shadow: 0 0 20px rgba(227,176,75,0.5);
+    }
+
+    .lightbox-caption p {
+      color: var(--muted);
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      width: 60px;
+      height: 60px;
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      z-index: 1001;
+      box-shadow: 0 0 20px rgba(227,176,75,0.3);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .lightbox-close:hover {
+      background: var(--accent);
+      color: #111;
+      transform: rotate(90deg);
+      box-shadow: 0 0 30px rgba(227,176,75,0.6);
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 70px;
+      height: 70px;
+      background: rgba(0,0,0,0.7);
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      z-index: 1001;
+      box-shadow: 0 0 20px rgba(227,176,75,0.3);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .lightbox-nav:hover {
+      background: var(--accent);
+      color: #111;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 0 30px rgba(227,176,75,0.5);
+    }
+
+    .lightbox-nav.prev { left: 50px; }
+    .lightbox-nav.next { right: 50px; }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      padding: 12px 30px;
+      border-radius: 30px;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      border: 1px solid var(--accent);
+      box-shadow: 0 0 20px rgba(227,176,75,0.3);
+    }
+
+    /* === DISCOS GRID PRO === */
+    .albums {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .album-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--hair);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .album-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(227,176,75,0.15) 50%, transparent 70%);
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .album-card:hover::before {
+      opacity: 1;
+      animation: shine 0.8s ease;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%); }
+      100% { transform: translateX(100%) translateY(100%); }
+    }
+
+    .album-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 
+        0 25px 50px rgba(227,176,75,.25),
+        0 0 30px rgba(227,176,75,0.2);
+      border-color: rgba(227,176,75,0.4);
+    }
+
+    .album-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+      filter: grayscale(20%);
+    }
+
+    .album-card:hover img {
+      transform: scale(1.1);
+      filter: grayscale(0%);
+    }
+
+    .album-card .p {
+      padding: 16px;
+      position: relative;
+      z-index: 3;
+      background: rgba(0,0,0,0.8);
+    }
+
+    .album-card h4 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: color 0.3s;
+    }
+
+    .album-card:hover h4 {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(227,176,75,0.3);
+    }
+
+    .album-card small {
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* === ACORDEÓN PRO === */
+    .album {
+      margin-top: 8px;
+      border: 1px solid var(--hair);
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(0,0,0,.28);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: var(--transition);
+    }
+
+    .album:hover {
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 20px rgba(227,176,75,0.1);
+      border-color: rgba(227,176,75,0.2);
+    }
+
+    .album .head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+      padding: 18px 20px;
+      background: rgba(255,255,255,.03);
+      border-bottom: 1px solid var(--hair);
+    }
+
+    .album .head h4 {
+      margin: 0;
+      font-size: 1.3rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(227,176,75,0.2);
+    }
+
+    .album .head .badge {
+      background: var(--accent);
+      color: #111;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      box-shadow: 0 0 15px rgba(227,176,75,0.4);
+    }
+
+    .tracks {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .track {
+      border-top: 1px solid var(--hair);
+      transition: background 0.3s;
+    }
+
+    .track:hover {
+      background: rgba(227,176,75,0.05);
+    }
+
+    .track-header {
+      cursor: pointer;
+      padding: 16px 20px;
+      font-weight: 600;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .track-header:hover {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(227,176,75,0.2);
+    }
+
+    .track-header.active {
+      color: var(--accent);
+    }
+
+    .track .num {
+      width: 32px;
+      height: 32px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid var(--hair);
+      border-radius: 8px;
+      font-weight: 700;
+      color: #ddd;
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      transition: var(--transition);
+    }
+
+    .track:hover .num,
+    .track-header.active .num {
+      background: var(--accent);
+      color: #111;
+      border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(227,176,75,0.4);
+    }
+
+    /* === LETRAS === */
+    .lyric {
+      padding: 0 20px 24px 68px;
+      color: #f1f1f1;
+      line-height: 2;
+      white-space: pre-line;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      display: none;
+    }
+
+    .lyric.show {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === PRESENTACIONES PRO === */
+    .gigs {
+      display: grid;
+      gap: 16px;
+    }
+
+    .gig {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 24px;
+      align-items: center;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--hair);
+      border-radius: 16px;
+      padding: 24px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .gig::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--accent);
+      transform: scaleY(0);
+      transition: transform 0.4s ease;
+      box-shadow: 0 0 20px rgba(227,176,75,0.5);
+    }
+
+    .gig:hover {
+      border-color: rgba(227,176,75,0.3);
+      transform: translateX(10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 30px rgba(227,176,75,0.1);
+    }
+
+    .gig:hover::before {
+      transform: scaleY(1);
+    }
+
+    .date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--hair);
+      min-height: 80px;
+      transition: var(--transition);
+    }
+
+    .gig:hover .date {
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(227,176,75,0.4);
+    }
+
+    .day {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      transition: color 0.3s;
+    }
+
+    .gig:hover .day {
+      color: #111;
+    }
+
+    .mon {
+      font-weight: 700;
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      transition: color 0.3s;
+    }
+
+    .gig:hover .mon {
+      color: #111;
+    }
+
+    .details h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(227,176,75,0.2);
+    }
+
+    .details p {
+      color: var(--muted);
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    /* === VIDEO DESTACADO PRO === */
+    .video-section {
+      margin: 20px auto;
+      max-width: 1100px;
+    }
+
+    .video-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 2px solid var(--hair);
+      transition: var(--transition);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+
+    .video-card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(45deg, var(--accent), transparent, var(--accent-light));
+      border-radius: 18px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .video-card:hover::before {
+      opacity: 0.5;
+    }
+
+    .video-card:hover {
+      border-color: rgba(227,176,75,0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 30px rgba(227,176,75,0.15);
+    }
+
+    .video-card iframe {
+      width: 100%;
+      height: 450px;
+      border: 0;
+      display: block;
+    }
+
+    /* === FOOTER PRO === */
+    footer {
+      text-align: center;
+      margin: 60px 0 30px;
+      padding: 0 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 32px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #111;
+      font-weight: 800;
+      text-decoration: none;
+      border: 2px solid var(--accent);
+      cursor: pointer;
+      box-shadow: 
+        0 12px 28px rgba(227,176,75,.35),
+        0 0 20px rgba(227,176,75,0.3);
+      transition: var(--transition);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn:hover {
+      background: transparent;
+      color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 
+        0 20px 40px rgba(227,176,75,.5),
+        0 0 30px rgba(227,176,75,0.4);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    #num {
+      display: none;
+      margin-top: 16px;
+      font-weight: 700;
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--accent);
+      padding: 12px 20px;
+      border-radius: 10px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      box-shadow: 0 0 15px rgba(227,176,75,0.2);
+    }
+
+    /* === REDES SOCIALES PRO === */
+    .social {
+      margin-top: 30px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--hair);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .chip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform: scale(0);
+      transition: transform 0.3s ease;
+      border-radius: 999px;
+      z-index: -1;
+    }
+
+    .chip:hover {
+      color: #111;
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(227,176,75,0.4);
+    }
+
+    .chip:hover::before {
+      transform: scale(1);
+    }
+
+    .chip svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      position: relative;
+      z-index: 1;
+    }
+
+    .chip--fb { background: #1877F2; border-color: #0d49a1; }
+    .chip--yt { background: #FF0000; border-color: #a30000; }
+    .chip--ig {
+      background: radial-gradient(45% 60% at 30% 30%, #ffd776 0 40%, transparent 41%),
       linear-gradient(135deg,#405de6,#5851db,#833ab4,#c13584,#e1306c,#fd1d1d);
-      border-color:#7a2a6a;
+      border-color: #7a2a6a;
     }
-    .chip--tt{ background:#111; border-color:#333 }
+    .chip--tt { background: #111; border-color: #333; }
 
-    @media (max-width: 768px){
-      .hero{ padding-top:56px }
-      .hero h2{ font-size:2rem }
-      .album-card img{ height:180px }
+    /* === ANIMACIONES SCROLL === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === BOTÓN ARRIBA PRO === */
+    #totop {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 100;
+      display: none;
+      width: 50px;
+      height: 50px;
+      border: 2px solid var(--accent);
+      background: rgba(0,0,0,0.8);
+      color: var(--accent);
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(227,176,75,0.3);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    #totop:hover {
+      background: var(--accent);
+      color: #111;
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(227,176,75,0.5);
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.8rem; }
+      .hero-wrapper { height: 50vh; min-height: 400px; }
+      .hero-content h2 { font-size: 2.5rem; }
+      .intro { padding: 20px; font-size: 1rem; }
+      .intro::before { font-size: 4rem; top: -10px; }
+      .album-card img { height: 180px; }
+      .gig { grid-template-columns: 1fr; text-align: center; }
+      .date { flex-direction: row; gap: 10px; padding: 12px; }
+      .day { font-size: 1.8rem; }
+      .video-card iframe { height: 250px; }
+      .track-header { padding: 14px 16px; }
+      .lyric { padding: 0 16px 20px 60px; font-size: 1rem; }
+      
+      /* Galería responsive */
+      .gallery-item { width: 320px; height: 240px; }
+      .gallery-arrow { 
+        width: 50px; 
+        height: 50px; 
+        font-size: 1.5rem;
+        opacity: 0.95;
+      }
+      .gallery-arrow.prev { left: 15px; }
+      .gallery-arrow.next { right: 15px; }
+      
+      /* Aumentar área táctil en móvil */
+      .gallery-arrow::after {
+        content: '';
+        position: absolute;
+        inset: -15px;
+      }
+      
+      .lightbox-nav { width: 50px; height: 50px; font-size: 1.8rem; }
+      .lightbox-nav.prev { left: 20px; }
+      .lightbox-nav.next { right: 20px; }
+      .lightbox-close { top: 20px; right: 20px; width: 50px; height: 50px; }
+      
+      /* Optimizaciones móvil adicionales */
+      .marquee-content {
+        animation-duration: 30s !important; /* Más rápido en móvil */
+      }
+
+      /* GALERÍA: SIN !important para permitir control JS */
+      .gallery-row.marquee {
+        animation: scrollLeft 280s linear infinite;
+      }
+
+      .gallery-row.marquee-reverse {
+        animation: scrollRight 320s linear infinite;
+      }
+
+      .gallery-row.marquee-slow {
+        animation: scrollLeft 360s linear infinite;
+      }
+      
+      /* Estado pausado específico para móvil - CON !important solo para play-state */
+      .gallery-row.paused {
+        animation-play-state: paused !important;
+      }
+    }
+    
+    /* Desactivar animaciones complejas en dispositivos con preferencia de reducción de movimiento */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      
+      .bg-layer {
+        transform: none !important;
+      }
     }
   </style>
-<!-- Schema del logo para Google -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Grupo Tradiciones",
-  "url": "https://grupotradiciones65-web.github.io/grupo-tradiciones/",
-  "logo": "https://grupotradiciones65-web.github.io/grupo-tradiciones/logo.jpg"
-}
-</script>
+<base target="_blank">
 </head>
 <body id="inicio">
+
+  <!-- CAPA DE FONDO SEPARADA - OPTIMIZADA -->
+  <div class="bg-layer" id="bgLayer"></div>
+
+  <!-- MARQUEE SUPERIOR -->
+  <div class="marquee-container">
+    <div class="marquee-content">
+      <span class="marquee-text">Folclor Latinoamericano</span>
+      <span class="marquee-text">20 Años de Trayectoria</span>
+      <span class="marquee-text">Coquimbo, Chile</span>
+      <span class="marquee-text">Música Andina</span>
+      <span class="marquee-text">Contrataciones Abiertas</span>
+      <span class="marquee-text">Folclor Latinoamericano</span>
+      <span class="marquee-text">20 Años de Trayectoria</span>
+      <span class="marquee-text">Coquimbo, Chile</span>
+      <span class="marquee-text">Música Andina</span>
+      <span class="marquee-text">Contrataciones Abiertas</span>
+    </div>
+  </div>
 
   <!-- HEADER -->
   <header>
@@ -243,6 +1408,7 @@
     <nav>
       <a href="#inicio">Inicio</a>
       <a href="#biografia">Biografía</a>
+      <a href="#galeria">Galería</a>
       <a href="#discos">Discos</a>
       <a href="#musica">Música</a>
       <a href="#presentaciones">Presentaciones</a>
@@ -250,54 +1416,118 @@
     </nav>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h2>Grupo Tradiciones página oficial</h2>
-    <p>Folclore latinoamericano</p>
-  </section>
+  <!-- HERO SIMPLIFICADO - SIN PARALLAX PROBLEMÁTICO -->
+  <div class="hero-wrapper">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h2>Grupo Tradiciones</h2>
+      <p>Folclore Latinoamericano</p>
+    </div>
+  </div>
+
+  <!-- MARQUEE INVERSO -->
+  <div class="marquee-container reverse">
+    <div class="marquee-content">
+      <span class="marquee-text">Cuna de Verso y Poemas</span>
+      <span class="marquee-text">La Voz del Alma</span>
+      <span class="marquee-text">Próximo album</span>
+      <span class="marquee-text">Cuna de Verso y Poemas</span>
+      <span class="marquee-text">La Voz del Alma</span>
+      <span class="marquee-text">Próximo Álbum </span>
+    </div>
+  </div>
 
   <!-- INTRO -->
-  <div class="intro">
+  <div class="intro reveal">
     El grupo <strong>Tradiciones</strong> nace el 14 de febrero del año 2003 con el incentivo de recopilar, rescatar e interpretar diversos estilos musicales folclóricos. Su esencia está inspirada en el folclore latinoamericano, fusionando raíces andinas con sonidos actuales para mantener viva la identidad cultural de nuestros pueblos.
   </div>
 
-  <!-- BIO -->
-  <section id="biografia" class="section">
-    <h3>Biografía</h3>
-    <p>Grupo Tradiciones nació un 14 de febrero de 2003 con una misión clara: recopilar y rescatar la música de raíz folclórica latinoamericana. Iniciando con solo cuatro integrantes, la agrupación rápidamente evolucionó para interpretar composiciones originales, abordando temáticas profundas como el amor, el desamor y el descontento social, pero manteniendo siempre la esencia y los ritmos tradicionales de nuestra "América morena".
-    </p>
-    <h4>Trayectoria Discográfica:</h4>
-    <p>
+  <!-- GALERÍA CON FOTOS PRO -->
+  <section id="galeria" class="gallery-section reveal">
+    <div class="gallery-header">
+      <h3>Galería</h3>
+      <p>Momentos de nuestra trayectoria</p>
+    </div>
+    
+    <!-- Fila 1: Derecha a Izquierda -->
+    <div class="gallery-row-wrapper">
+      <button class="gallery-arrow prev" onclick="moveGallery('row1', -1)" aria-label="Anterior">‹</button>
+      <button class="gallery-arrow next" onclick="moveGallery('row1', 1)" aria-label="Siguiente">›</button>
+      <div class="gallery-row-container">
+        <div class="gallery-row marquee" id="row1"></div>
+      </div>
+    </div>
 
-Trayectoria Discográfica:
+    <!-- Fila 2: Izquierda a Derecha -->
+    <div class="gallery-row-wrapper">
+      <button class="gallery-arrow prev" onclick="moveGallery('row2', -1)" aria-label="Anterior">‹</button>
+      <button class="gallery-arrow next" onclick="moveGallery('row2', 1)" aria-label="Siguiente">›</button>
+      <div class="gallery-row-container">
+        <div class="gallery-row marquee-reverse" id="row2"></div>
+      </div>
+    </div>
 
-En 2010, el grupo lanzó su primer trabajo discográfico, el álbum de 8 canciones titulado "Cuna de verso y poemas".
-Siete años después, en 2017, consolidaron su trayectoria con su segundo trabajo musical, "La voz del alma". Este álbum destaca por incluir canciones originales con letras de Juan Flores y arreglos propios de Grupo Tradiciones.</p>
+    <!-- Fila 3: Derecha a Izquierda -->
+    <div class="gallery-row-wrapper">
+      <button class="gallery-arrow prev" onclick="moveGallery('row3', -1)" aria-label="Anterior">‹</button>
+      <button class="gallery-arrow next" onclick="moveGallery('row3', 1)" aria-label="Siguiente">›</button>
+      <div class="gallery-row-container">
+        <div class="gallery-row marquee-slow" id="row3"></div>
+      </div>
+    </div>
   </section>
 
-  <!-- DISCOS (Carátulas) -->
-  <section id="discos" class="section">
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Cerrar">×</button>
+    <button class="lightbox-nav prev" onclick="changeImage(-1)" aria-label="Anterior">‹</button>
+    <button class="lightbox-nav next" onclick="changeImage(1)" aria-label="Siguiente">›</button>
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      <div class="lightbox-caption">
+        <h3 id="lightboxTitle"></h3>
+        <p id="lightboxDesc"></p>
+      </div>
+    </div>
+    <div class="lightbox-counter" id="lightboxCounter">1 / 58</div>
+  </div>
+
+  <!-- BIO -->
+  <section id="biografia" class="section reveal">
+    <h3>Biografía</h3>
+    <p style="line-height: 1.9; font-size: 1.05rem; margin-bottom: 20px;">
+      Grupo Tradiciones nació un 14 de febrero de 2003 con una misión clara: recopilar y rescatar la música de raíz folclórica latinoamericana. Iniciando con solo cuatro integrantes, la agrupación rápidamente evolucionó para interpretar composiciones originales, abordando temáticas profundas como el amor, el desamor y el descontento social, pero manteniendo siempre la esencia y los ritmos tradicionales de nuestra "América morena".
+    </p>
+    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--accent); margin-bottom: 12px;">Trayectoria Discográfica:</h4>
+    <p style="line-height: 1.8;">
+      En 2010, el grupo lanzó su primer trabajo discográfico, el álbum de 8 canciones titulado <strong style="color: var(--accent);">"Cuna de verso y poemas"</strong>.<br>
+      Siete años después, en 2017, consolidaron su trayectoria con su segundo trabajo musical, <strong style="color: var(--accent);">"La voz del alma"</strong>. Este álbum destaca por incluir canciones originales con letras de Juan Flores y arreglos propios de Grupo Tradiciones.
+    </p>
+  </section>
+
+  <!-- DISCOS -->
+  <section id="discos" class="section reveal">
     <h3>Discos</h3>
     <div class="albums">
       <a class="album-card" href="#album-cuna">
         <img src="disco1.jpg" alt="Carátula: Cuna de verso y poemas">
         <div class="p">
           <h4>Cuna de verso y poemas</h4>
-          <small>Álbum de estudio</small>
+          <small>Álbum de estudio · 2010</small>
         </div>
       </a>
       <a class="album-card" href="#album-voz">
         <img src="disco2.jpg" alt="Carátula: La voz del alma">
         <div class="p">
           <h4>La voz del alma</h4>
-          <small>Álbum de estudio</small>
+          <small>Álbum de estudio · 2017</small>
         </div>
       </a>
     </div>
   </section>
 
   <!-- MÚSICA -->
-  <section id="musica" class="section">
+  <section id="musica" class="section reveal">
     <h3>Música</h3>
 
     <!-- Álbum 1 -->
@@ -308,9 +1538,11 @@ Siete años después, en 2017, consolidaron su trayectoria con su segundo trabaj
       </div>
       <ul class="tracks">
         <li class="track">
-          <details>
-            <summary><span class="num">1</span> Otro querer</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">1</span>
+            <span>Otro querer</span>
+          </div>
+          <div class="lyric">
 Que te marchas mujer, lo sé porque tienes un nuevo querer
 Si conmigo no quieres estar y la saya no quieres bailar
 Si te vas amor, amor ya no habrás de volver
@@ -320,14 +1552,15 @@ Y en sus brazos tendrás amor, lo sé no te voy a mentir
 Y lo compararás con el amor que yo un día te dí
 Cuando estés a su lado sé muy bien que me recordarás
 Y aunque rías por fuera sé que por dentro tendrás que llorar
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">2</span> El viejo Pablo</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">2</span>
+            <span>El viejo Pablo</span>
+          </div>
+          <div class="lyric">
 Se pasa el tiempo solo en una esquina
 A paso largo se le va la vida
 El viejo Pablo ya no sabe de alegrías
@@ -349,14 +1582,15 @@ Y las palabras que dijeron se perdieron en el tiempo
 Y su mirada me dice saber
 Que el tiempo corre muy deprisa y que tal vez
 No espera por él
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">3</span> Tanto amor</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">3</span>
+            <span>Tanto amor</span>
+          </div>
+          <div class="lyric">
 Noches de luna y tristeza pensando en tu ausencia
 Tanto dolor encerrado en mi corazón
 Hoy que te estrecho en mis brazos no quiero dejarte
@@ -383,14 +1617,15 @@ Tanto amor que tengo para ti
 Mil caricias para compartir
 Tanto amor que tengo para ti
 Tanto amor
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">4</span> Almendra</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">4</span>
+            <span>Almendra</span>
+          </div>
+          <div class="lyric">
 Eres tú quien ocupa aquel lugar dentro de mi corazón
 Nadie más lo hará igual
 Estarás dentro y con mi amor te llevaré hasta el sol en prueba de mi amor
@@ -399,15 +1634,15 @@ Y adentro tú estarás, y a mí te entregarás como una almendra
 Y quién calma este dolor, a quién le doy de amor, a quién llevo hasta el sol
 Nunca más volviste amor, rompiste un corazón
 Mi corazón de almendra...
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">5</span> Vete ya</summary>
-            <div class="lyric">
-
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">5</span>
+            <span>Vete ya</span>
+          </div>
+          <div class="lyric">
 Vete, vete ya, tú ya no vuelves, tú ya no vuelves (bis)
 Mira hoy me vienes a decir
 Que no puedes ya vivir
@@ -460,12 +1695,15 @@ Vete vete ya, tú ya no vuelves, tú ya no vuelves
 Vete ya, vete ya a mi vida ya no vuelvas más
 Vete vete ya, tú no volverás
 Ya no te quiero ver con otro querer
-            </div>
-          </details>
-        </li>        <li class="track">
-          <details>
-            <summary><span class="num">6</span> Palabras para ti</summary>
-            <div class="lyric">
+          </div>
+        </li>
+
+        <li class="track">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">6</span>
+            <span>Palabras para ti</span>
+          </div>
+          <div class="lyric">
 Escribiré una carta muy pausada para ti
 Lenta para que guardes cada palabra que quiera decir (bis)
 
@@ -473,14 +1711,15 @@ No me critiques me gusta escribir, expresar con tinta
 A donde quiera ir, a donde quiera ir
 No me odies por escapar, a veces temo expresar con palabras
 Cuando mi pecho se aprieta de nostalgia
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">7</span> Candombe del tiempo</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">7</span>
+            <span>Candombe del tiempo</span>
+          </div>
+          <div class="lyric">
 Tanto tiempo tratando poder escapar
 De este amor que me quema muy dentro del alma, ayayay
 Tanto tiempo diciéndole a mi corazón
@@ -492,15 +1731,15 @@ No te puedo olvidar, tal vez, tal vez
 Es profunda la herida
 Y el paso del tiempo no puede borrar
 Ayayay (bis)
-
-</div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">8</span> Cuna de verso y poemas</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">8</span>
+            <span>Cuna de verso y poemas</span>
+          </div>
+          <div class="lyric">
 Hoy quiero cantar señores a una tierra diferente
 De añañucas y copihues rojo corazón ardiente
 Donde el sol sale temprano y te ayudará en la tierra
@@ -532,23 +1771,24 @@ Por eso canto a mi tierra
 Cuna de cobre y carbón
 Donde conoció el amor
 Una mañana cualquiera
-            </div>
-          </details>
+          </div>
         </li>
       </ul>
     </div>
 
     <!-- Álbum 2 -->
-    <div id="album-voz" class="album" style="margin-top:22px">
+    <div id="album-voz" class="album" style="margin-top: 22px;">
       <div class="head">
         <h4>Álbum: La voz del alma</h4>
         <span class="badge">10 temas</span>
       </div>
       <ul class="tracks">
         <li class="track">
-          <details>
-            <summary><span class="num">1</span> ¿A dónde fue el amor?</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">1</span>
+            <span>¿A dónde fue el amor?</span>
+          </div>
+          <div class="lyric">
 ¿Cómo saber si el amor se aleja?
 ¿Cómo saber si todo ha llegado al final?
 ¿Cómo saber si entre mis brazos
@@ -566,15 +1806,15 @@ Que nos pasó
 ¿A dónde fue el amor que se escapó de nuestras manos?
 Nada sacamos con mirar atrás
 Si el amor no volverá
-
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">2</span> Otro amor en mi vida</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">2</span>
+            <span>Otro amor en mi vida</span>
+          </div>
+          <div class="lyric">
 Tú que creías que por ti
 Yo me podría morir
 Otra vez te equivocaste
@@ -615,15 +1855,15 @@ Ya no creo en tus mentiras
 Todo en este mundo gira
 Otro amor llega a mi vida
 Para ti solo hay perdón (bis)
-
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">3</span> Dulce niña</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">3</span>
+            <span>Dulce niña</span>
+          </div>
+          <div class="lyric">
 Ya no sé cómo empezar
 La voz me tiembla al hablar
 No quiero causar dolor
@@ -653,14 +1893,15 @@ Déjame secar tu llanto en esta despedida
 Mira, entiendo que al marcharme queda tu alma herida
 Nuestro amor se terminó
 Pero juro que te amé más que a mi vida
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">4</span> Si yo volviera a nacer</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">4</span>
+            <span>Si yo volviera a nacer</span>
+          </div>
+          <div class="lyric">
 Si yo volviera a nacer
 Cometería los errores que cometo cada día
 No entendería a los que dicen que hay problemas sin salida
@@ -703,14 +1944,15 @@ Te cantaría esa vieja canción
 Me escaparía en esas frías madrugadas
 Para amarte
 Si yo volviera a nacer
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">5</span> Sueños y libertad</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">5</span>
+            <span>Sueños y libertad</span>
+          </div>
+          <div class="lyric">
 Uno tras uno forman un millón
 Unidos con la fuerza de su voz
 Cantando sus consignas de igualdad
@@ -738,14 +1980,15 @@ La represión no matará la idea, no
 No matará tus sueños y libertad
 Hay que seguir marchando hacia adelante
 Para el sueño de todos alcanzar (bis)
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">6</span> Que me olvide de ti</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">6</span>
+            <span>Que me olvide de ti</span>
+          </div>
+          <div class="lyric">
 Que me mate el recuerdo de tus besos
 O el brillo de tus ojos que me amaban
 Tu amor sigue clavado aquí en mi pecho
@@ -772,14 +2015,15 @@ Que me olvide de ti
 Les digo si preguntan mis amigos
 Me bebo tu recuerdo en cada vaso
 Y tengo el corazón hecho pedazos (bis)
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">7</span> Amor diferente</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">7</span>
+            <span>Amor diferente</span>
+          </div>
+          <div class="lyric">
 Le dijo que su amor es diferente
 Muy difícil de entender para el resto de la gente
 Le dijo que su amor no es algo extraño
@@ -812,14 +2056,15 @@ Es el mismo de ayer
 El que sus sueños compartió
 Y de su mano caminó
 Su hijo que tanto amó
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">8</span> Amantes en el silencio</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">8</span>
+            <span>Amantes en el silencio</span>
+          </div>
+          <div class="lyric">
 Dice que tiene otro amor y se muere por mis besos
 Que no ha sentido las caricias que le di en otro cuerpo
 Y que en sus brazos no le entregan el calor
@@ -850,14 +2095,15 @@ En el desnudo del deseo
 Cuando mis labios reclamen sus noches
 Recorriendo tu cuerpo
 Ardiente de deseo
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">9</span> Primer amor</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">9</span>
+            <span>Primer amor</span>
+          </div>
+          <div class="lyric">
 Primer amor
 El que te roba el corazón sin dejar nada
 El que llenó
@@ -875,14 +2121,15 @@ Es este amor el que te aferra a la vida
 Y que jamás te dejará una salida
 Si no lo tienes todo se vuelve un infierno
 Primer amor, primer amor eterno
-            </div>
-          </details>
+          </div>
         </li>
 
         <li class="track">
-          <details>
-            <summary><span class="num">10</span> Un juguete en tu vida</summary>
-            <div class="lyric">
+          <div class="track-header" onclick="toggleLyric(this)">
+            <span class="num">10</span>
+            <span>Un juguete en tu vida</span>
+          </div>
+          <div class="lyric">
 Me había acostumbrado a tu manera de querer
 Me había acostumbrado a rendirme yo a tus pies
 El amor que me dabas era solo mentiras
@@ -899,49 +2146,59 @@ La que pierde eres tú, al marcharte de aquí
 La que pierde eres tú, al reírte de mí
 No me causas dolor, porque ya te olvidé
 El amor que era tuyo, que un día te tuve, tiene otro querer
-            </div>
-          </details>
+          </div>
         </li>
       </ul>
     </div>
 
     <!-- Video destacado -->
-    <div class="section" style="margin:18px 0 0; background:rgba(255,255,255,.03)">
-      <h3 style="margin-top:0">Video destacado</h3>
-      <div style="border:1px solid var(--hair); border-radius:12px; overflow:hidden">
+    <div class="video-section" style="margin-top: 30px;">
+      <h3 style="margin-bottom: 20px; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--accent);">Video destacado</h3>
+      <div class="video-card">
         <iframe
-          style="width:100%; height:420px; border:0"
-          src="https://www.youtube.com/embed/uMcRT3BBNHo"
+          src="https://www.youtube.com/embed/uMcRT3BBNHo?rel=0&modestbranding=1&playsinline=1"
           title="Otro amor en mi vida - Grupo Tradiciones"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen></iframe>
+          allowfullscreen
+          loading="lazy"></iframe>
       </div>
-    </div>  <!-- PRESENTACIONES -->
-<section id="presentaciones" class="section">
+    </div>
+  </section>
+
+  <!-- PRESENTACIONES ACTUALIZADAS -->
+  <section id="presentaciones" class="section reveal">
     <h3>Presentaciones</h3>
     <div class="gigs">
-        <div class="gig">
-            <div class="date"><span class="mon">13 DIC</span></div>
-            
-            <div class="details">
-                <h4>EN CONCIERTO</h4>
-                <p>13 de Diciembre | 18:00 HRS</p>
-                <p>Lugar: Edificio Consistorial de Coquimbo</p>
-                <p>Av. Varela #1112 | ¡ENTRADA LIBERADA!</p>
-            </div>
-            
+      <!-- Evento pasado -->
+      <div class="gig" style="opacity: 0.6; filter: grayscale(0.8);">
+        <div class="date" style="background: #333;">
+          <span class="day">13</span>
+          <span class="mon">DIC</span>
         </div>
+        <div class="details">
+          <h4 style="text-decoration: line-through; color: var(--muted);">EN CONCIERTO</h4>
+          <p style="color: var(--muted);">13 de Diciembre 2024 | 18:00 HRS</p>
+          <p style="color: var(--muted);">Edificio Consistorial de Coquimbo</p>
+          <p style="color: var(--muted);"><strong>EVENTO REALIZADO</strong> — Gracias a todos los asistentes</p>
+        </div>
+      </div>
     </div>
-</section>
+    
+    <div style="text-align: center; margin-top: 30px; padding: 30px; border: 1px dashed var(--accent); border-radius: 14px; background: rgba(227,176,75,0.05);">
+      <h4 style="font-family: 'Cormorant Garamond', serif; color: var(--accent); font-size: 1.5rem; margin-bottom: 10px;">Próximas Presentaciones</h4>
+      <p style="color: var(--muted); font-size: 1.1rem;">Estamos preparando nuevas fechas para este 2025</p>
+      <p style="color: var(--muted); margin-top: 10px; font-size: 0.9rem;">Síguenos en redes para enterarte de los próximos conciertos</p>
+    </div>
+  </section>
 
   <!-- CONTACTO -->
   <footer id="contacto">
-    <div style="margin-bottom:12px;">
+    <div style="margin-bottom: 16px;">
       <button class="btn" id="wspBtn">Contrataciones por WhatsApp</button>
       <div id="num">+56 9 5869 3051 (copiado)</div>
     </div>
 
-    <!-- Redes sociales (href en blanco por ahora) -->
+    <!-- Redes sociales -->
     <div class="social">
       <a class="chip chip--fb" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -950,12 +2207,20 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
         Facebook
       </a>
 
-      <a class="chip chip--yt" href="#" target="_blank" rel="noopener">
+      <a class="chip chip--yt" href="https://www.youtube.com/@grupotradicionescuartaregi2251" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M23 7.3s-.2-1.6-.8-2.2c-.6-.7-1.3-.9-2.1-1C17.9 3.6 12 3.6 12 3.6s-5.9 0-8.1.5c-.8.1-1.5.3-2.1 1C1.2 5.7 1 7.3 1 7.3S.8 9 .8 10.7v1.4C.8 13.8 1 15.5 1 15.5s.2 1.6.8 2.2c.6.7 1.3.9 2.1 1 2.2.5 8.1.5 8.1.5s5.9 0 8.1-.5c.8-.1 1.5-.3 2.1-1 .6-.6.8-2.2.8-2.2s.2-1.7.2-3.4v-1.4c0-1.7-.2-3.4-.2-3.4z"/>
           <path d="M10 15V9l5.2 3L10 15z" fill="#fff"/>
         </svg>
-        YouTube
+        YouTube 1
+      </a>
+
+      <a class="chip chip--yt" href="https://www.youtube.com/@GrupoTradiciones-v9z4k" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M23 7.3s-.2-1.6-.8-2.2c-.6-.7-1.3-.9-2.1-1C17.9 3.6 12 3.6 12 3.6s-5.9 0-8.1.5c-.8.1-1.5.3-2.1 1C1.2 5.7 1 7.3 1 7.3S.8 9 .8 10.7v1.4C.8 13.8 1 15.5 1 15.5s.2 1.6.8 2.2c.6.7 1.3.9 2.1 1 2.2.5 8.1.5 8.1.5s5.9 0 8.1-.5c.8-.1 1.5-.3 2.1-1 .6-.6.8-2.2.8-2.2s.2-1.7.2-3.4v-1.4c0-1.7-.2-3.4-.2-3.4z"/>
+          <path d="M10 15V9l5.2 3L10 15z" fill="#fff"/>
+        </svg>
+        YouTube 2
       </a>
 
       <a class="chip chip--ig" href="https://www.instagram.com/grupo.tradiciones_oficial/" target="_blank" rel="noopener">
@@ -974,11 +2239,218 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       </a>
     </div>
 
-    <small class="muted" style="display:block; margin-top:16px;">© Grupo Tradiciones — Sitio oficial</small>
+    <small class="muted" style="display:block; margin-top:24px; letter-spacing: 0.1em;">© Grupo Tradiciones — Sitio oficial</small>
   </footer>
 
+  <!-- Botón arriba -->
+  <button id="totop">↑</button>
+
   <script>
-    // WhatsApp: copiar y abrir
+    // =====================================================
+    // LISTA DE TUS 58 FOTOS - CON ESPACIO: "foto 1.jpg", "foto 2.jpg", etc.
+    // =====================================================
+    const todasLasFotos = [
+      // Fila 1 - Fotos 1-20
+      "Foto 1.jpg", "Foto 2.jpg", "Foto 3.jpg", "Foto 4.jpg", "Foto 5.jpg",
+      "Foto 6.jpg", "Foto 7.jpg", "Foto 8.jpg", "Foto 9.jpg", "Foto 10.jpg",
+      "Foto 11.jpg", "Foto 12.jpg", "Foto 13.jpg", "Foto 14.jpg", "Foto 15.jpg",
+      "Foto 16.jpg", "Foto 17.jpg", "Foto 18.jpg", "Foto 19.jpg", "Foto 20.jpg",
+      
+      // Fila 2 - Fotos 21-39
+      "Foto 21.jpg", "Foto 22.jpg", "Foto 23.jpg", "Foto 24.jpg", "Foto 25.jpg",
+      "Foto 26.jpg", "Foto 27.jpg", "Foto 28.jpg", "Foto 29.jpg", "Foto 30.jpg",
+      "Foto 31.jpg", "Foto 32.jpg", "Foto 33.jpg", "Foto 34.jpg", "Foto 35.jpg",
+      "Foto 36.jpg", "Foto 37.jpg", "Foto 38.jpg", "Foto 39.jpg",
+      
+      // Fila 3 - Fotos 40-58
+      "Foto 40.jpg", "Foto 41.jpg", "Foto 42.jpg", "Foto 43.jpg", "Foto 44.jpg",
+      "Foto 45.jpg", "Foto 46.jpg", "Foto 47.jpg", "Foto 48.jpg", "Foto 49.jpg",
+      "Foto 50.jpg", "Foto 51.jpg", "Foto 52.jpg", "Foto 53.jpg", "Foto 54.jpg",
+      "Foto 55.jpg", "Foto 56.jpg", "Foto 57.jpg", "Foto 58.jpg"
+    ];
+
+    // Variables globales para el lightbox
+    let currentLightboxIndex = 0;
+    let lightboxImages = [];
+
+    // =====================================================
+    // GENERADOR DE GALERÍA CON FOTOS ENUMERADAS
+    // =====================================================
+    
+    // Dividir en 3 grupos
+    const fila1 = todasLasFotos.slice(0, 20);    // Fotos 1-20
+    const fila2 = todasLasFotos.slice(20, 39);   // Fotos 21-39
+    const fila3 = todasLasFotos.slice(39, 58);   // Fotos 40-58
+
+    function crearGaleria(fotos, contenedorId, startIndex) {
+      const contenedor = document.getElementById(contenedorId);
+      
+      // Duplicar fotos para efecto infinito
+      const fotosDuplicadas = [...fotos, ...fotos];
+      
+      fotosDuplicadas.forEach((foto, index) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        
+        // Calcular número de foto (1-58)
+        const fotoIndex = index % fotos.length;
+        const globalIndex = startIndex + fotoIndex;
+        const numeroFoto = globalIndex + 1;
+        
+        item.innerHTML = `
+          <img src="fotos/${foto}" alt="Foto ${numeroFoto}" loading="lazy" 
+               onerror="this.src='placeholder.jpg'"
+               onclick="openLightbox(${globalIndex})">
+          <div class="gallery-caption" onclick="openLightbox(${globalIndex})">
+            <h4>Foto ${numeroFoto}</h4>
+            <p>Click para ampliar</p>
+          </div>
+        `;
+        
+        contenedor.appendChild(item);
+      });
+    }
+
+    // Crear las 3 filas con índices correctos
+    crearGaleria(fila1, 'row1', 0);    // Fotos 1-20
+    crearGaleria(fila2, 'row2', 20);   // Fotos 21-39
+    crearGaleria(fila3, 'row3', 39);   // Fotos 40-58
+
+    // Preparar array para lightbox
+    lightboxImages = todasLasFotos.map((foto, index) => ({
+      src: `fotos/${foto}`,
+      title: `Foto ${index + 1}`,
+      desc: `Imagen ${index + 1} de ${todasLasFotos.length}`
+    }));
+
+    // =====================================================
+    // NAVEGACIÓN MANUAL DE FILAS - MEJORADA PARA MÓVIL
+    // =====================================================
+    
+    const rowPositions = { row1: 0, row2: 0, row3: 0 };
+    const rowTimers = { row1: null, row2: null, row3: null };
+    
+    function moveGallery(rowId, direction) {
+      const row = document.getElementById(rowId);
+      const itemWidth = 444; // ancho 420 + gap 24
+      
+      // Limpiar timer anterior si existe
+      if (rowTimers[rowId]) {
+        clearTimeout(rowTimers[rowId]);
+      }
+      
+      // Pausar animación CSS
+      row.classList.add('paused');
+      
+      // Calcular posición actual
+      const currentTransform = row.style.transform;
+      let currentPos = 0;
+      
+      if (currentTransform && currentTransform !== 'none') {
+        const match = currentTransform.match(/translateX\(([-\d.]+)px\)/);
+        if (match) {
+          currentPos = parseFloat(match[1]);
+        }
+      }
+      
+      // Si es la primera vez que se mueve, calcular desde el inicio de la animación
+      if (currentPos === 0 && !rowPositions[rowId]) {
+        // Estimar posición basada en el tiempo de animación
+        const style = window.getComputedStyle(row);
+        const animationName = style.animationName;
+        if (animationName && animationName !== 'none') {
+          // Usar una posición inicial que permita moverse en ambas direcciones
+          currentPos = 0;
+        }
+      }
+      
+      // Actualizar posición
+      const newPos = currentPos + (direction * itemWidth * 2); // Mover 2 fotos
+      
+      // Aplicar transform
+      row.style.transform = `translateX(${newPos}px)`;
+      row.style.animation = 'none';
+      rowPositions[rowId] = newPos;
+      
+      // Reanudar después de 3 segundos
+      rowTimers[rowId] = setTimeout(() => {
+        row.classList.remove('paused');
+        row.style.transform = '';
+        row.style.animation = '';
+        rowPositions[rowId] = 0;
+      }, 3000);
+    }
+
+    // =====================================================
+    // LIGHTBOX
+    // =====================================================
+    
+    function openLightbox(index) {
+      currentLightboxIndex = index;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(event) {
+      if (!event || event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function updateLightbox() {
+      const img = lightboxImages[currentLightboxIndex];
+      document.getElementById('lightboxImg').src = img.src;
+      document.getElementById('lightboxTitle').textContent = img.title;
+      document.getElementById('lightboxDesc').textContent = img.desc;
+      document.getElementById('lightboxCounter').textContent = 
+        `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
+    }
+
+    function changeImage(direction) {
+      currentLightboxIndex += direction;
+      
+      if (currentLightboxIndex < 0) {
+        currentLightboxIndex = lightboxImages.length - 1;
+      } else if (currentLightboxIndex >= lightboxImages.length) {
+        currentLightboxIndex = 0;
+      }
+      
+      updateLightbox();
+    }
+
+    // Teclado para lightbox
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('lightbox').classList.contains('active')) return;
+      
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') changeImage(-1);
+      if (e.key === 'ArrowRight') changeImage(1);
+    });
+
+    // =====================================================
+    // FUNCIONES ORIGINALES DEL SITIO
+    // =====================================================
+    
+    // Función para mostrar/ocultar letras
+    function toggleLyric(element) {
+      const track = element.parentElement;
+      const lyric = track.querySelector('.lyric');
+      const allTracks = track.parentElement.querySelectorAll('.track');
+      
+      allTracks.forEach(t => {
+        if (t !== track) {
+          t.querySelector('.lyric').classList.remove('show');
+          t.querySelector('.track-header').classList.remove('active');
+        }
+      });
+      
+      lyric.classList.toggle('show');
+      element.classList.toggle('active');
+    }
+
+    // WhatsApp
     const btn = document.getElementById('wspBtn');
     const num = document.getElementById('num');
     const telefono = '+56958693051';
@@ -988,133 +2460,40 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       window.open('https://wa.me/' + telefono, '_blank');
     });
 
-    // Acordeón: abre uno por vez dentro de cada álbum
-    document.querySelectorAll('.album .tracks').forEach(list => {
-      list.querySelectorAll('details').forEach(d => {
-        d.addEventListener('toggle', () => {
-          if (d.open) {
-            list.querySelectorAll('details').forEach(o => { if (o !== d) o.removeAttribute('open'); });
-          }
+    // Header scroll - SIMPLIFICADO
+    const header = document.querySelector('header');
+    let ticking = false;
+    
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          header.classList.toggle('scrolled', window.scrollY > 50);
+          ticking = false;
         });
-      });
-    });
-  </script> <script>
-  // Animaciones al hacer scroll
-  const io = ('IntersectionObserver' in window) ? new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
-    });
-  }, {threshold: .12}) : null;
-
-  document.querySelectorAll('.fade-in, .stagger').forEach(el=>{
-    if(io){ io.observe(el); } else { el.classList.add('is-in'); }
-  });
-
-  // Header con sombra dinámica
-  const hd = document.querySelector('header');
-  const onScroll=()=>{ hd.classList.toggle('scrolled', window.scrollY>12); };
-  onScroll(); 
-  window.addEventListener('scroll', onScroll, {passive:true});
-
-  // Botón "↑ Arriba"
-  const topBtn = document.createElement('button');
-  topBtn.id = 'totop';
-  topBtn.innerHTML = '↑ Arriba';
-  Object.assign(topBtn.style, {
-    position:'fixed',right:'16px',bottom:'16px',zIndex:'60',display:'none',
-    border:'1px solid rgba(255,255,255,.18)',background:'rgba(255,255,255,.08)',
-    color:'#fff',padding:'10px 12px',borderRadius:'12px',backdropFilter:'blur(6px)',cursor:'pointer'
-  });
-  document.body.appendChild(topBtn);
-  window.addEventListener('scroll',()=>{topBtn.style.display=window.scrollY>400?'block':'none';},{passive:true});
-  topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-// --- Animaciones: IntersectionObserver ---
-document.addEventListener('DOMContentLoaded', () => {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('is-in');   // activa la animación
-        io.unobserve(e.target);            // solo una vez
+        ticking = true;
       }
     });
-  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
 
-  // elementos que entran con fade
-  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+    // Scroll reveal - SIMPLIFICADO
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
 
-  // contenedores en “stagger” (sus hijos animan en cascada)
-  document.querySelectorAll('.stagger').forEach(list => {
-    // marca a sus hijos para que reciban delay escalonado
-    list.querySelectorAll(':scope > *').forEach(c => {
-      c.classList.add('stagger-item');
-      io.observe(c);
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Botón arriba
+    const topBtn = document.getElementById('totop');
+    window.addEventListener('scroll', () => {
+      topBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
     });
-  });
-});
-</script>
-<!-- Animaciones fade-in y stagger -->
-<script>
-// Intersection Observer para animaciones al hacer scroll
-const io = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('is-in');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
-
-// Elementos con fade-in
-document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
-
-// Contenedores con stagger (animación en cascada)
-document.querySelectorAll('.stagger').forEach(list => {
-  list.querySelectorAll(':scope > *').forEach((c, i) => {
-    c.classList.add('stagger-item');
-    c.style.transitionDelay = `${i * 120}ms`; // retardo escalonado
-    io.observe(c);
-  });
-});
-</script>
-
-<!-- Botón "↑ Arriba" -->
-<script>
-const topBtn = document.createElement('button');
-topBtn.id = 'totop';
-topBtn.innerHTML = '↑ Arriba';
-Object.assign(topBtn.style, {
-  position: 'fixed',
-  right: '16px',
-  bottom: '16px',
-  zIndex: '60',
-  display: 'none',
-  border: '1px solid rgba(255,255,255,.18)',
-  background: 'rgba(255,255,255,.1)',
-  color: '#fff',
-  padding: '10px 12px',
-  borderRadius: '12px',
-  backdropFilter: 'blur(6px)',
-  cursor: 'pointer',
-  fontWeight: '600'
-});
-document.body.appendChild(topBtn);
-
-window.addEventListener('scroll', () => {
-  topBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
-});
-topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-</script>
-
+    topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    
+    // Prevenir comportamientos táctiles problemáticos en móvil
+    document.addEventListener('touchstart', function(){}, {passive: true});
+  </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-

@@ -192,7 +192,7 @@
       box-shadow: 0 15px 35px rgba(0,0,0,.6), 0 0 30px rgba(227,176,75,0.4);
     }
 
-    /* === TÍTULO CON EFECTO BRILLO PREMIUM === */
+    /* === TÍTULO SIN EFECTOS === */
     header h1 {
       margin: 0;
       font-family: 'Cormorant Garamond', serif;
@@ -201,70 +201,6 @@
       letter-spacing: 0.2em;
       color: var(--accent);
       text-transform: uppercase;
-      position: relative;
-      animation: titleGlow 3s ease-in-out infinite alternate;
-    }
-
-    /* Efecto de brillo dorado en el texto */
-    header h1::before {
-      content: 'GRUPO TRADICIONES';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(255,255,255,0) 20%,
-        rgba(255,255,255,0.8) 50%, 
-        rgba(255,255,255,0) 80%,
-        transparent 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: shine 4s linear infinite;
-      pointer-events: none;
-    }
-
-    /* Sombra de brillo dorado */
-    header h1::after {
-      content: 'GRUPO TRADICIONES';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      color: var(--accent);
-      filter: blur(8px);
-      opacity: 0.5;
-      z-index: -1;
-      animation: pulseGlow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes titleGlow {
-      0% { 
-        text-shadow: 
-          0 0 10px rgba(227,176,75,0.5),
-          0 0 20px rgba(227,176,75,0.3),
-          0 0 30px rgba(227,176,75,0.2);
-      }
-      100% { 
-        text-shadow: 
-          0 0 20px rgba(227,176,75,0.8),
-          0 0 40px rgba(227,176,75,0.5),
-          0 0 60px rgba(227,176,75,0.3),
-          0 0 80px rgba(227,176,75,0.2);
-      }
-    }
-
-    @keyframes shine {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    @keyframes pulseGlow {
-      0% { opacity: 0.3; filter: blur(6px); }
-      100% { opacity: 0.7; filter: blur(12px); }
     }
 
     nav {
@@ -354,26 +290,7 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--accent);
-      text-shadow: 
-        0 0 20px rgba(227,176,75,0.5),
-        0 0 40px rgba(227,176,75,0.3),
-        0 0 60px rgba(227,176,75,0.2);
       line-height: 1;
-      animation: heroTextGlow 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes heroTextGlow {
-      0% { 
-        text-shadow: 
-          0 0 20px rgba(227,176,75,0.4),
-          0 0 40px rgba(227,176,75,0.2);
-      }
-      100% { 
-        text-shadow: 
-          0 0 30px rgba(227,176,75,0.7),
-          0 0 60px rgba(227,176,75,0.4),
-          0 0 90px rgba(227,176,75,0.2);
-      }
     }
 
     .hero-content p {
@@ -1411,6 +1328,7 @@
       *::before,
       *::after {
         animation-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
@@ -2200,7 +2118,7 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       <h3 style="margin-bottom: 20px; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--accent);">Video destacado</h3>
       <div class="video-card">
         <iframe
-          src="https://www.youtube.com/embed/uMcRT3BBNHo?rel=0&modestbranding=1&playsinline=1"
+          src="https://www.youtube.com/embed/uMcRT3BBNHo?rel=0&modestbranding=1&playsinline=1 "
           title="Otro amor en mi vida - Grupo Tradiciones"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
@@ -2251,7 +2169,7 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
         Facebook
       </a>
 
-      <a class="chip chip--yt" href="https://www.youtube.com/@grupotradicionescuartaregi2251" target="_blank" rel="noopener">
+      <a class="chip chip--yt" href="https://www.youtube.com/@grupotradicionescuartaregi2251 " target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M23 7.3s-.2-1.6-.8-2.2c-.6-.7-1.3-.9-2.1-1C17.9 3.6 12 3.6 12 3.6s-5.9 0-8.1.5c-.8.1-1.5.3-2.1 1C1.2 5.7 1 7.3 1 7.3S.8 9 .8 10.7v1.4C.8 13.8 1 15.5 1 15.5s.2 1.6.8 2.2c.6.7 1.3.9 2.1 1 2.2.5 8.1.5 8.1.5s5.9 0 8.1-.5c.8-.1 1.5-.3 2.1-1 .6-.6.8-2.2.8-2.2s.2-1.7.2-3.4v-1.4c0-1.7-.2-3.4-.2-3.4z"/>
           <path d="M10 15V9l5.2 3L10 15z" fill="#fff"/>
@@ -2259,7 +2177,7 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
         YouTube 1
       </a>
 
-      <a class="chip chip--yt" href="https://www.youtube.com/@GrupoTradiciones-v9z4k" target="_blank" rel="noopener">
+      <a class="chip chip--yt" href="https://www.youtube.com/@GrupoTradiciones-v9z4k " target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M23 7.3s-.2-1.6-.8-2.2c-.6-.7-1.3-.9-2.1-1C17.9 3.6 12 3.6 12 3.6s-5.9 0-8.1.5c-.8.1-1.5.3-2.1 1C1.2 5.7 1 7.3 1 7.3S.8 9 .8 10.7v1.4C.8 13.8 1 15.5 1 15.5s.2 1.6.8 2.2c.6.7 1.3.9 2.1 1 2.2.5 8.1.5 8.1.5s5.9 0 8.1-.5c.8-.1 1.5-.3 2.1-1 .6-.6.8-2.2.8-2.2s.2-1.7.2-3.4v-1.4c0-1.7-.2-3.4-.2-3.4z"/>
           <path d="M10 15V9l5.2 3L10 15z" fill="#fff"/>
@@ -2267,7 +2185,7 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
         YouTube 2
       </a>
 
-      <a class="chip chip--ig" href="https://www.instagram.com/grupo.tradiciones_oficial/" target="_blank" rel="noopener">
+      <a class="chip chip--ig" href="https://www.instagram.com/grupo.tradiciones_oficial/ " target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.8a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6z"/>
           <circle cx="12" cy="12" r="3.2" fill="#fff"/>
@@ -2476,7 +2394,7 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
     btn.addEventListener('click', async () => {
       num.style.display = 'inline-block';
       try { await navigator.clipboard.writeText('+56 9 5869 3051'); } catch(e){}
-      window.open('https://wa.me/' + telefono, '_blank');
+      window.open('https://wa.me/ ' + telefono, '_blank');
     });
 
     // Header scroll - SIMPLIFICADO

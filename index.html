@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -442,17 +441,16 @@
       width: max-content;
       transition: transform 0.5s ease;
     }
-
     .gallery-row.marquee {
-      animation: scrollLeft 280s linear infinite;
+      animation: scrollLeft 120s linear infinite;
     }
 
     .gallery-row.marquee-reverse {
-      animation: scrollRight 320s linear infinite;
+      animation: scrollRight 150s linear infinite;
     }
 
     .gallery-row.marquee-slow {
-      animation: scrollLeft 360s linear infinite;
+      animation: scrollLeft 180s linear infinite;
     }
 
     @keyframes scrollLeft {
@@ -466,7 +464,7 @@
     }
 
     .gallery-row.paused {
-      animation-play-state: paused !important;
+      animation-play-state: paused;
     }
 
     /* Flechas de navegación PRO */
@@ -489,6 +487,8 @@
       transition: var(--transition);
       backdrop-filter: blur(10px);
       box-shadow: 0 0 20px rgba(227,176,75,0.3);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     .gallery-arrow:hover {
@@ -496,6 +496,10 @@
       color: #111;
       transform: translateY(-50%) scale(1.1);
       box-shadow: 0 0 30px rgba(227,176,75,0.6);
+    }
+
+    .gallery-arrow:active {
+      transform: translateY(-50%) scale(0.95);
     }
 
     .gallery-arrow.prev { left: 30px; }
@@ -690,6 +694,8 @@
       transition: var(--transition);
       z-index: 1001;
       box-shadow: 0 0 20px rgba(227,176,75,0.3);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     .lightbox-close:hover {
@@ -717,6 +723,8 @@
       transition: var(--transition);
       z-index: 1001;
       box-shadow: 0 0 20px rgba(227,176,75,0.3);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     .lightbox-nav:hover {
@@ -1137,6 +1145,8 @@
       text-transform: uppercase;
       position: relative;
       overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     .btn::before {
@@ -1205,6 +1215,8 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     .chip::before {
@@ -1276,6 +1288,8 @@
       transition: var(--transition);
       backdrop-filter: blur(10px);
       box-shadow: 0 0 20px rgba(227,176,75,0.3);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     #totop:hover {
@@ -1302,36 +1316,56 @@
       
       /* Galería responsive */
       .gallery-item { width: 320px; height: 240px; }
-      .gallery-arrow { width: 50px; height: 50px; font-size: 1.5rem; }
+      .gallery-arrow { 
+        width: 50px; 
+        height: 50px; 
+        font-size: 1.5rem;
+        opacity: 0.95;
+      }
       .gallery-arrow.prev { left: 15px; }
       .gallery-arrow.next { right: 15px; }
+      
+      /* Aumentar área táctil en móvil */
+      .gallery-arrow::after {
+        content: '';
+        position: absolute;
+        inset: -15px;
+      }
+      
       .lightbox-nav { width: 50px; height: 50px; font-size: 1.8rem; }
       .lightbox-nav.prev { left: 20px; }
       .lightbox-nav.next { right: 20px; }
       .lightbox-close { top: 20px; right: 20px; width: 50px; height: 50px; }
+      
       /* Optimizaciones móvil adicionales */
-.marquee-content {
-  animation-duration: 30s !important; /* Más rápido en móvil */
-}
+      .marquee-content {
+        animation-duration: 30s !important; /* Más rápido en móvil */
+      }
 
-.gallery-row.marquee {
-  animation: scrollLeft 280s linear infinite !important;
-}
+      /* GALERÍA: SIN !important para permitir control JS */
+      .gallery-row.marquee {
+        animation: scrollLeft 280s linear infinite;
+      }
 
-.gallery-row.marquee-reverse {
-  animation: scrollRight 320s linear infinite !important;
-}
+      .gallery-row.marquee-reverse {
+        animation: scrollRight 320s linear infinite;
+      }
 
-.gallery-row.marquee-slow {
-  animation: scrollLeft 360s linear infinite !important;
-}
+      .gallery-row.marquee-slow {
+        animation: scrollLeft 360s linear infinite;
+      }
+      
+      /* Estado pausado específico para móvil - CON !important solo para play-state */
+      .gallery-row.paused {
+        animation-play-state: paused !important;
+      }
+    }
     
     /* Desactivar animaciones complejas en dispositivos con preferencia de reducción de movimiento */
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
       *::after {
-        animation-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
@@ -1417,8 +1451,8 @@
     
     <!-- Fila 1: Derecha a Izquierda -->
     <div class="gallery-row-wrapper">
-      <button class="gallery-arrow prev" onclick="moveGallery('row1', -1)">‹</button>
-      <button class="gallery-arrow next" onclick="moveGallery('row1', 1)">›</button>
+      <button class="gallery-arrow prev" onclick="moveGallery('row1', -1)" aria-label="Anterior">‹</button>
+      <button class="gallery-arrow next" onclick="moveGallery('row1', 1)" aria-label="Siguiente">›</button>
       <div class="gallery-row-container">
         <div class="gallery-row marquee" id="row1"></div>
       </div>
@@ -1426,8 +1460,8 @@
 
     <!-- Fila 2: Izquierda a Derecha -->
     <div class="gallery-row-wrapper">
-      <button class="gallery-arrow prev" onclick="moveGallery('row2', -1)">‹</button>
-      <button class="gallery-arrow next" onclick="moveGallery('row2', 1)">›</button>
+      <button class="gallery-arrow prev" onclick="moveGallery('row2', -1)" aria-label="Anterior">‹</button>
+      <button class="gallery-arrow next" onclick="moveGallery('row2', 1)" aria-label="Siguiente">›</button>
       <div class="gallery-row-container">
         <div class="gallery-row marquee-reverse" id="row2"></div>
       </div>
@@ -1435,8 +1469,8 @@
 
     <!-- Fila 3: Derecha a Izquierda -->
     <div class="gallery-row-wrapper">
-      <button class="gallery-arrow prev" onclick="moveGallery('row3', -1)">‹</button>
-      <button class="gallery-arrow next" onclick="moveGallery('row3', 1)">›</button>
+      <button class="gallery-arrow prev" onclick="moveGallery('row3', -1)" aria-label="Anterior">‹</button>
+      <button class="gallery-arrow next" onclick="moveGallery('row3', 1)" aria-label="Siguiente">›</button>
       <div class="gallery-row-container">
         <div class="gallery-row marquee-slow" id="row3"></div>
       </div>
@@ -1445,9 +1479,9 @@
 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-    <button class="lightbox-close" onclick="closeLightbox()">×</button>
-    <button class="lightbox-nav prev" onclick="changeImage(-1)">‹</button>
-    <button class="lightbox-nav next" onclick="changeImage(1)">›</button>
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Cerrar">×</button>
+    <button class="lightbox-nav prev" onclick="changeImage(-1)" aria-label="Anterior">‹</button>
+    <button class="lightbox-nav next" onclick="changeImage(1)" aria-label="Siguiente">›</button>
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <img class="lightbox-img" id="lightboxImg" src="" alt="">
       <div class="lightbox-caption">
@@ -2122,7 +2156,7 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       <h3 style="margin-bottom: 20px; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--accent);">Video destacado</h3>
       <div class="video-card">
         <iframe
-          src="https://www.youtube.com/embed/uMcRT3BBNHo?rel=0&modestbranding=1&playsinline=1 "
+          src="https://www.youtube.com/embed/uMcRT3BBNHo?rel=0&modestbranding=1&playsinline=1"
           title="Otro amor en mi vida - Grupo Tradiciones"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
@@ -2173,7 +2207,7 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
         Facebook
       </a>
 
-      <a class="chip chip--yt" href="https://www.youtube.com/@grupotradicionescuartaregi2251 " target="_blank" rel="noopener">
+      <a class="chip chip--yt" href="https://www.youtube.com/@grupotradicionescuartaregi2251" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M23 7.3s-.2-1.6-.8-2.2c-.6-.7-1.3-.9-2.1-1C17.9 3.6 12 3.6 12 3.6s-5.9 0-8.1.5c-.8.1-1.5.3-2.1 1C1.2 5.7 1 7.3 1 7.3S.8 9 .8 10.7v1.4C.8 13.8 1 15.5 1 15.5s.2 1.6.8 2.2c.6.7 1.3.9 2.1 1 2.2.5 8.1.5 8.1.5s5.9 0 8.1-.5c.8-.1 1.5-.3 2.1-1 .6-.6.8-2.2.8-2.2s.2-1.7.2-3.4v-1.4c0-1.7-.2-3.4-.2-3.4z"/>
           <path d="M10 15V9l5.2 3L10 15z" fill="#fff"/>
@@ -2181,7 +2215,7 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
         YouTube 1
       </a>
 
-      <a class="chip chip--yt" href="https://www.youtube.com/@GrupoTradiciones-v9z4k " target="_blank" rel="noopener">
+      <a class="chip chip--yt" href="https://www.youtube.com/@GrupoTradiciones-v9z4k" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M23 7.3s-.2-1.6-.8-2.2c-.6-.7-1.3-.9-2.1-1C17.9 3.6 12 3.6 12 3.6s-5.9 0-8.1.5c-.8.1-1.5.3-2.1 1C1.2 5.7 1 7.3 1 7.3S.8 9 .8 10.7v1.4C.8 13.8 1 15.5 1 15.5s.2 1.6.8 2.2c.6.7 1.3.9 2.1 1 2.2.5 8.1.5 8.1.5s5.9 0 8.1-.5c.8-.1 1.5-.3 2.1-1 .6-.6.8-2.2.8-2.2s.2-1.7.2-3.4v-1.4c0-1.7-.2-3.4-.2-3.4z"/>
           <path d="M10 15V9l5.2 3L10 15z" fill="#fff"/>
@@ -2189,7 +2223,7 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
         YouTube 2
       </a>
 
-      <a class="chip chip--ig" href="https://www.instagram.com/grupo.tradiciones_oficial/ " target="_blank" rel="noopener">
+      <a class="chip chip--ig" href="https://www.instagram.com/grupo.tradiciones_oficial/" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.8a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6z"/>
           <circle cx="12" cy="12" r="3.2" fill="#fff"/>
@@ -2217,22 +2251,22 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
     // =====================================================
     const todasLasFotos = [
       // Fila 1 - Fotos 1-20
-      "Foto 1.jpg", "Foto 2.jpg", "Foto 3.jpg", "Foto 4.jpg", "Foto 5.jpg",
-      "Foto 6.jpg", "Foto 7.jpg", "Foto 8.jpg", "Foto 9.jpg", "Foto 10.jpg",
-      "Foto 11.jpg", "Foto 12.jpg","Foto 13.jpg", "Foto 14.jpg", "Foto 15.jpg",
-      "Foto 16.jpg", "Foto 17.jpg", "Foto 18.jpg", "Foto 19.jpg", "Foto 20.jpg",
+      "foto 1.jpg", "foto 2.jpg", "foto 3.jpg", "foto 4.jpg", "foto 5.jpg",
+      "foto 6.jpg", "foto 7.jpg", "foto 8.jpg", "foto 9.jpg", "foto 10.jpg",
+      "foto 11.jpg", "foto 12.jpg", "foto 13.jpg", "foto 14.jpg", "foto 15.jpg",
+      "foto 16.jpg", "foto 17.jpg", "foto 18.jpg", "foto 19.jpg", "foto 20.jpg",
       
       // Fila 2 - Fotos 21-39
-      "Foto 21.jpg", "Foto 22.jpg", "Foto 23.jpg", "Foto 24.jpg", "Foto 25.jpg",
-      "Foto 26.jpg", "Foto 27.jpg", "Foto 28.jpg", "Foto 29.jpg", "Foto 30.jpg",
-      "Foto 31.jpg", "Foto 32.jpg", "Foto 33.jpg", "Foto 34.jpg", "Foto 35.jpg",
-      "Foto 36.jpg", "Foto 37.jpg", "Foto 38.jpg", "Foto 39.jpg",
+      "foto 21.jpg", "foto 22.jpg", "foto 23.jpg", "foto 24.jpg", "foto 25.jpg",
+      "foto 26.jpg", "foto 27.jpg", "foto 28.jpg", "foto 29.jpg", "foto 30.jpg",
+      "foto 31.jpg", "foto 32.jpg", "foto 33.jpg", "foto 34.jpg", "foto 35.jpg",
+      "foto 36.jpg", "foto 37.jpg", "foto 38.jpg", "foto 39.jpg",
       
       // Fila 3 - Fotos 40-58
-      "Foto 40.jpg", "Foto 41.jpg", "Foto 42.jpg", "Foto 43.jpg", "Foto 44.jpg",
-      "Foto 45.jpg", "Foto 46.jpg", "Foto 47.jpg", "Foto 48.jpg", "Foto 49.jpg",
-      "Foto 50.jpg", "Foto 51.jpg", "Foto 52.jpg", "Foto 53.jpg", "Foto 54.jpg",
-      "Foto 55.jpg", "Foto 56.jpg", "Foto 57.jpg", "Foto 58.jpg"
+      "foto 40.jpg", "foto 41.jpg", "foto 42.jpg", "foto 43.jpg", "foto 44.jpg",
+      "foto 45.jpg", "foto 46.jpg", "foto 47.jpg", "foto 48.jpg", "foto 49.jpg",
+      "foto 50.jpg", "foto 51.jpg", "foto 52.jpg", "foto 53.jpg", "foto 54.jpg",
+      "foto 55.jpg", "foto 56.jpg", "foto 57.jpg", "foto 58.jpg"
     ];
 
     // Variables globales para el lightbox
@@ -2290,35 +2324,60 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
     }));
 
     // =====================================================
-    // NAVEGACIÓN MANUAL DE FILAS
+    // NAVEGACIÓN MANUAL DE FILAS - MEJORADA PARA MÓVIL
     // =====================================================
     
     const rowPositions = { row1: 0, row2: 0, row3: 0 };
+    const rowTimers = { row1: null, row2: null, row3: null };
     
     function moveGallery(rowId, direction) {
       const row = document.getElementById(rowId);
       const itemWidth = 444; // ancho 420 + gap 24
-      const maxScroll = (row.children.length / 2) * itemWidth;
       
-      // Pausar animación
+      // Limpiar timer anterior si existe
+      if (rowTimers[rowId]) {
+        clearTimeout(rowTimers[rowId]);
+      }
+      
+      // Pausar animación CSS
       row.classList.add('paused');
       
-      // Actualizar posición
-      rowPositions[rowId] += direction * itemWidth * 2; // Mover 2 fotos
+      // Calcular posición actual
+      const currentTransform = row.style.transform;
+      let currentPos = 0;
       
-      // Limitar
-      if (rowPositions[rowId] > 0) rowPositions[rowId] = -maxScroll + itemWidth * 2;
-      if (rowPositions[rowId] < -maxScroll) rowPositions[rowId] = 0;
+      if (currentTransform && currentTransform !== 'none') {
+        const match = currentTransform.match(/translateX\(([-\d.]+)px\)/);
+        if (match) {
+          currentPos = parseFloat(match[1]);
+        }
+      }
+      
+      // Si es la primera vez que se mueve, calcular desde el inicio de la animación
+      if (currentPos === 0 && !rowPositions[rowId]) {
+        // Estimar posición basada en el tiempo de animación
+        const style = window.getComputedStyle(row);
+        const animationName = style.animationName;
+        if (animationName && animationName !== 'none') {
+          // Usar una posición inicial que permita moverse en ambas direcciones
+          currentPos = 0;
+        }
+      }
+      
+      // Actualizar posición
+      const newPos = currentPos + (direction * itemWidth * 2); // Mover 2 fotos
       
       // Aplicar transform
-      row.style.transform = `translateX(${rowPositions[rowId]}px)`;
+      row.style.transform = `translateX(${newPos}px)`;
       row.style.animation = 'none';
+      rowPositions[rowId] = newPos;
       
       // Reanudar después de 3 segundos
-      setTimeout(() => {
+      rowTimers[rowId] = setTimeout(() => {
         row.classList.remove('paused');
         row.style.transform = '';
         row.style.animation = '';
+        rowPositions[rowId] = 0;
       }, 3000);
     }
 
@@ -2398,7 +2457,7 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
     btn.addEventListener('click', async () => {
       num.style.display = 'inline-block';
       try { await navigator.clipboard.writeText('+56 9 5869 3051'); } catch(e){}
-      window.open('https://wa.me/ ' + telefono, '_blank');
+      window.open('https://wa.me/' + telefono, '_blank');
     });
 
     // Header scroll - SIMPLIFICADO
@@ -2432,9 +2491,9 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
       topBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
     });
     topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    
+    // Prevenir comportamientos táctiles problemáticos en móvil
+    document.addEventListener('touchstart', function(){}, {passive: true});
   </script>
 </body>
 </html>
-
-
-

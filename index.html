@@ -1309,18 +1309,22 @@
       .lightbox-nav.prev { left: 20px; }
       .lightbox-nav.next { right: 20px; }
       .lightbox-close { top: 20px; right: 20px; width: 50px; height: 50px; }
-      
       /* Optimizaciones móvil adicionales */
-      .marquee-content {
-        animation-duration: 30s !important; /* Más rápido en móvil */
-      }
-      
-      .gallery-row.marquee,
-      .gallery-row.marquee-reverse,
-      .gallery-row.marquee-slow {
-        animation-duration: 60s !important; /* Optimizar para móvil */
-      }
-    }
+.marquee-content {
+  animation-duration: 30s !important; /* Más rápido en móvil */
+}
+
+.gallery-row.marquee {
+  animation: scrollLeft 280s linear infinite !important;
+}
+
+.gallery-row.marquee-reverse {
+  animation: scrollRight 320s linear infinite !important;
+}
+
+.gallery-row.marquee-slow {
+  animation: scrollLeft 360s linear infinite !important;
+}
     
     /* Desactivar animaciones complejas en dispositivos con preferencia de reducción de movimiento */
     @media (prefers-reduced-motion: reduce) {
@@ -2431,5 +2435,6 @@ El amor que era tuyo, que un día te tuve, tiene otro querer
   </script>
 </body>
 </html>
+
 
 
